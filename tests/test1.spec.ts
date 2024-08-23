@@ -6,7 +6,7 @@ import { FriendsPage } from '../pages/friends.page';
 
 
 test.use({
-  storageState: 'LoginAuth.json'
+  storageState: 'LoginAuth2.json'
 });
 
 test('test2', async ({ page }) => {
@@ -16,7 +16,7 @@ test('test2', async ({ page }) => {
   const home  = new HomePage (page);
  const nav  = new NavigationMenu (page);
  const friends  = new FriendsPage (page);
-  await page.goto('https://web.telegram.org/a/#7323068154');
+  await page.goto('https://web.telegram.org/a/#7250553721');
   await page.waitForTimeout(2000);
 tg.checkAndHandleError()
 
