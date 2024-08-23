@@ -4,17 +4,17 @@ export class EarnPage {
   constructor(private page: Page) {}
  
 
- public welfareButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByText('Welfare')
+ public welfareButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Welfare')
  
- public specialCardsButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByText('Special Cards')
+ public specialCardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Special Cards')
  
- public financeButton = this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByText('Finance');
+ public financeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Finance');
  
- public closeCardButton = this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('button', { name: 'close' })
+ public closeCardButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
 
- public OpenSwapCardButton = this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('button', { name: '500 coin_logo' }).nth(2)
+ public OpenSwapCardButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: '500 coin_logo' }).nth(2)
 
- public BuySwapCard = this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('button', { name: 'Buy' })
+ public BuySwapCard = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Buy' })
  
 
 

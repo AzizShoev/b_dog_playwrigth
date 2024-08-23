@@ -122,7 +122,7 @@ public async checkAndHandleError() {
  
  
       if (await this.errorTextElement.count()>0) {
- console.log('awdadawdawdawd' )
+
  await this.okServiceWorkerButton.click();  
    
   }

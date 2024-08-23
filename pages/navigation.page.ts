@@ -5,15 +5,15 @@ export class NavigationMenu {
  
  
  
-  public homeButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('link', { name: 'menu Home' })
+  public homeButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Home' })
  
-  public earnButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('link', { name: 'menu Earn' })
+  public earnButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Earn' })
  
-  public friendsButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('link', { name: 'menu Friends' })
+  public friendsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Friends' })
  
-  public tasksButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('link', { name: 'menu Tasks' })
+  public tasksButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Tasks' })
  
-  public settingsButton =  this.page.frameLocator('iframe[title="QAlaksmzxcghoul123asd Web App"]').getByRole('link', { name: 'setting' })
+  public settingsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'setting' })
  
   public backButton =  this.page.getByLabel('Back')
  
