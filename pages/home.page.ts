@@ -36,8 +36,9 @@ public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeiv
 
  async closeReward() {
   
-  if (await this.closeRewardButton.count()>0) 
+  if (await this.claimRewardButton.isVisible) 
   await this.closeRewardButton.click();
+else{console.log('reward window is not disaplyed')}
 }
  async close() {
   await this.closeButton.click();
@@ -56,8 +57,11 @@ public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeiv
   }
  
   async obtainReward() {
-    if (await this.claimRewardButton.isEnabled) 
-    await this.claimRewardButton.click();
+    if (await this.claimRewardButton.isVisible) 
+      console.log('reward window is  disaplyed');
+   
+
+    else{console.log('reward window is not disaplyed')}
   }
 
   async getBalance() {

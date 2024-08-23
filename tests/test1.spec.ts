@@ -31,38 +31,38 @@ await page.waitForTimeout(4000);
   home.mine()
   await page.waitForTimeout(2000);
   
-// nav.goEarn()
-// await page.waitForTimeout(5000);
-// nav.goBack()
-// await page.waitForTimeout(5000);
-// nav.goTasks()
-// await page.waitForTimeout(5000);
-// nav.goSettings()
-// await page.waitForTimeout(5000);
-// nav.goBack()
-// await page.waitForTimeout(5000);
-// home.close()
+nav.goEarn()
+await page.waitForTimeout(5000);
+nav.goBack()
+await page.waitForTimeout(5000);
+nav.goTasks()
+await page.waitForTimeout(5000);
+nav.goSettings()
+await page.waitForTimeout(5000);
+nav.goBack()
+await page.waitForTimeout(5000);
+home.close()
 
 
-// await page.waitForTimeout(1000);
-// tg.writeMessage('/start')
-// await page.waitForTimeout(1000);
-// tg.sendMessage()
-// await page.waitForTimeout(1000);
-// tg.pressQaPanel()
-// await page.waitForTimeout(1000);
-// tg.pressId()
-// await page.waitForTimeout(3000);
-// tg.pressRefresh()
-// await page.waitForTimeout(3000);
-// tg.pressMainMenu()
-// await page.waitForTimeout(3000);
+await page.waitForTimeout(1000);
+tg.writeMessage('/start')
+await page.waitForTimeout(1000);
+tg.sendMessage()
+await page.waitForTimeout(1000);
+tg.pressQaPanel()
+await page.waitForTimeout(1000);
+tg.pressId()
+await page.waitForTimeout(3000);
+tg.pressRefresh()
+await page.waitForTimeout(3000);
+tg.pressMainMenu()
+await page.waitForTimeout(3000);
 
 
-//  tg.pressPlay()
-//  await page.waitForTimeout(5000);
-//  home.closeReward()
-//  await page.waitForTimeout(1000);
+ tg.pressPlay()
+ await page.waitForTimeout(5000);
+   home.closeReward()
+ await page.waitForTimeout(1000);
   const availableEnergy = await home.getAvailableEnergy();
   console.log('Available Energy:', availableEnergy);
 

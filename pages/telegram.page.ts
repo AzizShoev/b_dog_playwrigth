@@ -141,4 +141,10 @@ async inviteFriendTG() {
     await this.botchat.click()
   }
 
+  async topUp(id: string, amount: string) {
+    const command = `/topup ${id} ${amount}`;
+    await this.message.fill(command);
+}
+
+
 }
