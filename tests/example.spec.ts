@@ -3,7 +3,7 @@ import { HomePage } from '../pages/home.page';
 import { TelegramPage } from '../pages/telegram.page';
 
 test.use({
-  storageState: 'LoginAuth.json'
+  storageState: 'LoginAuth2.json'
 });
 
 test('test2', async ({ page }) => {
