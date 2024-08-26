@@ -44,6 +44,9 @@ export class TelegramPage {
   
   public botchat= this.page.getByRole('button', { name: 'QAlaksmzxcghoul123asd' }).last()
  
+  public errorMessage =  this.page.locator('.modal-dialog .modal-title').getByText('Something went wrong')
+
+  public errorMessageButton = this.page.locator('.modal-dialog .dialog-buttons').getByText('OK')
  
 
 
@@ -146,5 +149,9 @@ async inviteFriendTG() {
     await this.message.fill(command);
 }
 
-
+async checkErrrorMessage() {
+  if(await this.errorMessage.isVisible()){
+    await this.errorMessageButton.click();}
+  else{return}
+}
 }
