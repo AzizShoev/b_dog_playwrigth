@@ -57,20 +57,21 @@ test('Buy Multitap', async ({ page }) => {
   await tg.checkErrrorMessage();
   await tg.pressPlay();
   await tg.pressConfirm();
-  await expect (home.currentBalance).toContainText("10,000");
+  await expect(home.currentBalance).toContainText("10,000"); 
   await expect(home.earnPerTap).toContainText("1");
   await home.goBoost();
   await expect(boost.buyMultitapButton).toContainText('1,024');
+  await expect(boost.multitapLevel).toContainText('Level 1');
   await boost.buyMultitap();
   await boost.buy();
   await expect(boost.buyMultitapButton).toContainText('2,048');
-  assert(boost.getMultitapLevel(), "Level 2");
+  await expect(boost.multitapLevel).toContainText('Level 2');
   await expect(home.currentBalance).toHaveText("8,976");
   await nav.goHome();
-  assert(home.getBalance(), "8,976");
-  assert( home.getEarnPerTap(), "2");
+  await expect(home.currentBalance).toContainText("8,976");
+  await expect(home.earnPerTap).toContainText("2");
   await home.mine();
-  assert(home.getBalance(), "8,978");
+  await expect(home.currentBalance).toContainText("8,978");
   await nav.closeApp();
 });
 
@@ -78,11 +79,33 @@ test('Buy Energy', async ({ page }) => {
   test.setTimeout(160000) 
 
   const home  = new HomePage (page);
+  const nav  = new NavigationMenu (page);
+  const tg  = new TelegramPage (page);
+  const boost = new BoostsPage (page);
 
+  await page.waitForTimeout(5000);
+  await tg.checkErrrorMessage();
+  await tg.pressPlay();
+  await tg.pressConfirm();
 
-
-
-
-
-;await assert(home.getEnergyLimit().toString(),'1500')
+  await expect (home.currentBalance).toContainText("8,978");
+  await expect(home.getAvailableEnergy()).toContain("1000");
+  await expect(home.getEnergyLimit()).toContain("1000");
+  await home.goBoost();
+  await expect(boost.buyEnergyButton).toContainText('1,024');
+  await expect(boost.energyLevel).toContainText('Level 1');
+  await boost.buyMultitap();
+  await boost.buy();
+  await expect(boost.buyEnergyButton).toContainText('2,048');
+  await expect(boost.energyLevel).toContainText('Level 2');
+  await expect(home.currentBalance).toHaveText("8,976");
+  await nav.goHome();
+  await expect(home.currentBalance).toContainText("7,954");
+  await expect(home.getEnergyLimit()).toContain("1500");
+  await expect(home.getAvailableEnergy()).toContain("1500")
+  await home.mine();
+  await expect(home.getAvailableEnergy()).toContain("1498");
+  await expect(home.currentBalance).toContainText("7,956");
+  await nav.closeApp();
+  await tg.pressRefresh();
 });
