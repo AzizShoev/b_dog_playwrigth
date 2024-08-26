@@ -19,7 +19,7 @@ export class NavigationMenu {
  
   public closeButton =  this.page.getByRole('button', { name: 'Close' })
 
- 
+  
  async goBack() {
     await this.backButton.click();
   }
@@ -42,4 +42,8 @@ export class NavigationMenu {
   async goSettings() {
     await this.settingsButton.click();
   }
+  async closeApp() {
+    await this.closeButton.click();
+  }
+
 }
