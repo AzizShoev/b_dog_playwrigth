@@ -87,7 +87,7 @@ export class TelegramPage {
     await this.refresh.last().click();
 
     
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(5000);
 
   
     const buttonsAfter =  await this.page.getByText('Account was refreshed').all();
@@ -147,6 +147,7 @@ async inviteFriendTG() {
   async topUp(id: string, amount: string) {
     const command = `/topup ${id} ${amount}`;
     await this.message.fill(command);
+    await this.sendMessagebutton.click();
 }
 
 async checkErrorMessage() {
