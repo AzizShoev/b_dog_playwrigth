@@ -11,9 +11,11 @@ export class BoostsPage {
 
   public energyLevel = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#payable_boosts div button:nth-child(2) div div div:nth-child(1) p')
 
-  public buyButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('//button[./div/span[text()=\'/Buy\']]').getByText('Buy')
+  public buyButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main div:nth-child(4) div:nth-child(1) button').nth(1)
 
   public closeModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('button img[alt="close"]')
+
+  public currentBalance = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main div div:nth-child(3) div:nth-child(2) p')
   
   async buyMultitap() {
     await this.buyMultitapButton.click();
