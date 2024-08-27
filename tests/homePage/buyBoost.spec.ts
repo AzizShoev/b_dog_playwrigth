@@ -34,7 +34,6 @@ test('Up balance', async ({ page }) => {
   await expect(home.currentBalance).toHaveText("0");
   await nav.closeButton.click();
   await tg.topUp(id, amount);
-  await tg.sendMessage();
   await page.waitForTimeout(2000);
   await checkTopUpMessage(page,"Your balance has been topped up by 10000");
   await tg.pressPlay();
@@ -88,7 +87,7 @@ test('Buy Energy', async ({ page }) => {
   await tg.topUp(id, amount);
   await tg.pressPlay();
   await tg.pressConfirm();
-  await expect(home.currentBalance).toContainText("8,978");
+  await expect(home.currentBalance).toContainText("10,000");
   await expect(home.getAvailableEnergy()).toEqual('1000')
   await expect(home.getEnergyLimit()).toEqual("500");
   await home.goBoost();
@@ -98,13 +97,14 @@ test('Buy Energy', async ({ page }) => {
   await boost.buy();
   await expect(boost.buyEnergyButton).toContainText('2,048');
   await expect(boost.energyLevel).toContainText('level 2');
-  await expect(boost.currentBalance).toHaveText("7,954");
+  await expect(boost.currentBalance).toHaveText("8,976");
   await nav.goHome();
-  await expect(home.currentBalance).toContainText("7,954");
-  await expect(home.getEnergyLimit()).toContain("1500");
+  await expect(home.currentBalance).toContainText("8,976");
   await expect(home.getAvailableEnergy()).toContain("1500")
+  await expect(home.getEnergyLimit()).toContain("1500");
   await home.mine();
   await expect(home.getAvailableEnergy()).toContain("1498");
+  await expect(home.getEnergyLimit()).toContain("1500");
   await expect(home.currentBalance).toContainText("7,956");
   await nav.closeApp();
   await refresh(page, '/start');
