@@ -149,7 +149,7 @@ async inviteFriendTG() {
     await this.message.fill(command);
 }
 
-async checkErrrorMessage() {
+async checkErrorMessage() {
   if(await this.errorMessage.isVisible()){
     await this.errorMessageButton.click();}
   else{return}
