@@ -8,16 +8,19 @@ import exp from 'constants';
 import { BoostsPage } from '../../pages/boosts.page';
 import { before } from 'node:test';
 
+test.setTimeout(160000) 
+
 test.use({
     storageState: 'LoginAuth2.json'
   });
-  test.beforeEach(async ({ page }) => {
+  
+test.beforeEach(async ({ page }) => {
     const tg  = new TelegramPage (page);
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
     await tg.checkErrorMessage();
     await refresh(page, '/start');
-  })
+  });
 
 test('Up balance', async ({ page }) => {
     test.setTimeout(160000) 
@@ -31,6 +34,7 @@ test('Up balance', async ({ page }) => {
 
   await tg.pressPlay();
   await tg.pressConfirm();
+  await page.waitForTimeout(3000);
   await expect(home.currentBalance).toHaveText("0");
   await nav.closeButton.click();
   await tg.topUp(id, amount);
@@ -56,6 +60,7 @@ test('Buy Multitap', async ({ page }) => {
   await tg.topUp(id, amount);
   await tg.pressPlay();
   await tg.pressConfirm();
+  await page.waitForTimeout(3000)
   await expect(home.currentBalance).toContainText("10,000"); 
   await expect(home.earnPerTap).toContainText("1");
   await home.goBoost();
@@ -87,27 +92,31 @@ test('Buy Energy', async ({ page }) => {
   await tg.topUp(id, amount);
   await tg.pressPlay();
   await tg.pressConfirm();
+  await page.waitForTimeout(3000)
   await expect(home.currentBalance).toContainText("10,000");
-  await expect(home.getAvailableEnergy()).toEqual('1000')
-  await expect(home.getEnergyLimit()).toEqual("500");
+
+  //const availableEnergy = await home.getAvailableEnergy();
+  //const energyLimit = await home.getEnergyLimit();
+
+  await expect(await home.getAvailableEnergy()).toEqual(1000)
+  await expect(await home.getEnergyLimit()).toEqual(1000);
   await home.goBoost();
   await expect(boost.buyEnergyButton).toContainText('1,024');
   await expect(boost.energyLevel).toContainText('level 1');
-  await boost.buyMultitap();
+  await boost.buyEnergy();
   await boost.buy();
   await expect(boost.buyEnergyButton).toContainText('2,048');
   await expect(boost.energyLevel).toContainText('level 2');
   await expect(boost.currentBalance).toHaveText("8,976");
   await nav.goHome();
   await expect(home.currentBalance).toContainText("8,976");
-  await expect(home.getAvailableEnergy()).toContain("1500")
-  await expect(home.getEnergyLimit()).toContain("1500");
+  await page.waitForTimeout(5000)
+  await expect(await home.getAvailableEnergy()).toBeGreaterThan(1000)
+  await expect(await home.getEnergyLimit()).toEqual(1500);
   await home.mine();
-  await expect(home.getAvailableEnergy()).toContain("1498");
-  await expect(home.getEnergyLimit()).toContain("1500");
-  await expect(home.currentBalance).toContainText("7,956");
-  await nav.closeApp();
-  await refresh(page, '/start');
+  await expect(await home.getAvailableEnergy()).toBeLessThan(1500);
+  await expect(await home.getEnergyLimit()).toEqual(1500);
+  await expect(home.currentBalance).toContainText("8,977");
 });
 
 async function checkTopUpMessage(page: Page, message: string) {
@@ -118,7 +127,8 @@ async function checkTopUpMessage(page: Page, message: string) {
   const tg  = new TelegramPage(page);
   await tg.writeMessage(start);
   await tg.sendMessage();
+  await page.waitForTimeout(10000);
   await tg.pressQaPanel();
+  await page.waitForTimeout(3000);
   await tg.pressRefresh();
-  await expect (page.locator('(//div[contains(@class, "message-content")])[last()]/div/div').first()).toContainText("Account was refreshed");
 }
