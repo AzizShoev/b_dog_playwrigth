@@ -6,10 +6,18 @@ import { FriendsPage } from '../../pages/friends.page';
 import { assert } from 'console';
 import exp from 'constants';
 import { BoostsPage } from '../../pages/boosts.page';
+import { before } from 'node:test';
 
 test.use({
     storageState: 'LoginAuth2.json'
   });
+  test.beforeEach(async ({ page }) => {
+    const tg  = new TelegramPage (page);
+    await page.goto('https://web.telegram.org/a/#7250553721');
+    await page.waitForTimeout(8000);
+    await tg.checkErrorMessage();
+    await refresh(page, '/start');
+  })
 
 test('Up balance', async ({ page }) => {
     test.setTimeout(160000) 
@@ -21,16 +29,8 @@ test('Up balance', async ({ page }) => {
   const id = "6809402010"
   const amount = "10000";
 
-  await page.goto('https://web.telegram.org/a/#7250553721');
-  await page.waitForTimeout(5000);
-  await tg.checkErrrorMessage();
-  await refresh(page, '/start');
   await tg.pressPlay();
-  await page.waitForTimeout(3000);
   await tg.pressConfirm();
-  await page.waitForTimeout(7000);
-  //home.obtainReward()
-  //await page.waitForTimeout(2000);
   await expect(home.currentBalance).toHaveText("0");
   await nav.closeButton.click();
   await tg.topUp(id, amount);
@@ -41,7 +41,6 @@ test('Up balance', async ({ page }) => {
   await page.waitForTimeout(3000);
   await expect(home.currentBalance).toHaveText('10,000');
   await page.waitForTimeout(1000);
-  await nav.closeApp();
 });
 
 test('Buy Multitap', async ({ page }) => {
@@ -52,9 +51,10 @@ test('Buy Multitap', async ({ page }) => {
   const tg  = new TelegramPage (page);
   const boost = new BoostsPage (page);
 
-  await page.goto('https://web.telegram.org/a/#7250553721');
-  await page.waitForTimeout(5000);
-  await tg.checkErrrorMessage();
+  const id = "6809402010"
+  const amount = "10000";
+
+  await tg.topUp(id, amount);
   await tg.pressPlay();
   await tg.pressConfirm();
   await expect(home.currentBalance).toContainText("10,000"); 
@@ -72,7 +72,6 @@ test('Buy Multitap', async ({ page }) => {
   await expect(home.earnPerTap).toContainText("2");
   await home.mine();
   await expect(home.currentBalance).toContainText("8,978");
-  await nav.closeApp();
 });
 
 test('Buy Energy', async ({ page }) => {
@@ -83,12 +82,12 @@ test('Buy Energy', async ({ page }) => {
   const tg  = new TelegramPage (page);
   const boost = new BoostsPage (page);
 
-  await page.goto('https://web.telegram.org/a/#7250553721');
-  await page.waitForTimeout(5000);
-  await tg.checkErrrorMessage();
+  const id = "6809402010"
+  const amount = "10000";
+
+  await tg.topUp(id, amount);
   await tg.pressPlay();
   await tg.pressConfirm();
-
   await expect(home.currentBalance).toContainText("8,978");
   await expect(home.getAvailableEnergy()).toEqual('1000')
   await expect(home.getEnergyLimit()).toEqual("500");
