@@ -35,6 +35,7 @@ test('Up balance', async ({ page }) => {
   await tg.pressPlay();
   await tg.pressConfirm();
   await page.waitForTimeout(3000);
+  
   await expect(home.currentBalance).toHaveText("0");
   await nav.closeButton.click();
   await tg.topUp(id, amount);
@@ -61,6 +62,7 @@ test('Buy Multitap', async ({ page }) => {
   await tg.pressPlay();
   await tg.pressConfirm();
   await page.waitForTimeout(3000)
+
   await expect(home.currentBalance).toContainText("10,000"); 
   await expect(home.earnPerTap).toContainText("1");
   await home.goBoost();
@@ -93,11 +95,8 @@ test('Buy Energy', async ({ page }) => {
   await tg.pressPlay();
   await tg.pressConfirm();
   await page.waitForTimeout(3000)
+
   await expect(home.currentBalance).toContainText("10,000");
-
-  //const availableEnergy = await home.getAvailableEnergy();
-  //const energyLimit = await home.getEnergyLimit();
-
   await expect(await home.getAvailableEnergy()).toEqual(1000)
   await expect(await home.getEnergyLimit()).toEqual(1000);
   await home.goBoost();
