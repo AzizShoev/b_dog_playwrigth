@@ -29,11 +29,11 @@ export class TelegramPage {
  
   public mainMenu = this.page.getByRole('button', { name: '🏠 Main Menu' }).last()
 
-  public levelUp = this.page.locator('#message-931').getByRole('button', { name: '+1 level' })
+  public levelUp = this.page.locator('.InlineButtons div:nth-child(1) span').last()
 
-  public levelDown = this.page.locator('#message-931').getByRole('button', { name: '-1 level' })
+  public levelDown = this.page.locator('.InlineButtons div:nth-child(2) span').last()
 
-  public backToQaPanel =this.page.locator('#message-931').getByRole('button', { name: '🔍 QA menu' })
+  public backToQaPanel =this.page.locator('.InlineButtons div:nth-child(3) span').last()
  
   public confirmation =this.page.getByRole('button', { name: 'Confirm' })
  
