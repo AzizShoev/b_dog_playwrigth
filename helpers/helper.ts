@@ -1,6 +1,10 @@
 import { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { TelegramPage } from '../pages/telegram.page';
+import { LeaderboardPage } from '../pages/leaderboard.page';
+import { NavigationMenu } from '../pages/navigation.page';
+import { BoostsPage } from '../pages/boosts.page';
+import { HomePage } from '../pages/home.page';
 
 export class TestHelper {
     private page: Page;
@@ -36,6 +40,22 @@ export class TestHelper {
         await tg.pressQaPanel();
         await this.page.waitForTimeout(3000);
         await tg.pressRefresh();
+    }
+
+    public async buyMulitap() {
+        const home  = new HomePage (this.page);
+        const boost = new BoostsPage (this.page);
+        await home.goBoost();
+        await boost.buyMultitap();
+        await boost.buy();
+    }
+
+    public async buyEnergy() {
+        const home  = new HomePage (this.page);
+        const boost = new BoostsPage (this.page);
+        await home.goBoost();
+        await boost.buyEnergy();
+        await boost.buy();
     }
 
    public async checkPreLastTgMessage(message) {
