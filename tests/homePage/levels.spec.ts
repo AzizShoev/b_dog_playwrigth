@@ -28,11 +28,11 @@ test ('Check default level', async ({ page }) => {
     
     await tg.pressPlay();
     await tg.pressConfirm();
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
     console.log('current level:', await home.getCurrentLevel());
     console.log('max level:', await home.getMaxLevel());
-    expect(await home.getCurrentLevel()).toBe(1);
-    expect(await home.getMaxLevel()).toBe(10);
+    expect(await home.getCurrentLevel()).toEqual(1);
+    expect(await home.getMaxLevel()).toEqual(10);
     await home.goBLeaderBoard();
     await expect (board.levelNameLink).toHaveText('Puppy Doge');
 });
@@ -47,8 +47,8 @@ test ('Up to level 3', async ({ page }) => {
     await tg.pressPlay();
     await tg.pressConfirm();
     await page.waitForTimeout(5000);
-    expect(await home.getCurrentLevel()).toBe(3);
-    expect(await home.getMaxLevel()).toBe(10);
+    expect(await home.getCurrentLevel()).toEqual(3);
+    expect(await home.getMaxLevel()).toEqual(10);
     await home.goBLeaderBoard();
     await expect (board.levelNameLink).toHaveText('Bark Doge');
 });
@@ -63,13 +63,13 @@ test ('Up to max level', async ({ page }) => {
     await tg.pressPlay();
     await tg.pressConfirm();
     await page.waitForTimeout(5000);
-    expect(await home.getCurrentLevel()).toBe(10);
-    expect(await home.getMaxLevel()).toBe(10);
+    expect(await home.getCurrentLevel()).toEqual(10);
+    expect(await home.getMaxLevel()).toEqual(10);
     await home.goBLeaderBoard();
     await expect (board.levelNameLink).toHaveText('Supreme Doge');
 });
 
-test ('Level not decrease when buying ', async ({ page }) => {
+test ('Up level from 1 to 2', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
@@ -77,28 +77,90 @@ test ('Level not decrease when buying ', async ({ page }) => {
     const nav  = new NavigationMenu (page);
     const boost = new BoostsPage (page);
 
+    await tg.topUp('6809402010', '24999')
+    await tg.pressPlay();
+    await tg.pressConfirm();
+    await page.waitForTimeout(5000);
+    expect(await home.currentBalance).toContainText("24,999")
+    expect(await home.earnPerTap).toContainText("1");
+    expect(await home.pawsToLevelUp).toContainText("1")
+    expect(await home.getAvailableEnergy()).toEqual(1000)
+    expect(await home.getEnergyLimit()).toEqual(1000)
+    expect(await home.getCurrentLevel()).toEqual(1);
+    expect(await home.getMaxLevel()).toEqual(10);
+    await home.mine();
+    await page.waitForTimeout(2000)
+    expect(await home.currentBalance).toContainText("25,000")
+    expect(await home.earnPerTap).toContainText("2");
+    expect(await home.pawsToLevelUp).toContainText("25K")
+    expect(await home.getAvailableEnergy()).toEqual(1500)
+    expect(await home.getEnergyLimit()).toEqual(1500)
+    expect(await home.getCurrentLevel()).toEqual(2);
+    expect(await home.getMaxLevel()).toEqual(10);
+    await home.goBLeaderBoard();
+    await expect (board.levelNameLink).toHaveText('Furry Doge');
+});
+
+test ('Up level from 9 to 10', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const help = new TestHelper(page);
+    const board = new LeaderboardPage (page);
+    const nav  = new NavigationMenu (page);
+    const boost = new BoostsPage (page);
+
+    await tg.topUp('6809402010', '999999999')
+    await tg.pressPlay();
+    await tg.pressConfirm();
+    await page.waitForTimeout(5000);
+    expect(await home.currentBalance).toContainText("999,999,999")
+    expect(await home.earnPerTap).toContainText("9");
+    expect(await home.pawsToLevelUp).toContainText("1")
+    expect(await home.getAvailableEnergy()).toEqual(5000)
+    expect(await home.getEnergyLimit()).toEqual(5000)
+    expect(await home.getCurrentLevel()).toEqual(9);
+    expect(await home.getMaxLevel()).toEqual(10);
+    await home.mine();
+    await page.waitForTimeout(7000)
+    expect(await home.currentBalance).toContainText("1,000,000,008")
+    expect(await home.earnPerTap).toContainText("10");
+    expect(await home.pawsToLevelUp).toContainText("0")
+    expect(await home.getAvailableEnergy()).toEqual(5500)
+    expect(await home.getEnergyLimit()).toEqual(5500)
+    expect(await home.getCurrentLevel()).toEqual(10);
+    expect(await home.getMaxLevel()).toEqual(10);
+    await home.goBLeaderBoard();
+    await expect (board.levelNameLink).toHaveText('Supreme Doge');
+});
+
+test ('Level not decrease when buying', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const help = new TestHelper(page);
+    const board = new LeaderboardPage (page);
+    const nav  = new NavigationMenu (page);
+    const boost = new BoostsPage (page);
+    
     await tg.topUp('6809402010', '500000');
     await tg.pressPlay();
     await tg.pressConfirm();
     await page.waitForTimeout(5000);
-    await expect(await home.currentBalance).toContainText("500,000")
-    await expect(await home.earnPerTap).toContainText("5");
-    await expect(await home.pawsToLevelUp).toContainText("500K")
-    await expect(await home.getAvailableEnergy()).toEqual(3000)
-    await expect(await home.getEnergyLimit()).toEqual(3000)
-    await expect(await home.getCurrentLevel()).toEqual(5);
-    await expect(await home.getMaxLevel()).toEqual(10);
+    expect(await home.currentBalance).toContainText("500,000")
+    expect(await home.earnPerTap).toContainText("5");
+    expect(await home.pawsToLevelUp).toContainText("500K")
+    expect(await home.getAvailableEnergy()).toEqual(3000)
+    expect(await home.getEnergyLimit()).toEqual(3000)
+    expect(await home.getCurrentLevel()).toEqual(5);
+    expect(await home.getMaxLevel()).toEqual(10);
     await home.goBLeaderBoard();
     await expect (board.levelNameLink).toHaveText('Woof Doge');
     await nav.goBack();
-    await home.goBoost();
-    await boost.buyMultitap();
-    await boost.buy();
+    await help.buyMulitap();
     await nav.goBack();
-    await expect(await home.currentBalance).toContainText("498,976")
+    await expect(home.currentBalance).toContainText("498,976")
     await expect(home.earnPerTap).toContainText('6');
-    await expect(await home.getCurrentLevel()).toEqual(5);
+    expect(await home.getCurrentLevel()).toEqual(5);
     await expect(home.pawsToLevelUp).toContainText("501K")
-    await expect(await home.getAvailableEnergy()).toEqual(3000)
-    await expect(await home.getEnergyLimit()).toEqual(3000)
+    expect(await home.getAvailableEnergy()).toEqual(3000)
+    expect(await home.getEnergyLimit()).toEqual(3000)
 });
