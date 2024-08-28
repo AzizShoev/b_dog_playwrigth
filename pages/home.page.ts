@@ -14,13 +14,13 @@ export class HomePage {
  
  public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('PAWS to level up').locator('xpath=ancestor::div[1]/following-sibling::div//p');
  
- //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first().innerText();
+ //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
  public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) p').first()
  
  public leaderBoardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'Go to Leaderboard' })
  
- public levels = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app section div div p span')
+ public levels = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app section div div p span').first()
 
  public claimRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Сlaim your reward' })
  
@@ -101,16 +101,16 @@ else{console.log('reward window is not disaplyed')}
   }
 
   async getLevelText() {
-    return await this.levels.innerText();
+    return await this.levels.innerText()
 }
 
-async getCurrentLevel() {
+  async getCurrentLevel() {
     const levelText = await this.getLevelText();
     const [currentLevel, maxLevel] = levelText.split('/');
     return parseInt(currentLevel);
 }
 
-async getMaxLevel() {
+  async getMaxLevel() {
     const levelText = await this.getLevelText();
     const [currentLevel, maxLevel] = levelText.split('/');
     return parseInt(maxLevel);
