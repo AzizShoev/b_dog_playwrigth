@@ -11,16 +11,20 @@ export class TestHelper {
     public async upLevel(countClick) {
         const tg = new TelegramPage(this.page);
         await tg.pressLevel()
+        await this.page.waitForTimeout(2000);
         await tg.pressLevelUp(countClick)
-        await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        await this.page.waitForTimeout(7000);
+        await expect(this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
     public async downLevel(countClick) {
         const tg = new TelegramPage(this.page);
         await tg.pressLevel()
+        await this.page.waitForTimeout(2000);
         await tg.pressLevelDown(countClick)
-        await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        await this.page.waitForTimeout(7000);
+        await expect(this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
