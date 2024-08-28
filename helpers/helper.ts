@@ -13,6 +13,7 @@ export class TestHelper {
         await tg.pressLevel()
         await tg.pressLevelUp(countClick)
         await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        await tg.pressBackToQaPanel();
     }
 
     public async downLevel(countClick) {
@@ -20,6 +21,7 @@ export class TestHelper {
         await tg.pressLevel()
         await tg.pressLevelDown(countClick)
         await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        await tg.pressBackToQaPanel();
     }
 
     public async refresh() {
