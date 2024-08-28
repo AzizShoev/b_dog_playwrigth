@@ -2,8 +2,14 @@ import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
 import { TelegramPage } from '../../pages/telegram.page';
 import { NavigationMenu } from '../../pages/navigation.page';
+import { FriendsPage } from '../../pages/friends.page';
+import { assert } from 'console';
+import exp from 'constants';
 import { BoostsPage } from '../../pages/boosts.page';
+import { before } from 'node:test';
+import { Fixtures } from '@playwright/test';
 import { TestHelper } from '../../helpers/helper';
+
 test.setTimeout(160000) 
 
 test.use({
@@ -38,7 +44,7 @@ test('Up balance', async ({ page }) => {
   await nav.closeButton.click();
   await tg.topUp(id, amount);
   await page.waitForTimeout(2000);
-  await help.checkLastTgMessage('Your balance has been topped up by 10000' );
+  await help.checkPreLastTgMessage('Your balance has been topped up by 10000' );
   await tg.pressPlay();
   await page.waitForTimeout(3000);
   await expect(home.currentBalance).toHaveText('10,000');
