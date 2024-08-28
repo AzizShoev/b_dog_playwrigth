@@ -20,6 +20,8 @@ export class HomePage {
  
  public leaderBoardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'Go to Leaderboard' })
  
+ public levels = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section div div p span')
+
  public claimRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Сlaim your reward' })
  
  public currentBalance =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('heading', { name: /^[0-9,]+$/ })
@@ -76,7 +78,7 @@ else{console.log('reward window is not disaplyed')}
   }
 
   public async getEnergyText() {
-    return (await this.energy.innerText());
+    return await this.energy.innerText();
   }
 
   async getAvailableEnergy() {
@@ -98,5 +100,19 @@ else{console.log('reward window is not disaplyed')}
     return await this.profitPerHour.innerText()
   }
 
+  async getLevelText() {
+    return await this.levels.innerText()
+  }
 
+  async getCurrentLevel() {
+    const levelText = await this.getLevelText();
+    const [curentLevel, maxLevel] = levelText.split('/');
+     return parseInt(curentLevel);
+  }
+
+  async getMaxLevel() {
+    const levelText = await this.getLevelText();
+    const [curentLevel, maxLevel] = levelText.split('/');
+     return parseInt(maxLevel);
+  }
 }
