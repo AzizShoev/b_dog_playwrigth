@@ -8,6 +8,20 @@ export class TestHelper {
         this.page = page;
     }
 
+    public async upLevel(countClick) {
+        const tg = new TelegramPage(this.page);
+        await tg.pressLevel()
+        await tg.pressLevelUp(countClick)
+        await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+    }
+
+    public async downLevel(countClick) {
+        const tg = new TelegramPage(this.page);
+        await tg.pressLevel()
+        await tg.pressLevelDown(countClick)
+        await expect(this.checkLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+    }
+
     public async refresh() {
         const tg = new TelegramPage(this.page);
         await tg.writeMessage('/start');
@@ -18,7 +32,10 @@ export class TestHelper {
         await tg.pressRefresh();
     }
 
-   public async checkLastTgMessage(message) {
+   public async checkPreLastTgMessage(message) {
         await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()-2]/div/div').first()).toContainText(message);
+    }
+    public async checkLastTgMessage(message) {
+        await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()]/div/div').first()).toContainText(message);
     }
 }
