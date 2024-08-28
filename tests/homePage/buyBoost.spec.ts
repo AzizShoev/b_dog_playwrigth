@@ -7,7 +7,8 @@ import { assert } from 'console';
 import exp from 'constants';
 import { BoostsPage } from '../../pages/boosts.page';
 import { before } from 'node:test';
-
+import { Fixtures } from '@playwright/test';
+import { TestHelper } from '../../helpers/helper';
 test.setTimeout(160000) 
 
 test.use({
@@ -16,10 +17,11 @@ test.use({
   
 test.beforeEach(async ({ page }) => {
     const tg  = new TelegramPage (page);
+    const help = new TestHelper(page);
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
     await tg.checkErrorMessage();
-    await refresh(page, '/start');
+    await help.refresh();
   });
 
 test('Up balance', async ({ page }) => {
@@ -28,6 +30,7 @@ test('Up balance', async ({ page }) => {
   const tg  = new TelegramPage (page);
   const home  = new HomePage (page);
   const nav  = new NavigationMenu (page);
+  const help = new TestHelper(page);
 
   const id = "6809402010"
   const amount = "10000";
@@ -35,12 +38,12 @@ test('Up balance', async ({ page }) => {
   await tg.pressPlay();
   await tg.pressConfirm();
   await page.waitForTimeout(3000);
-  
+
   await expect(home.currentBalance).toHaveText("0");
   await nav.closeButton.click();
   await tg.topUp(id, amount);
   await page.waitForTimeout(2000);
-  await checkTopUpMessage(page,"Your balance has been topped up by 10000");
+  await help.checkLastTgMessage('Your balance has been topped up by 10000' );
   await tg.pressPlay();
   await page.waitForTimeout(3000);
   await expect(home.currentBalance).toHaveText('10,000');
@@ -117,17 +120,3 @@ test('Buy Energy', async ({ page }) => {
   await expect(await home.getEnergyLimit()).toEqual(1500);
   await expect(home.currentBalance).toContainText("8,977");
 });
-
-async function checkTopUpMessage(page: Page, message: string) {
-   await expect (page.locator('(//div[contains(@class, "message-content")])[last()-2]/div/div').first()).toContainText(message);
-}    
- 
- async function refresh(page: Page, start: string) {
-  const tg  = new TelegramPage(page);
-  await tg.writeMessage(start);
-  await tg.sendMessage();
-  await page.waitForTimeout(10000);
-  await tg.pressQaPanel();
-  await page.waitForTimeout(3000);
-  await tg.pressRefresh();
-}
