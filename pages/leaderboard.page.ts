@@ -3,7 +3,7 @@ import { Page } from '@playwright/test';
 export class LeaderboardPage {
     constructor(private page: Page) {}
 
-    public levelNameLink = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'Puppy Doge tooltip' })
+    public levelNameLink = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section h1')
     
     public totalPAWS = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Total PAWS')
     
@@ -34,5 +34,9 @@ export class LeaderboardPage {
 
       async pressRightAngleButton() {
         await this.rightAngleButton.click();
+      }
+
+      async getLevelName() {
+        await this.levelNameLink.innerText();
       }
 }
