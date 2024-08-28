@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { executionAsyncResource } from 'async_hooks';
 import { exists } from 'fs';
 
@@ -27,7 +27,13 @@ export class TelegramPage {
  
   public id =this.page.getByRole('button', { name: '🆔 My id' }).last()
  
-  public mainMenu =this.page.getByRole('button', { name: '🏠 Main Menu' }).last()
+  public mainMenu = this.page.getByRole('button', { name: '🏠 Main Menu' }).last()
+
+  public levelUp = this.page.locator('#message-931').getByRole('button', { name: '+1 level' })
+
+  public levelDown = this.page.locator('#message-931').getByRole('button', { name: '-1 level' })
+
+  public backToQaPanel =this.page.locator('#message-931').getByRole('button', { name: '🔍 QA menu' })
  
   public confirmation =this.page.getByRole('button', { name: 'Confirm' })
  
@@ -101,6 +107,22 @@ export class TelegramPage {
   }
   async pressQaPanel() {
     await this.qaPanel.last().click();
+  }
+
+  async pressLevelUp(clickCount) {
+    for (let i = 0; i < clickCount; i++) {
+        await this.levelUp.click();
+    }
+}
+
+  async pressLevelDown(clickCount) {
+    for (let i = 0; i < clickCount; i++) {
+        await this.levelUp.click();
+    }
+}
+
+  async pressBackToQaPanel() {
+    await this.backToQaPanel.click();
   }
 
 async isRefreshed () {
