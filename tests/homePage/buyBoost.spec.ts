@@ -2,12 +2,7 @@ import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
 import { TelegramPage } from '../../pages/telegram.page';
 import { NavigationMenu } from '../../pages/navigation.page';
-import { FriendsPage } from '../../pages/friends.page';
-import { assert } from 'console';
-import exp from 'constants';
 import { BoostsPage } from '../../pages/boosts.page';
-import { before } from 'node:test';
-import { Fixtures } from '@playwright/test';
 import { TestHelper } from '../../helpers/helper';
 test.setTimeout(160000) 
 
