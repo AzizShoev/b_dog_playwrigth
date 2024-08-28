@@ -22,7 +22,7 @@ test.use({
     const tg  = new TelegramPage (page);
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
-    await tg.checkErrrorMessage();
+    await tg.checkErrorMessage();
     await tg.pressPlay();
     await tg.pressConfirm();
     await page.waitForTimeout(2000);

@@ -79,28 +79,15 @@ export class TelegramPage {
     await this.level.click();
   }
   async pressRefresh() {
-
- 
     const buttonsBefore = await this.page.getByText('Account was refreshed').all();
-
-   
-    await this.refresh.last().click();
-
-    
-    await this.page.waitForTimeout(3000);
-
-  
-    const buttonsAfter =  await this.page.getByText('Account was refreshed').all();
-
-   
+    await this.refresh.last().click();    
+    await this.page.waitForTimeout(5000);  
+    const buttonsAfter =  await this.page.getByText('Account was refreshed').all();   
     if (buttonsBefore.length < buttonsAfter.length) {
         return true;
-    } else {
-      
+    } else {      
         throw new Error('Refresh was not applied.');
     }
-
-
 }
   async pressToken() {
     await this.dailyReward.click();
@@ -147,9 +134,10 @@ async inviteFriendTG() {
   async topUp(id: string, amount: string) {
     const command = `/topup ${id} ${amount}`;
     await this.message.fill(command);
+    await this.sendMessagebutton.click();
 }
 
-async checkErrrorMessage() {
+async checkErrorMessage() {
   if(await this.errorMessage.isVisible()){
     await this.errorMessageButton.click();}
   else{return}

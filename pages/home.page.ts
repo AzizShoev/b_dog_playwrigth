@@ -14,17 +14,21 @@ export class HomePage {
  
  public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('PAWS to level up').locator('xpath=ancestor::div[1]/following-sibling::div//p');
  
- public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first().innerText();
+ //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first().innerText();
+ 
+ public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main div card p')
  
  public leaderBoardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'Go to Leaderboard' })
  
  public claimRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Сlaim your reward' })
  
  public currentBalance =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('heading', { name: /^[0-9,]+$/ })
+
+ //public currentBalance =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main h2')
  
  public closeButton =  this.page.locator("div[class='modal-header'] button[title='Close']")
- 
-public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
+
+ public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
  
  
  
@@ -65,20 +69,26 @@ else{console.log('reward window is not disaplyed')}
   }
 
   async getBalance() {
-    return await this.currentBalance.innerText()
+    return await this.currentBalance.textContent()
   }
   async getEarnPerTap() {
     return await this.earnPerTap.innerText()
   }
 
+  public async getEnergyText() {
+    return (await this.energy.innerText());
+  }
+
   async getAvailableEnergy() {
-    const availableEnergy = (await this.energy).split('/')[0];
-     return availableEnergy
+    const energyText = await this.getEnergyText();
+    const [availableEnergy, energyLimit] = energyText.split('/');
+     return parseInt(availableEnergy);
   }
 
   async getEnergyLimit() {
-    const energyLimit = (await this.energy).split('/')[1];
-     return energyLimit
+    const energyText = await this.getEnergyText();
+    const [availableEnergy, energyLimit] = energyText.split('/');
+     return parseInt(energyLimit);
   }
 
   async getPawsToLevelUp() {
