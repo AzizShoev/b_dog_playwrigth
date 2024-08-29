@@ -12,7 +12,7 @@ export class EarnPage {
  
  //Cards
 //use nth(1-~)
- public card = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) > div > div > div')
+ public card = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) > div > div')
  
  public cardName = this.card.locator('>div >div div:nth-child(2) p').first()
 
