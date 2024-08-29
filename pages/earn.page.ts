@@ -36,6 +36,8 @@ export class EarnPage {
 
  public closeCardButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
 
+ public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) span')
+ 
  async buyCard() {
     await this.buyButtonModal.click();
   }
@@ -85,5 +87,10 @@ async getUpProfitModal() {
 async getCostModal() {
   return parseInt((await this.costModal.innerText()).replace(',', ''));
 }
+
+async getLowBalanceSing() {
+  return parseInt((await this.lowBalanceSing.innerText()).replace(/\D/g, ''));
+}
+
 
 }
