@@ -16,7 +16,7 @@ export class EarnPage {
  
  public cardName = this.card.locator('>div >div div:nth-child(2) p').first()
 
- public cardProfit = this.card.locator('>div >div div:nth-child(2) p').nth(3)
+ public cardProfit = this.card.locator(' div:nth-child(2) div div p')
 
  public cardPrice = this.card.locator('>div >div:nth-child(2) button div')
 
