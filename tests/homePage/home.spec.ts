@@ -25,7 +25,7 @@ test.use({
     await tg.checkErrorMessage();
     await tg.pressPlay();
     await tg.pressConfirm();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
   })
 
   test.afterEach(async ({ page, browser }) => {
@@ -54,8 +54,7 @@ test.use({
   await expect(nav.tasksButton).toBeVisible();
   await expect(home.leaderBoardButton).toBeVisible();
   await expect(nav.settingsButton).toBeVisible();
-  await page.locator('#portals').getByLabel('More actions').click();
-  await page.getByRole('menuitem', { name: ' Reload Page' }).click();
+  await nav.reloadApp();
   await page.waitForTimeout(1000);
   await expect(page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('banner').getByRole('img', { name: 'logo' })).toBeVisible();
   await expect(home.earnPerTap).toBeVisible();
@@ -112,7 +111,7 @@ test ('Go to Leaderboard', async ({ page }) => {
     const lead = new LeaderboardPage (page);
 
     await home.leaderBoardButton.click();
-    expect(lead.levelNameLink.locator('h1').getByText('Puppy Doge')).toBeVisible();
+    expect(lead.levelNameLink).toHaveText('Puppy Doge');
     expect(lead.totalPAWS).toBeVisible();
     expect(lead.totalFriends).toBeVisible();
     expect(lead.leftAngleButton).toBeVisible();
