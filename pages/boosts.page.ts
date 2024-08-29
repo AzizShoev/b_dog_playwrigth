@@ -17,6 +17,8 @@ export class BoostsPage {
 
   public currentBalance = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main div div:nth-child(3) div:nth-child(2) p')
   
+  public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main > div:nth-child(4) > div:nth-child(1) > div button span')
+  
   async buyMultitap() {
     await this.buyMultitapButton.click();
   }
@@ -35,6 +37,10 @@ async getMultitapLevel() {
 
 async buy(){
   await this.buyButton.click();
+}
+
+async getLowBalanceSing(){
+  await this.lowBalanceSing.innerText();
 }
 
 async closeModal(){
