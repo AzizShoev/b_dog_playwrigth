@@ -28,11 +28,11 @@ export class BoostsPage {
 }
 
 async getEnergyLevel() {
-  await this.energyLevel.innerText();
+  return await this.energyLevel.innerText();
 }
 
 async getMultitapLevel() {
-  await this.multitapLevel.innerText();
+  return await this.multitapLevel.innerText();
 }
 
 async buy(){
@@ -40,7 +40,7 @@ async buy(){
 }
 
 async getLowBalanceSing(){
-  await this.lowBalanceSing.innerText();
+  return await this.lowBalanceSing.textContent();
 }
 
 async closeModal(){
