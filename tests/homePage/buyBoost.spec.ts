@@ -121,3 +121,81 @@ test('Buy Energy', async ({ page }) => {
   await expect(await home.getEnergyLimit()).toEqual(1500);
   await expect(home.currentBalance).toContainText("8,977");
 });
+
+test ('Buy boosters whit zero balance', async ({ page }) => {
+  const home  = new HomePage (page);
+  const nav  = new NavigationMenu (page);
+  const tg  = new TelegramPage (page);
+  const boost = new BoostsPage (page);
+
+  await tg.pressPlay();
+  await tg.pressConfirm();
+  await page.waitForTimeout(3000)
+
+  await expect(home.currentBalance).toContainText("0");
+  await home.goBoost();
+  await expect(boost.buyMultitapButton).toContainText('1,024');
+  await expect(boost.multitapLevel).toContainText('level 1');
+  await boost.buyMultitap();
+  expect(await boost.getLowBalanceSing()).toContain('Need 1024');
+  await expect(boost.lowBalanceSing).not.toBeEnabled()
+  await boost.closeModal();
+  await expect(boost.buyEnergyButton).toContainText('1,024');
+  await expect(boost.energyLevel).toContainText('level 1');
+  await boost.buyEnergy();
+  expect(await boost.getLowBalanceSing()).toContain('Need 1024');
+  await expect(boost.lowBalanceSing).not.toBeEnabled()
+  await boost.closeModal();
+});
+
+test ('Buy Multitap with insufficient balance', async ({ page }) => {
+  const home  = new HomePage (page);
+  const nav  = new NavigationMenu (page);
+  const tg  = new TelegramPage (page);
+  const boost = new BoostsPage (page);
+
+  await tg.topUp('6809402010', '2000')
+  await tg.pressPlay();
+  await tg.pressConfirm();
+  await page.waitForTimeout(3000)
+
+  await expect(home.currentBalance).toContainText("2,000");
+  await home.goBoost();
+  await expect(boost.buyMultitapButton).toContainText('1,024');
+  await expect(boost.multitapLevel).toContainText('level 1');
+  await boost.buyMultitap();
+  await boost.buy();
+  await expect(boost.currentBalance).toContainText("976");
+  await expect(boost.buyMultitapButton).toContainText('2,048');
+  await expect(boost.multitapLevel).toContainText('level 2');
+  await boost.buyMultitap();
+  expect(await boost.getLowBalanceSing()).toContain('Need 1072');
+  await expect(boost.lowBalanceSing).not.toBeEnabled()
+  await boost.closeModal();
+});
+
+test ('Buy Energy Limit with insufficient balance', async ({ page }) => {
+  const home  = new HomePage (page);
+  const nav  = new NavigationMenu (page);
+  const tg  = new TelegramPage (page);
+  const boost = new BoostsPage (page);
+
+  await tg.topUp('6809402010', '3000')
+  await tg.pressPlay();
+  await tg.pressConfirm();
+  await page.waitForTimeout(3000)
+
+  await expect(home.currentBalance).toContainText("3,000");
+  await home.goBoost();
+  await expect(boost.buyEnergyButton).toContainText('1,024');
+  await expect(boost.energyLevel).toContainText('level 1');
+  await boost.buyEnergy();
+  await boost.buy();
+  await expect(boost.currentBalance).toContainText("1,976");
+  await expect(boost.buyEnergyButton).toContainText('2,048');
+  await expect(boost.energyLevel).toContainText('level 2');
+  await boost.buyEnergy();
+  expect(await boost.getLowBalanceSing()).toContain('Need 72');
+  await expect(boost.lowBalanceSing).not.toBeEnabled()
+  await boost.closeModal();
+});
