@@ -30,6 +30,8 @@ export class EarnPage {
 
  public upProfitModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(4) div div span')
 
+ public costModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(5) div p')
+ 
  public buyButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Buy' })
 
  public closeCardButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
@@ -66,6 +68,22 @@ async getCardProfit() {
 }
 async getCardPrice() {
   return parseInt((await this.cardPrice.innerText()).replace(',', ''));
+}
+
+async getCardNameModal() {
+  return await this.cardNameModal.innerText();
+}
+
+async getCurrentProfitModal() {
+  return parseInt(await this.currentProfitModal.innerText());
+}
+
+async getUpProfitModal() {
+  return parseInt((await this.upProfitModal.innerText()).replace(/\D/g, ''));
+}
+
+async getCostModal() {
+  return parseInt((await this.costModal.innerText()).replace(',', ''));
 }
 
 }
