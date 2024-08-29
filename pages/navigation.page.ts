@@ -19,6 +19,9 @@ export class NavigationMenu {
  
   public closeButton =  this.page.getByRole('button', { name: 'Close' })
 
+  public headerButton = this.page.locator('.modal-header div button')
+
+  public reloadPage = this.page.locator('.modal-header div [role="presentation"]')
   
  async goBack() {
     await this.backButton.click();
@@ -44,6 +47,10 @@ export class NavigationMenu {
   }
   async closeApp() {
     await this.closeButton.click();
+  }
+  async reloadApp() {
+    await this.headerButton.click();
+    await this.reloadPage.click();
   }
 
 }
