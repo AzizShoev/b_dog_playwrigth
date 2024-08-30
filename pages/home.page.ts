@@ -71,10 +71,10 @@ else{console.log('reward window is not disaplyed')}
   }
 
   async getBalance() {
-    return await this.currentBalance.textContent()
+    return parseInt((await this.currentBalance.innerText()).replace(/,/g, ''));
   }
   async getEarnPerTap() {
-    return await this.earnPerTap.innerText()
+    return parseInt(await this.earnPerTap.innerText())
   }
 
   public async getEnergyText() {
@@ -97,7 +97,7 @@ else{console.log('reward window is not disaplyed')}
     return await this.pawsToLevelUp.innerText()
   }
   async getProfitPerHour() {
-    return await this.profitPerHour.innerText()
+    return parseInt((await this.profitPerHour.innerText()).replace(/\D/g, ''))
   }
 
   async getLevelText() {
