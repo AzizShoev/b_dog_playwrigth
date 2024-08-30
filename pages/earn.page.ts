@@ -77,7 +77,7 @@ async getCardNameModal() {
 }
 
 async getCurrentProfitModal() {
-  return parseInt(await this.currentProfitModal.innerText());
+  return parseInt((await this.currentProfitModal.innerText()).replace(',', ''));
 }
 
 async getUpProfitModal() {
