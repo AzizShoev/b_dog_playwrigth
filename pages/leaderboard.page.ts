@@ -13,7 +13,7 @@ export class LeaderboardPage {
 
     public rightAngleButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('img', { name: 'angle' }).nth(1)
 
-
+    public hourlyPAWS = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Hourly PAWS')
 
 
     async pressLevelNameLink() {
