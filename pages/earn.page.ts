@@ -3,12 +3,13 @@ import { Page } from '@playwright/test';
 export class EarnPage {
   constructor(private page: Page) {}
  
+ public currentBalance = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main h2')
 
- public welfareButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Welfare')
+ public welfareButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Welfare"]')
  
- public specialCardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Special Cards')
+ public specialCardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Special Cards"]')
  
- public financeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Finance');
+ public financeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Finance"]');
  
  //Cards
 //use nth(1-~)
@@ -16,11 +17,13 @@ export class EarnPage {
  
  public cardName = this.card.locator('>div >div div:nth-child(2) p').first()
 
- public cardProfit = this.card.locator(' div:nth-child(2) div div p')
+ public cardProfit = this.card.locator(' div div:nth-child(2) div div p')
 
- public cardPrice = this.card.locator('>div >div:nth-child(2) button div')
+ public cardPrice = this.card.locator(' div >div:nth-child(2) button div')
 
- public openCardButton = this.card.locator('>div >div:nth-child(2) button')
+ public openCardButton = this.card.locator(' div >div:nth-child(2) button')
+
+ public cardLevel = this.card.locator('>div>div:nth-child(2) p').first()
 
  //Card modal
 
@@ -30,18 +33,28 @@ export class EarnPage {
 
  public upProfitModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(4) div div span')
 
- public costModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(5) div p')
+ public costModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(5) div p').first()
  
  public buyButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Buy' })
+
+ public upgradeButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Upgrade' })
 
  public closeCardButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
 
  public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) span')
  
+ 
+ async getBalance() {
+   return parseInt((await this.currentBalance.innerText()).replace(',', ''));
+ }
+ 
  async buyCard() {
     await this.buyButtonModal.click();
   }
 
+  async upgradeCard() {
+    await this.upgradeButtonModal.click();
+  }
   async openSwapCard() {
     await this.openCardButton.click();
   }
@@ -70,6 +83,10 @@ async getCardProfit() {
 }
 async getCardPrice() {
   return parseInt((await this.cardPrice.innerText()).replace(',', ''));
+}
+
+async getCardLevel() {
+  return await this.cardLevel.innerText();
 }
 
 async getCardNameModal() {
