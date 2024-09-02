@@ -22,6 +22,7 @@ export class TestHelper {
         await tg.pressBackToQaPanel();
     }
 
+
     public async downLevel(countClick) {
         const tg = new TelegramPage(this.page);
         await tg.pressLevel()
@@ -29,6 +30,14 @@ export class TestHelper {
         await tg.pressLevelDown(countClick)
         await this.page.waitForTimeout(7000);
         await expect(this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        await tg.pressBackToQaPanel();
+    }
+
+    public async upHour(countClick: number) {
+        const tg = new TelegramPage(this.page);
+        await tg.pressCardsProfit()
+        await this.page.waitForTimeout(2000);
+        await tg.pressUpHour(countClick)
         await tg.pressBackToQaPanel();
     }
 
