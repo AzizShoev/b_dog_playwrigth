@@ -4,15 +4,15 @@ export class HomePage {
   constructor(private page: Page) {}
  
 
- public mineButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('img', { name: 'doge' })
+ public mineButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section [alt="doge"]')
  
  public boostButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Boost' })
  
- public earnPerTap = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Earn per tap').locator('xpath=ancestor::div[1]/following-sibling::div//p');
+ public earnPerTap = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) p:nth-child(2)').first();
  
- public profitPerHour =this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Profit per hour').locator('xpath=ancestor::div[1]/following-sibling::div//p');
+ public profitPerHour =this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div > div:nth-child(2) div p:nth-child(2)')
  
- public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('PAWS to level up').locator('xpath=ancestor::div[1]/following-sibling::div//p');
+ public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div:nth-child(3) p:nth-child(2)')
  
  //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
@@ -20,8 +20,10 @@ export class HomePage {
  
  public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
- public levels = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app section div div p span').first()
+ public levelName = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header div div a span').first()
 
+ public levels =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header div div a span').nth(2)
+ 
  public claimRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Сlaim your reward' })
  
  public currentBalance =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('heading', { name: /^[0-9,]+$/ })
@@ -32,7 +34,7 @@ export class HomePage {
 
  public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
  
- public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Rating' })
+ public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
  
  
