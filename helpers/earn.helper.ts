@@ -1,25 +1,19 @@
 import { Page } from '@playwright/test';
-import { expect } from '@playwright/test';
-import { TelegramPage } from '../pages/telegram.page';
-import { LeaderboardPage } from '../pages/leaderboard.page';
-import { NavigationMenu } from '../pages/navigation.page';
-import { BoostsPage } from '../pages/boosts.page';
-import { HomePage } from '../pages/home.page';
 import { EarnPage } from '../pages/earn.page';
 
 export class EarnHelper {
     private page: Page;
     constructor(page) {
         this.page = page;
-    }
+}
 
-    async checkCard(cardsNum: number) {
-        const earn = new EarnPage(this.page);
-        const cardSelector = `> div:nth-child(${cardsNum})`;
-        const specificCard = earn.card.locator(cardSelector);
+async checkCard(cardsNum: number) {
+    const earn = new EarnPage(this.page);
+    const cardSelector = `> div:nth-child(${cardsNum})`;
+    const specificCard = earn.card.locator(cardSelector);
         
-        return specificCard;
-    }
+    return specificCard;
+}
 
 async checkCardName(cardsNum: number) {
     const earn = new EarnPage(this.page);
@@ -48,5 +42,13 @@ async checkCardPrice(cardsNum : number) {
     return  parseInt((await specificPrice.innerText()).replace(',', ''));
 }
 
+async checkCardLevel(cardsNum : number) {
+    const earn = new EarnPage(this.page);
+    const cardSelector = `> div:nth-child(${cardsNum})`;
+    const specificCard = earn.card.locator(cardSelector);
+    const specificLevel = specificCard.locator('>div>div:nth-child(2) p').first();
+
+    return await specificLevel.innerText();
+}
 
 }
