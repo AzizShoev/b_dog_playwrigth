@@ -4,15 +4,15 @@ export class FriendsPage {
   constructor(private page: Page) {}
  
 
- public refresheButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('img', { name: 'refresh' })
+ public refresheButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByAltText('refresh')
   
- public bonusesButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByText('Bonuses')
+ public bonusesButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="bonuses"]')
  
- public friendsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('main').getByText('Friends', { exact: true })
+ public friendsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="friends"]')
  
- public inviteButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Invite a friend', exact: true })
+ public inviteButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section > div:nth-child(3) > button:nth-child(1)')
  
- public copyButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button').nth(3)
+ public copyButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section > div:nth-child(3) > button:nth-child(2)')
  
 
 
