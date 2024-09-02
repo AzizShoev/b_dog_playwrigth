@@ -18,7 +18,7 @@ export class HomePage {
  
  public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) p').first()
  
- public leaderBoardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'Go to Leaderboard' })
+ public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
  public levels = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app section div div p span').first()
 
@@ -32,7 +32,7 @@ export class HomePage {
 
  public closeRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
  
- 
+ public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Rating' })
  
  
  
@@ -58,8 +58,12 @@ else{console.log('reward window is not disaplyed')}
     await this.boostButton.click();
   }
 
-  async goBLeaderBoard() {
-    await this.leaderBoardButton.click();
+  async goRanks() {
+    await this.ranks.click();
+  }
+
+  async goRating() {
+    await this.ratingButton.click();
   }
  
   async obtainReward() {
