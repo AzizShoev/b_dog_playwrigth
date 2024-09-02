@@ -33,7 +33,7 @@ test ('Check default level', async ({ page }) => {
     console.log('max level:', await home.getMaxLevel());
     expect(await home.getCurrentLevel()).toEqual(1);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Puppy Doge');
 });
 
@@ -49,7 +49,7 @@ test ('Up to level 3', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getCurrentLevel()).toEqual(3);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Robot Doge');
 });
 
@@ -65,7 +65,7 @@ test ('Up to max level', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getCurrentLevel()).toEqual(10);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Supreme Doge');
 });
 
@@ -97,7 +97,7 @@ test ('Up level from 1 to 2', async ({ page }) => {
     expect(await home.getEnergyLimit()).toEqual(1500)
     expect(await home.getCurrentLevel()).toEqual(2);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Samurai Doge');
 });
 
@@ -129,7 +129,7 @@ test ('Up level from 9 to 10', async ({ page }) => {
     expect(await home.getEnergyLimit()).toEqual(5500)
     expect(await home.getCurrentLevel()).toEqual(10);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Supreme Doge');
 });
 
@@ -152,7 +152,7 @@ test ('Level not decrease when buying', async ({ page }) => {
     expect(await home.getEnergyLimit()).toEqual(3000)
     expect(await home.getCurrentLevel()).toEqual(5);
     expect(await home.getMaxLevel()).toEqual(10);
-    await home.goBLeaderBoard();
+    await home.goRating();
     await expect (board.levelNameLink).toHaveText('Pirate Doge');
     await nav.goBack();
     await help.buyMulitap();
