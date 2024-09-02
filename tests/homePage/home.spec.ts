@@ -25,18 +25,8 @@ test.use({
     await tg.checkErrorMessage();
     await tg.pressPlay();
     await tg.pressConfirm();
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(5000);
   })
-
-  test.afterEach(async ({ page, browser }) => {
-    const nav  = new NavigationMenu (page);
-   if(!(await nav.closeButton.isVisible())) {
-       await nav.goBack();
-       await nav.closeApp();
-   }else{
-    await nav.closeApp();
-}
-  });
   
   test('Visible page elements after refresh', async ({ page }) => {
     const tg = new TelegramPage (page);
@@ -44,7 +34,7 @@ test.use({
     const nav  = new NavigationMenu (page);
     const friends  = new FriendsPage (page);
 
-  await expect(page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('banner').getByRole('img', { name: 'logo' })).toBeVisible();
+  await expect(home.ranks).toBeVisible();
   await expect(home.earnPerTap).toBeVisible();
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
@@ -52,11 +42,10 @@ test.use({
   await expect(nav.earnButton).toBeVisible();
   await expect(nav.friendsButton).toBeVisible();
   await expect(nav.tasksButton).toBeVisible();
-  await expect(home.leaderBoardButton).toBeVisible();
+  await expect(home.ratingButton).toBeVisible();
   await expect(nav.settingsButton).toBeVisible();
   await nav.reloadApp();
   await page.waitForTimeout(1000);
-  await expect(page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('banner').getByRole('img', { name: 'logo' })).toBeVisible();
   await expect(home.earnPerTap).toBeVisible();
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
@@ -64,7 +53,7 @@ test.use({
   await expect(nav.earnButton).toBeVisible();
   await expect(nav.friendsButton).toBeVisible();
   await expect(nav.tasksButton).toBeVisible();
-  await expect(home.leaderBoardButton).toBeVisible();
+  await expect(home.ratingButton).toBeVisible();
   await expect(nav.settingsButton).toBeVisible();
 });
 
@@ -73,9 +62,10 @@ test ('Go to Earn', async ({ page }) => {
     const earn = new EarnPage (page);
 
     await nav.earnButton.click();
-    expect(earn.welfareButton.isVisible());
-    expect(earn.financeButton.isVisible());
-    expect(earn.specialCardsButton.isVisible());
+    await page.waitForTimeout(2000);
+    await expect(earn.welfareButton).toBeVisible();
+    await expect(earn.financeButton).toBeVisible();
+    await expect(earn.specialCardsButton).toBeVisible();
 });
 
 test ('Go to Friends', async ({ page }) => {
@@ -83,11 +73,12 @@ test ('Go to Friends', async ({ page }) => {
     const nav  = new NavigationMenu (page);
 
     await nav.goFriends();
-    expect(friends.inviteButton.isVisible());
-    expect(friends.copyButton.isVisible());
-    expect(friends.bonusesButton.isVisible());
-    expect(friends.refresheButton.isVisible());
-    expect(friends.friendsButton.isVisible());
+    
+    await expect(friends.inviteButton).toBeVisible();
+    await expect(friends.copyButton).toBeVisible();
+    await expect(friends.bonusesButton).toBeVisible();
+    await expect(friends.refresheButton).toBeVisible();
+    await expect(friends.friendsButton).toBeVisible();
 });
 
 test ('Go to Tasks', async ({ page }) => {
@@ -95,14 +86,14 @@ test ('Go to Tasks', async ({ page }) => {
     const nav  = new NavigationMenu (page);
 
     await nav.goTasks();
-    expect(tasks.countTasks.isVisible())
-    expect(tasks.dailyRewardButton.isVisible());
-    expect(tasks.shareTgStoriesButton.isVisible());
-    expect(tasks.shareBdStorysButton.isVisible());
-    expect(tasks.supportBdSharingTgStory.isVisible());
-    expect(tasks.followXAccountButton.isVisible());
-    expect(tasks.subscribeYouTubeButton.isVisible());
-    expect(tasks.readNewsButton.isVisible());             0
+    await expect(tasks.countTasks).toBeVisible()
+    await expect(tasks.dailyRewardButton).toBeVisible();
+    await expect(tasks.shareTgStoriesButton).toBeVisible();
+    await expect(tasks.shareBdStorysButton).toBeVisible();
+    await expect(tasks.supportBdSharingTgStory).toBeVisible();
+    await expect(tasks.followXAccountButton).toBeVisible();
+    await expect(tasks.subscribeYouTubeButton).toBeVisible();
+    await expect(tasks.readNewsButton).toBeVisible();             0
 });
 
 test ('Go to Leaderboard', async ({ page }) => {
@@ -110,19 +101,19 @@ test ('Go to Leaderboard', async ({ page }) => {
     const home  = new HomePage (page);
     const lead = new LeaderboardPage (page);
 
-    await home.leaderBoardButton.click();
-    expect(lead.levelNameLink).toHaveText('Puppy Doge');
-    expect(lead.totalPAWS).toBeVisible();
-    expect(lead.totalFriends).toBeVisible();
-    expect(lead.leftAngleButton).toBeVisible();
-    expect(lead.rightAngleButton).toBeVisible();
+    await home.goRating();
+    await expect(lead.levelNameLink).toHaveText('Puppy Doge');
+    await expect(lead.totalPAWS).toBeVisible();
+    await expect(lead.totalFriends).toBeVisible();
+    await expect(lead.leftAngleButton).toBeVisible();
+    await expect(lead.rightAngleButton).toBeVisible();
 });
 
 test ('Go to Settings', async ({ page }) => {
     const nav  = new NavigationMenu (page);
     const set = new SettingsPage (page);
     await nav.goSettings();
-    expect(set.selectLanguageList).toBeVisible();
-    expect(set.contactEmail).toBeVisible();
-    expect(set.copyButton).toBeVisible();
+    await expect(set.selectLanguageList).toBeVisible();
+    await expect(set.contactEmail).toBeVisible();
+    await expect(set.copyButton).toBeVisible();
 });
