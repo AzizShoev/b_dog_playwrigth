@@ -18,6 +18,8 @@ export class TelegramPage {
   public dailyReward = this.page.getByRole('button', { name: '🎁 Daily Reward' }).last()
  
   public friends =this.page.getByRole('button', { name: '👥 Friends' }).last()
+
+  public cardsProfit = this.page.getByRole('button', { name: '📈 Cards Profit' }).last()
  
   public level = this.page.getByRole('button', { name: '🔧 Level' }).last()
  
@@ -33,7 +35,9 @@ export class TelegramPage {
 
   public levelDown = this.page.locator('.InlineButtons div:nth-child(2) span').last()
 
-  public backToQaPanel =this.page.locator('.InlineButtons div:nth-child(3) span').last()
+  public backToQaPanel =this.page.getByRole('button', { name: '🔍 QA menu' }).last()
+
+  public upHour = this.page.locator('.InlineButtons div:nth-child(1) span').last()
  
   public confirmation =this.page.getByRole('button', { name: 'Confirm' })
  
@@ -78,6 +82,10 @@ export class TelegramPage {
     await this.dailyReward.click();
   }
 
+  async pressCardsProfit() {
+    await this.cardsProfit.click();
+  }
+
   async pressFriends() {
     await this.friends.click();
   }
@@ -109,13 +117,20 @@ export class TelegramPage {
     await this.qaPanel.last().click();
   }
 
-  async pressLevelUp(clickCount) {
+  async pressUpHour(clickCount) {
+    for (let i = 0; i < clickCount; i++) {
+        await this.upHour.click();
+        await new Promise(resolve => setTimeout(resolve, 5000)); // Устанавливаем задержку в 5 секунд (5000 миллисекунд)
+    }
+}
+
+  async pressLevelUp(clickCount: number) {
     for (let i = 0; i < clickCount; i++) {
         await this.levelUp.click();
     }
 }
 
-  async pressLevelDown(clickCount) {
+  async pressLevelDown(clickCount: number) {
     for (let i = 0; i < clickCount; i++) {
         await this.levelUp.click();
     }
