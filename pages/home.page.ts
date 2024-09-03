@@ -22,7 +22,7 @@ export class HomePage {
  
  public levelName = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header div div a span').first()
 
- public levels =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header div div a span').nth(2)
+ public levels =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('a[href*="/ranks"] span:nth-of-type(2)')
  
  public claimRewardButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Сlaim your reward' })
  
@@ -93,10 +93,15 @@ else{console.log('reward window is not disaplyed')}
      return parseInt(availableEnergy);
   }
 
+ 
   async getEnergyLimit() {
     const energyText = await this.getEnergyText();
     const [availableEnergy, energyLimit] = energyText.split('/');
      return parseInt(energyLimit);
+  }
+  
+ async getLevelName() {
+    return await this.levelName.innerText();
   }
 
   async getPawsToLevelUp() {
