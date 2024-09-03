@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
 import { TelegramPage } from '../../pages/telegram.page';
 import { TestHelper } from '../../helpers/helper';
-import { LeaderboardPage } from '../../pages/leaderboard.page';
+import { RatingPage } from '../../pages/rating.page';
 import { NavigationMenu } from '../../pages/navigation.page';
 import { BoostsPage } from '../../pages/boosts.page';
 import { EarnPage } from '../../pages/earn.page';
