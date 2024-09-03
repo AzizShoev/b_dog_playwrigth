@@ -10,6 +10,7 @@ import { SettingsPage } from '../../pages/settings.page';
 import { assert } from 'console';
 import { beforeEach } from 'node:test';
 import { Fixtures } from '@playwright/test';
+import exp from 'constants';
 
 test.use({
     storageState: 'LoginAuth2.json'
@@ -34,27 +35,50 @@ test.use({
     const nav  = new NavigationMenu (page);
     const friends  = new FriendsPage (page);
 
-  await expect(home.ranks).toBeVisible();
+  await expect(home.currentBalance).toBeVisible();  
   await expect(home.earnPerTap).toBeVisible();
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
+  await expect(home.energy).toBeVisible();
+  await expect(home.boostButton).toBeVisible();
+  await expect(home.boostButton).toBeEnabled();
   await expect(nav.homeButton).toBeVisible();
+  await expect(nav.homeButton).toBeEnabled();
   await expect(nav.earnButton).toBeVisible();
+  await expect(nav.earnButton).toBeEnabled();
   await expect(nav.friendsButton).toBeVisible();
+  await expect(nav.friendsButton).toBeEnabled();
   await expect(nav.tasksButton).toBeVisible();
+  await expect(nav.tasksButton).toBeEnabled();
   await expect(home.ratingButton).toBeVisible();
+  await expect(home.ratingButton).toBeEnabled();
   await expect(nav.settingsButton).toBeVisible();
+  await expect(nav.settingsButton).toBeEnabled();
+  await expect(home.ranks).toBeVisible();
+  await expect(home.ranks).toBeEnabled();
   await nav.reloadApp();
   await page.waitForTimeout(1000);
+  await expect(home.currentBalance).toBeVisible();  
   await expect(home.earnPerTap).toBeVisible();
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
+  await expect(home.energy).toBeVisible();
+  await expect(home.boostButton).toBeVisible();
+  await expect(home.boostButton).toBeEnabled();
   await expect(nav.homeButton).toBeVisible();
+  await expect(nav.homeButton).toBeEnabled();
   await expect(nav.earnButton).toBeVisible();
+  await expect(nav.earnButton).toBeEnabled();
   await expect(nav.friendsButton).toBeVisible();
+  await expect(nav.friendsButton).toBeEnabled();
   await expect(nav.tasksButton).toBeVisible();
+  await expect(nav.tasksButton).toBeEnabled();
   await expect(home.ratingButton).toBeVisible();
+  await expect(home.ratingButton).toBeEnabled();
   await expect(nav.settingsButton).toBeVisible();
+  await expect(nav.settingsButton).toBeEnabled();
+  await expect(home.ranks).toBeVisible();
+  await expect(home.ranks).toBeEnabled();
 });
 
 test ('Go to Earn', async ({ page }) => {
@@ -64,8 +88,11 @@ test ('Go to Earn', async ({ page }) => {
     await nav.earnButton.click();
     await page.waitForTimeout(2000);
     await expect(earn.welfareButton).toBeVisible();
+    await expect(earn.welfareButton).toBeEnabled();
     await expect(earn.financeButton).toBeVisible();
+    await expect(earn.financeButton).toBeEnabled();
     await expect(earn.specialCardsButton).toBeVisible();
+    await expect(earn.specialCardsButton).toBeEnabled();
 });
 
 test ('Go to Friends', async ({ page }) => {
@@ -75,10 +102,15 @@ test ('Go to Friends', async ({ page }) => {
     await nav.goFriends();
     
     await expect(friends.inviteButton).toBeVisible();
+    await expect(friends.inviteButton).toBeEnabled();
     await expect(friends.copyButton).toBeVisible();
+    await expect(friends.copyButton).toBeEnabled();
     await expect(friends.bonusesButton).toBeVisible();
+    await expect(friends.bonusesButton).toBeEnabled();
     await expect(friends.refresheButton).toBeVisible();
+    await expect(friends.refresheButton).toBeEnabled();
     await expect(friends.friendsButton).toBeVisible();
+    await expect(friends.friendsButton).toBeEnabled();
 });
 
 test ('Go to Tasks', async ({ page }) => {
@@ -87,13 +119,26 @@ test ('Go to Tasks', async ({ page }) => {
 
     await nav.goTasks();
     await expect(tasks.countTasks).toBeVisible()
-    await expect(tasks.dailyRewardButton).toBeVisible();
-    await expect(tasks.shareTgStoriesButton).toBeVisible();
-    await expect(tasks.shareBdStorysButton).toBeVisible();
-    await expect(tasks.supportBdSharingTgStory).toBeVisible();
-    await expect(tasks.followXAccountButton).toBeVisible();
-    await expect(tasks.subscribeYouTubeButton).toBeVisible();
-    await expect(tasks.readNewsButton).toBeVisible();             0
+    await expect(tasks.dailyReward).toBeVisible();
+    await expect(tasks.dailyRewardButton).toBeEnabled();
+    await expect(tasks.shareBabyDogeSong).toBeVisible();
+    await expect(tasks.shareBabyDogeSongButton).toBeEnabled();
+    await expect(tasks.laborDayUsa).toBeVisible();
+    await expect(tasks.laborDayUsaButton).toBeEnabled();
+    await expect(tasks.joinCoinNewsTelegram).toBeVisible();
+    await expect(tasks.joinCoinNewsTelegramButton).toBeEnabled();
+    await expect(tasks.subscribeBabyDogeKids).toBeVisible();
+    await expect(tasks.subscribeBabyDogeKidsButton).toBeEnabled();
+    await expect(tasks.joinTelegram).toBeVisible();
+    await expect(tasks.joinTelegramButton).toBeEnabled();
+    await expect(tasks.subscribeYoutube).toBeVisible();
+    await expect(tasks.subscribeYoutubeButton).toBeEnabled();
+    await expect(tasks.followX).toBeVisible();
+    await expect(tasks.followXButton).toBeEnabled();
+    await expect(tasks.singBinancePetition).toBeVisible();
+    await expect(tasks.singBinancePetitionButton).toBeEnabled();
+    await expect(tasks.watchBabyDogeKids).toBeVisible();
+    await expect(tasks.watchBabyDogeKidsButton).toBeEnabled();             
 });
 
 test ('Go to Rating', async ({ page }) => {
@@ -104,10 +149,15 @@ test ('Go to Rating', async ({ page }) => {
     await home.goRating();
     await expect(lead.levelNameLink).toHaveText('Puppy Doge');
     await expect(lead.totalPAWS).toBeVisible();
+    await expect(lead.totalPAWS).toBeEnabled();
     await expect(lead.hourlyPAWS).toBeVisible();
+    await expect(lead.hourlyPAWS).toBeEnabled();
     await expect(lead.totalFriends).toBeVisible();
+    await expect(lead.totalFriends).toBeEnabled();
     await expect(lead.leftAngleButton).toBeVisible();
+    await expect(lead.leftAngleButton).toBeEnabled();
     await expect(lead.rightAngleButton).toBeVisible();
+    await expect(lead.rightAngleButton).toBeEnabled();
 });
 
 test ('Go to Settings', async ({ page }) => {
@@ -115,6 +165,9 @@ test ('Go to Settings', async ({ page }) => {
     const set = new SettingsPage (page);
     await nav.goSettings();
     await expect(set.selectLanguageList).toBeVisible();
+    await expect(set.selectLanguageList).toBeEnabled();
     await expect(set.contactEmail).toBeVisible();
+    await expect(set.contactEmail).toBeEnabled();
     await expect(set.copyButton).toBeVisible();
+    await expect(set.copyButton).toBeEnabled();
 });
