@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { TelegramPage } from '../pages/telegram.page';
-import { LeaderboardPage } from '../pages/leaderboard.page';
+import { LeaderboardPage } from '../pages/rating.page';
 import { NavigationMenu } from '../pages/navigation.page';
 import { BoostsPage } from '../pages/boosts.page';
 import { HomePage } from '../pages/home.page';

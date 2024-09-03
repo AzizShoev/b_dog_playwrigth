@@ -5,7 +5,7 @@ import { NavigationMenu } from '../../pages/navigation.page';
 import { FriendsPage } from '../../pages/friends.page';
 import { EarnPage } from '../../pages/earn.page';
 import { TasksPage } from '../../pages/tasks.page';
-import { LeaderboardPage } from '../../pages/leaderboard.page';
+import { RatingPage } from '../../pages/rating.page';
 import { SettingsPage } from '../../pages/settings.page';
 import { assert } from 'console';
 import { beforeEach } from 'node:test';
@@ -96,14 +96,15 @@ test ('Go to Tasks', async ({ page }) => {
     await expect(tasks.readNewsButton).toBeVisible();             0
 });
 
-test ('Go to Leaderboard', async ({ page }) => {
+test ('Go to Rating', async ({ page }) => {
     const nav  = new NavigationMenu (page);
     const home  = new HomePage (page);
-    const lead = new LeaderboardPage (page);
+    const lead = new RatingPage (page);
 
     await home.goRating();
     await expect(lead.levelNameLink).toHaveText('Puppy Doge');
     await expect(lead.totalPAWS).toBeVisible();
+    await expect(lead.hourlyPAWS).toBeVisible();
     await expect(lead.totalFriends).toBeVisible();
     await expect(lead.leftAngleButton).toBeVisible();
     await expect(lead.rightAngleButton).toBeVisible();
