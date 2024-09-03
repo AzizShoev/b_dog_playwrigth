@@ -3,90 +3,114 @@ import { Page } from '@playwright/test';
 export class TasksPage {
   constructor(private page: Page) {}
 
-    public countTasks = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('heading', { name: 'tasks' });
+    public countTasks = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section h2')
 
 //Daily Reward list
 
-    public dailyReward = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: 'Daily rewards+' }).nth(2);
+    public dailyReward = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-child(4)');
  
-    public dailyRewardButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('button').first();
+    public dailyRewardButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-child(4) button');
 
-//Task list
+    //Daily story share
 
-    public shareTgStories = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Share in Telegram stories\+300,000$/ }).first();
+    public meetGrandpaDoge = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(4) > div');
+    
+    public meetGrandpaDogeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(4) > div button');
 
-    public shareBdStorys = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Share BabyDoge’s birth story\+300,000$/ }).first();
+    //Task list
 
-    public supportBdSharingTgStory = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Support BabyDoge by sharing Telegram story\+300,000$/ }).first();
+    
+    public shareBabyDogeSong = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(1)');
+    public shareBabyDogeSongButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(1) button');
 
-    public followXAccount = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Follow Our X Account\+5,000$/ }).first();
+    public laborDayUsa = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(2)');
+    public laborDayUsaButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(2) button');
 
-    public subscribeYouTube = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Subscribe to Our YouTube Channel\+5,000$/ }).first();
+    public joinCoinNewsTelegram = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(3)');
+    public joinCoinNewsTelegramButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(3) button');
 
-    public readNews = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Read Our News\+5,000$/ }).first();
+    public subscribeBabyDogeKids = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(4)');
+    public subscribeBabyDogeKidsButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(4) button');
 
-//Task list buttons
+    public joinTelegram = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(5)');
+    public joinTelegramButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(5) button');
 
-    public shareTgStoriesButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Share in Telegram stories\+300,000$/ }).first().locator('button');
+    public subscribeYoutube = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(6)');
+    public subscribeYoutubeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(6) button');
 
-    public shareBdStorysButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Share BabyDoge’s birth story\+300,000$/ }).first().locator('button');
+    public followX = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(7)');
+    public followXButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(7) button');
 
-    public supportBdSharingTgStoryButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Support BabyDoge by sharing Telegram story\+300,000$/ }).first().locator('button');
+    public singBinancePetition = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(8)');
+    public singBinancePetitionButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(8) button');
 
-    public followXAccountButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Follow Our X Account\+5,000$/ }).first().locator('button');
-
-    public subscribeYouTubeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Subscribe to Our YouTube Channel\+5,000$/ }).first().locator('button');
-
-    public readNewsButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('div').filter({ hasText: /^Read Our News\+5,000$/ }).first().locator('button');
+    public watchBabyDogeKids = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(9)');
+    public watchBabyDogeKidsButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('main section >div:nth-of-type(5) >div> div:nth-child(9) button');
 
 //Modal window buttons
 
     public comebackTomorrowButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Comeback tomorrow' });
 
-    public shareButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Share' });
+    public collectButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Collect' });
 
-    public joinButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Join' });
+    public shareButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div div div>button:nth-child(4)');
 
-    public closeModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' });
+    public goButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div div div>button:nth-child(4)');
+
+    public closeModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div div div>button:nth-child(1)');
+
+    public checkButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div div div>button:nth-child(6)');
 
 //Clicks
 
-async pressTgStorys() {
-  await this.shareTgStoriesButton.click();
+async goShareBabyDogeSong() {
+  await this.shareBabyDogeSong.click();
 }
 
-async pressBdStorys() {
-  await this.shareBdStorysButton.click();
+async goLaborDay() {
+  await this.laborDayUsaButton.click();
 }
 
-async pressSupportBdSharingTgStory() {
-  await this.supportBdSharingTgStoryButton.click();
+async goJoinCoinNewsTelegram() {
+  await this.joinCoinNewsTelegramButton.click();
 }
 
-async pressXAccount() {
-  await this.followXAccountButton.click();
+async goSubscribeBabyDogeKids() {
+  await this.subscribeBabyDogeKidsButton.click();
 }
 
-async pressYouTubeSubscribe() {
-  await this.subscribeYouTubeButton.click();
+async goJoinTelegram() {
+  await this.joinTelegramButton.click();
 }
 
-async pressNews() {
-  await this.readNewsButton.click();
+async goSubscribeYoutube() {
+  await this.subscribeYoutubeButton.click();
 }
-async pressComebackTomorrow() {
-  await this.comebackTomorrowButton.click();
+async goFollowX() {
+  await this.followXButton.click();
 }  
 
-async pressShare() {
-  await this.shareButton.click();
+async goSingBinancePetition() {
+  await this.singBinancePetitionButton.click();
 }
 
-async pressJoin() {
-  await this.joinButton.click();
+async goWatchBabyDogeKids() {
+  await this.watchBabyDogeKidsButton.click();
 }
 
 async CloseModal() {
   await this.closeModalButton.click();
+}
+
+async pessGoModal() {
+  await this.goButton.click();
+}
+
+async pressShareModal() {
+  await this.shareButton.click();
+}
+
+async pressCheckModal() {
+  await this.checkButton.click();
 }
 }
