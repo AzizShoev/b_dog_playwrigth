@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
 import { TelegramPage } from '../../pages/telegram.page';
 import { TestHelper } from '../../helpers/helper';
-import { LeaderboardPage } from '../../pages/leaderboard.page';
+import { RatingPage } from '../../pages/rating.page';
 import { NavigationMenu } from '../../pages/navigation.page';
 import { BoostsPage } from '../../pages/boosts.page';
 import { EarnPage } from '../../pages/earn.page';
@@ -168,6 +168,7 @@ test ('Check profit per hour for 3 hour', async ({ page }) => {
     tg.pressPlay();
     console.log('Current ballance - ' + await home.getBalance());
     expect(await home.getBalance()).toBeGreaterThanOrEqual(3700);
+    expect(await home.getBalance()).toBeLessThanOrEqual(3750);
     expect(await home.getProfitPerHour()).toEqual(900);
 });
 
@@ -200,6 +201,7 @@ test ('Check profit per hour for 12 hour', async ({ page }) => {
     await help.upHour(12);
     tg.pressPlay();
     console.log('Current ballance - ' + await home.getBalance());
-    expect(await home.getBalance()).toBeLessThanOrEqual(3200);
+    expect(await home.getBalance()).toBeGreaterThanOrEqual(3000)
+    expect(await home.getBalance()).toBeLessThanOrEqual(3150);
     await expect(await home.profitPerHour).toHaveText('1K');
 });
