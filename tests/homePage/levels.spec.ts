@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
 import { TelegramPage } from '../../pages/telegram.page';
 import { TestHelper } from '../../helpers/helper';
-import { LeaderboardPage } from '../../pages/leaderboard.page';
+import { RatingPage } from '../../pages/rating.page';
 import { NavigationMenu } from '../../pages/navigation.page';
 import { BoostsPage } from '../../pages/boosts.page';
 
@@ -24,7 +24,7 @@ test.beforeEach(async ({ page }) => {
 test ('Check default level', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     
     await tg.pressPlay();
     await tg.pressConfirm();
@@ -41,7 +41,7 @@ test ('Up to level 3', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     
     await help.upLevel(2);
     await tg.pressPlay();
@@ -57,7 +57,7 @@ test ('Up to max level', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     
     await help.upLevel(9);
     await tg.pressPlay();
@@ -73,7 +73,7 @@ test ('Up level from 1 to 2', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     const nav  = new NavigationMenu (page);
     const boost = new BoostsPage (page);
 
@@ -105,7 +105,7 @@ test ('Up level from 9 to 10', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     const nav  = new NavigationMenu (page);
     const boost = new BoostsPage (page);
 
@@ -137,7 +137,7 @@ test ('Level not decrease when buying', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
-    const board = new LeaderboardPage (page);
+    const board = new RatingPage (page);
     const nav  = new NavigationMenu (page);
     const boost = new BoostsPage (page);
     
