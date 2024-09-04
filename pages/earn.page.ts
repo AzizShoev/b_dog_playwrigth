@@ -106,7 +106,7 @@ async getCostModal() {
 }
 
 async getLowBalanceSing() {
-  return parseInt((await this.lowBalanceSing.innerText()).replace(/\D/g, ''));
+  return await this.lowBalanceSing.innerText();
 }
 
 
