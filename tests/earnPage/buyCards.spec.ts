@@ -98,6 +98,7 @@ test ('Buy card with insufficient balance', async ({ page }) => {
     expect(await earn.getUpProfitModal()).toEqual(150);
     expect(await earn.getCostModal()).toEqual(await earn.getUpProfitModal()*10);
     await earn.buyCard();
+    await page.waitForTimeout(1500);
     expect(await earn.getBalance()).toEqual(8500);
     expect(await earnHelp.checkCardLevel(10)).toMatch('Level 1');
     await(await earnHelp.checkCard(9)).click();
