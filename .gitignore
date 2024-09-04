@@ -5,3 +5,4 @@ node_modules/
 /playwright/.cache/
 LoginAuth2.json
 LoginAuth2.json
+LoginAuth.json
