@@ -156,7 +156,7 @@ test ('Check profit per hour for 2 hour', async ({ page }) => {
     await nav.closeApp();
     await help.upHour(2);
     await tg.pressPlay();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(5000);
     await help.checkProfitByAway(400, 410);
     console.log('Current ballance - ' + await home.getBalance());
     expect(await home.getBalance()).toBeGreaterThanOrEqual(8400);
@@ -195,7 +195,7 @@ test ('Check profit per hour for 3 hour', async ({ page }) => {
     await nav.closeApp();
     await help.upHour(3);
     await tg.pressPlay();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(5000);
     await help.checkProfitByAway(2700, 2750);
     console.log('Current ballance - ' + await home.getBalance());
     expect(await home.getBalance()).toBeGreaterThanOrEqual(3700);
@@ -235,7 +235,7 @@ test ('Check profit per hour for 12 hour', async ({ page }) => {
     await nav.closeApp();
     await help.upHour(12);
     await tg.pressPlay();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(5000);
     await help.checkProfitByAway(3000, 3150);
     console.log('Current ballance - ' + await home.getBalance());
     expect(await home.getBalance()).toBeGreaterThanOrEqual(3000)
