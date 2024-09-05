@@ -36,11 +36,14 @@ export class HomePage {
  
  public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
+ public profitByAwayMessage = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(2)')
  
+ public profitByAwayButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(2)')
  
+ public profitByAwayCloseButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(1)')
+ 
+ public profitByAway = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app> div:nth-child(1) div:nth-child(3) p')
 
- 
- 
 
  async closeReward() {
   
@@ -127,4 +130,16 @@ else{console.log('reward window is not disaplyed')}
     return parseInt(maxLevel);
 }
 
+async getProfitByAway() {
+  return parseInt((await this.profitByAway.innerText()).replace(',', ''))
+}
+async getProfitByAwayMessage() {
+  return await this.profitByAwayMessage.innerText()
+}
+async pressProfitByAwayOk() {
+  await this.profitByAwayButton.click()
+}
+async pressProfitByAwayClose() {
+  await this.profitByAwayCloseButton.click()
+}
 }
