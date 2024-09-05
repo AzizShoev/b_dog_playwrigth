@@ -54,13 +54,13 @@ async checkCardLevel(cardsNum : number) {
 async findCardByName(cardNameToFind: string) {
     const earn = new EarnPage(this.page);
     const cardNum = await earn.card.locator('>div').count();
-    for (let i = 0; i < cardNum; i++) {
-        const cardSelector = `> div:nth-child(${i + 1})`;
+    for (let i = 1; i <= cardNum; i++) {
+        const cardSelector = `> div:nth-child(${i})`;
         const specificCard = earn.card.locator(cardSelector)
         const currentCardName = await specificCard.locator('> div > div div:nth-child(2) p').first().innerText();
         
         if (currentCardName === cardNameToFind) {
-            return i + 1;
+            return i;
         }
     }
     return console.log('Card not found');
