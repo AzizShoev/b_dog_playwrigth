@@ -73,4 +73,12 @@ export class TestHelper {
     public async checkLastTgMessage(message) {
         await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()]/div/div').first()).toContainText(message);
     }
+
+    public async checkProfitByAway(profitMin: number, profitMax: number) {
+        const home  = new HomePage (this.page);
+        await home.profitByAwayMessage.isVisible();
+        expect(await home.getProfitByAway()).toBeGreaterThanOrEqual(profitMin);
+        expect(await home.getProfitByAway()).toBeLessThanOrEqual(profitMax);
+        await home.pressProfitByAwayOk();
+    }
 }
