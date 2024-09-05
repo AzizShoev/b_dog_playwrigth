@@ -8,6 +8,7 @@ import { BoostsPage } from '../../pages/boosts.page';
 import { EarnPage } from '../../pages/earn.page';
 import { EarnHelper } from '../../helpers/earn.helper';
 import exp from 'constants';
+import { throws } from 'assert';
 
 test.use({
     storageState: 'LoginAuth2.json'
@@ -31,13 +32,19 @@ test ('Buy card', async ({ page }) => {
     const earnHelp = new EarnHelper(page);
     const home = new HomePage (page);
 
+   
+    
     tg.topUp('6809402010', '10000');
     tg.pressPlay();
     tg.pressConfirm();
     await page.waitForTimeout(5000);
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
-    await (await earnHelp.checkCard(10)).click();
+
+    const cardName = await earnHelp.findCardByName('AI Trader');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('AI Trader');
     expect(await earn.getCurrentProfitModal()).toEqual(0);
     expect(await earn.getUpProfitModal()).toEqual(150);
@@ -62,18 +69,22 @@ test ('Upgrade card from level 1 to level 2', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
-    await (await earnHelp.checkCard(10)).click();
+
+    const cardName = await earnHelp.findCardByName('AI Trader');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('AI Trader');
     await earn.buyCard();
-    expect(await earnHelp.checkCardLevel(10)).toMatch('Level 1');
+    expect(await earnHelp.checkCardLevel(cardNumber)).toMatch('Level 1');
     await (await earnHelp.checkCard(10)).click();
     expect(await earn.getCurrentProfitModal()).toEqual(150);
     expect(await earn.getUpProfitModal()).toEqual(160);
     expect(await earn.getCostModal()).toEqual(2486);
     await earn.upgradeCard();
     await page.waitForTimeout(2000);
-    expect(await earnHelp.checkCardLevel(10)).toMatch('Level 2');
-    expect(await earnHelp.checkCardPrice(10)).toEqual(4136);
+    expect(await earnHelp.checkCardLevel(cardNumber)).toMatch('Level 2');
+    expect(await earnHelp.checkCardPrice(cardNumber)).toEqual(4136);
     await nav.goBack();
     expect(await home.getBalance()).toEqual(6014);
     expect(await home.getProfitPerHour()).toEqual(310);
@@ -92,7 +103,11 @@ test ('Buy card with insufficient balance', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
-    await (await earnHelp.checkCard(10)).click();
+
+    const cardName = await earnHelp.findCardByName('AI Trader');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('AI Trader');
     expect(await earn.getCurrentProfitModal()).toEqual(0);
     expect(await earn.getUpProfitModal()).toEqual(150);
@@ -100,8 +115,11 @@ test ('Buy card with insufficient balance', async ({ page }) => {
     await earn.buyCard();
     await page.waitForTimeout(1500);
     expect(await earn.getBalance()).toEqual(8500);
-    expect(await earnHelp.checkCardLevel(10)).toMatch('Level 1');
-    await(await earnHelp.checkCard(9)).click();
+    expect(await earnHelp.checkCardLevel(cardNumber)).toMatch('Level 1');
+
+    const highCostCardName = await earnHelp.findCardByName('Cross Chain Bridge');
+    const cardNum = highCostCardName as number
+    await(await earnHelp.checkCard(cardNum)).click();
     expect(await earn.getLowBalanceSing()).toMatch('Need 1,500');
 });
 
@@ -120,7 +138,11 @@ test ('Check profit per hour for 2 hour', async ({ page }) => {
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
     await earn.pressWelfare();
-    await (await earnHelp.checkCard(7)).click();
+
+    const cardName = await earnHelp.findCardByName('International Cooperation');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('International Cooperation');
     expect(await earn.getCurrentProfitModal()).toEqual(0);
     expect(await earn.getUpProfitModal()).toEqual(200);
@@ -153,7 +175,11 @@ test ('Check profit per hour for 3 hour', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
-    await (await earnHelp.checkCard(5)).click();
+
+    const cardName = await earnHelp.findCardByName('Baby Doge Games');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('Baby Doge Games');
     expect(await earn.getCurrentProfitModal()).toEqual(0);
     expect(await earn.getUpProfitModal()).toEqual(900);
@@ -187,7 +213,11 @@ test ('Check profit per hour for 12 hour', async ({ page }) => {
     await page.waitForTimeout(5000);
     expect(await home.getBalance()).toEqual(10000);
     await nav.goEarn();
-    await (await earnHelp.checkCard(9)).click();
+
+    const cardName = await earnHelp.findCardByName('Cross Chain Bridge');
+    const cardNumber = cardName as number
+
+    await (await earnHelp.checkCard(cardNumber)).click();
     expect(await earn.getCardNameModal()).toMatch('Cross Chain Bridge');
     expect(await earn.getCurrentProfitModal()).toEqual(0);
     expect(await earn.getUpProfitModal()).toEqual(1000);
