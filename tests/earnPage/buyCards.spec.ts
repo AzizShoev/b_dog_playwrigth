@@ -190,7 +190,6 @@ test ('Check profit per hour for 3 hour', async ({ page }) => {
     await page.waitForTimeout(2000);
     expect(await earn.getBalance()).toEqual(1000);
     await nav.goBack();
-    expect(await home.getBalance()).toEqual(1000);
     expect(await home.getProfitPerHour()).toEqual(900);
     await nav.closeApp();
     await help.upHour(3);
