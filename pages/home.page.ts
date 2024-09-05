@@ -36,7 +36,7 @@ export class HomePage {
  
  public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
- public profitByAwayMessage = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(2)')
+ public profitByAwayMessage = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(2)').first()
  
  public profitByAwayButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(2)')
  
