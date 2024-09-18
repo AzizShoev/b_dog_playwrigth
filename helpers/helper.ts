@@ -12,13 +12,21 @@ export class TestHelper {
         this.page = page;
     }
 
+    public async openApp() {
+        const tg = new TelegramPage(this.page);
+        await tg.checkErrorMessage();
+        await tg.pressPlay();
+        await tg.pressConfirm();
+        await this.page.waitForTimeout(5000);
+    }
+
     public async upLevel(countClick) {
         const tg = new TelegramPage(this.page);
         await tg.pressLevel()
         await this.page.waitForTimeout(2000);
         await tg.pressLevelUp(countClick)
         await this.page.waitForTimeout(7000);
-        await expect(this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        expect(await this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
@@ -29,7 +37,7 @@ export class TestHelper {
         await this.page.waitForTimeout(2000);
         await tg.pressLevelDown(countClick)
         await this.page.waitForTimeout(7000);
-        await expect(this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
+        expect(await this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
@@ -43,12 +51,16 @@ export class TestHelper {
 
     public async refresh() {
         const tg = new TelegramPage(this.page);
+        const lastMessageStart = await this.page.locator('.bottom-marker[data-message-id]').last();
         await tg.writeMessage('/start');
         await tg.sendMessage();
-        await this.page.waitForTimeout(10000);
+        const lastMessageStartId = await lastMessageStart.getAttribute('data-message-id') ?? '';
+        const nextMessageId = parseInt(lastMessageStartId) + 2;
+        await this.page.waitForSelector(`.bottom-marker[data-message-id="${nextMessageId}"]`, { state: 'attached' });
         await tg.pressQaPanel();
         await this.page.waitForTimeout(3000);
         await tg.pressRefresh();
+        await this.page.waitForSelector(`.bottom-marker[data-message-id="${nextMessageId + 2}"]`, { state: 'attached' });
     }
 
     public async buyMulitap() {
@@ -72,13 +84,5 @@ export class TestHelper {
     }
     public async checkLastTgMessage(message) {
         await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()]/div/div').first()).toContainText(message);
-    }
-
-    public async checkProfitByAway(profitMin: number, profitMax: number) {
-        const home  = new HomePage (this.page);
-        await home.profitByAwayMessage.isVisible();
-        expect(await home.getProfitByAway()).toBeGreaterThanOrEqual(profitMin);
-        expect(await home.getProfitByAway()).toBeLessThanOrEqual(profitMax);
-        await home.pressProfitByAwayOk();
     }
 }
