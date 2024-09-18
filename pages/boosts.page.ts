@@ -31,8 +31,16 @@ async getEnergyLevel() {
   return await this.energyLevel.innerText();
 }
 
+async getEnergyPrice() {
+  return parseInt((await this.buyEnergyButton.innerText()).replace(',', ''));
+}
+
 async getMultitapLevel() {
   return await this.multitapLevel.innerText();
+}
+
+async getMultitapPrice() {
+  return parseInt((await this.buyMultitapButton.innerText()).replace(',', ''));
 }
 
 async buy(){
