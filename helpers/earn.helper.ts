@@ -7,57 +7,69 @@ export class EarnHelper {
         this.page = page;
 }
 
-async checkCard(cardsNum: number): Promise <any> {
+async checkCard(listNum : number, cardsNum: number) {
     const earn = new EarnPage(this.page);
-    const cardSelector = `> div:nth-child(${cardsNum})`;
-    const specificCard = earn.card.locator(cardSelector);
+    const cardSelector = `>div >div:nth-child(${cardsNum})`;
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const specificCard = specificCardList.locator(cardSelector);;
         
     return specificCard;
 }
 
-async checkCardName(cardsNum: number) {
+async checkCardName(listNum : number, cardsNum: number) {
     const earn = new EarnPage(this.page);
-    const cardSelector = `> div:nth-child(${cardsNum})`;
-    const specificCard = earn.card.locator(cardSelector); 
-    const specificCardName = specificCard.locator('> div > div div:nth-child(2) p').first();
+    const cardSelector = `>div >div:nth-child(${cardsNum})`;
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const specificCard = specificCardList.locator(cardSelector); 
+    const specificCardName = specificCard.locator(' div>div:nth-child(2) p').first();
 
     return await specificCardName.innerText();
 }
 
-async checkCardsProfit(cardsNum : number) {
+async checkCardsProfit(listNum : number, cardsNum: number) {
     const earn = new EarnPage(this.page);
-    const cardSelector = `> div:nth-child(${cardsNum})`;
-    const specificCard = earn.card.locator(cardSelector);
+    const cardSelector = `>div >div:nth-child(${cardsNum})`;
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const specificCard = specificCardList.locator(cardSelector);  
     const specificProfit = specificCard.locator(' div:nth-child(2) div div p');
 
     return parseInt((await specificProfit.innerText()).replace(/[^\d.-]/g, ''));
 }
 
-async checkCardPrice(cardsNum : number) {
+async checkCardPrice(listNum : number, cardsNum: number) {
     const earn = new EarnPage(this.page);
-    const cardSelector = `> div:nth-child(${cardsNum})`;
-    const specificCard = earn.card.locator(cardSelector);
-    const specificPrice = specificCard.locator('>div >div:nth-child(2) button div');
+    const cardSelector = `>div >div:nth-child(${cardsNum})`;
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const specificCard = specificCardList.locator(cardSelector); 
+    const specificPrice = specificCard.locator('>div button div');
 
     return  parseInt((await specificPrice.innerText()).replace(',', ''));
 }
 
-async checkCardLevel(cardsNum : number) {
+async checkCardLevel(listNum : number, cardsNum: number) {
     const earn = new EarnPage(this.page);
-    const cardSelector = `> div:nth-child(${cardsNum})`;
-    const specificCard = earn.card.locator(cardSelector);
-    const specificLevel = specificCard.locator('>div>div:nth-child(2) p').first();
+    const cardSelector = `>div >div:nth-child(${cardsNum})`;
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const specificCard = specificCardList.locator(cardSelector);  
+    const specificLevel = specificCard.locator('div p').first();
 
     return await specificLevel.innerText();
 }
 
-async findCardByName(cardNameToFind: string) {
+async findCardByName(listNum : number, cardNameToFind: string) {
     const earn = new EarnPage(this.page);
-    const cardNum = await earn.card.locator('>div').count();
+    const cardList = `>div:nth-child(${listNum})`;
+    const specificCardList = earn.card.locator(cardList);
+    const cardNum = await specificCardList.locator('>div>div').count();
     for (let i = 1; i <= cardNum; i++) {
-        const cardSelector = `> div:nth-child(${i})`;
-        const specificCard = earn.card.locator(cardSelector)
-        const currentCardName = await specificCard.locator('> div > div div:nth-child(2) p').first().innerText();
+        const cardSelector = `>div>div:nth-child(${i})`;
+        const specificCard = await specificCardList.locator(cardSelector)
+        const currentCardName = await specificCard.locator(' div>div:nth-child(2) p').first().innerText();
         
         if (currentCardName === cardNameToFind) {
             return i;
