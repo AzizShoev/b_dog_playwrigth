@@ -218,3 +218,34 @@ test ('Check finance card modal info', async ({ page }) => {
         throw new Error('Card cost modal error');
     }
 });
+
+test ('Sorting cards by level', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
+
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await (await earnHelp.checkCard(financeCards, 1)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    
+    const cardName2 = await earnHelp.findCardByName(financeCards,'Baby Doge Games');
+    const cardNumber2 = cardName2 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber2)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Launchpad');
+    expect.soft(await earnHelp.checkCardLevel(financeCards, 1)).toMatch('LVL 2');
+    expect.soft(await earnHelp.checkCardName(financeCards, 2)).toMatch('Baby Doge Games');
+    expect.soft(await earnHelp.checkCardLevel(financeCards, 2)).toMatch('LVL 1');
+})
