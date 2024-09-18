@@ -8,6 +8,7 @@ import { BoostsPage } from '../../pages/boosts.page';
 import { EarnPage } from '../../pages/earn.page';
 import { EarnHelper } from '../../helpers/earn.helper';
 import exp from 'constants';
+import assert from 'assert';
 
 test.use({
     storageState: 'LoginAuth2.json'
@@ -18,101 +19,87 @@ test.use({
 test.beforeEach(async ({ page }) => {
     const tg = new TelegramPage(page);
     const help = new TestHelper(page);
+    const nav = new NavigationMenu (page);
+
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
     await tg.checkErrorMessage();
-    //await help.refresh();
+    await help.refresh();
+    await help.openApp();
+    await nav.goEarn();
 });
 
+const financeCards = 2;
+const welfareCards = 3;
+const specialCards = 4;
+
 test ('Check finance cards visible', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page);
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
+    
     await page.waitForTimeout(2000);
-    console.log('Total number of cards -> '+ await earn.card.locator('>div').count());
-    const cardsFinance = await earn.card.locator('>div').count()
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(2)>div>div').count());
+    const cardsFinance = await earn.card.locator('>div:nth-child(2)>div>div').count()
     
     for (let i = 1; i <= cardsFinance; i++) {
         
-        expect(await earnHelp.checkCard(i)).toBeVisible();
-        expect(await earnHelp.checkCard(i)).toBeEnabled();
+        expect(await earnHelp.checkCard(financeCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(financeCards, i)).toBeEnabled();
         await page.waitForTimeout(1000);
     }
 });
 
-test ('Check wwlfare cards visible', async ({ page }) => {
-    const tg  = new TelegramPage (page);
-    const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
+test ('Check welfare cards visible', async ({ page }) => {
+    const earn = new EarnPage (page);;
     const earnHelp = new EarnHelper(page);
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
+    
     await earn.pressWelfare();
     await page.waitForTimeout(2000);
-    console.log('Total number of cards -> '+ await earn.card.locator('>div').count());
-    const cardsWelfare = await earn.card.locator('>div').count()
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(3)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(3)>div>div').count()
     
     for (let i = 1; i <= cardsWelfare; i++) {
         
-        expect(await earnHelp.checkCard(i)).toBeVisible();
-        expect(await earnHelp.checkCard(i)).toBeEnabled();
+        expect(await earnHelp.checkCard(welfareCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(welfareCards, i)).toBeEnabled();
         await page.waitForTimeout(1000);
     }
 });
 
 test ('Check special cards visible', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page);
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await earn.pressSpecialCardsButton();
     await page.waitForTimeout(2000);
-    console.log('Total number of cards -> '+ await earn.card.locator('>div').count());
-    const cardsWelfare = await earn.card.locator('>div').count()
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(4)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(4)>div>div').count()
     
     for (let i = 1; i <= cardsWelfare; i++) {
         
-        expect(await earnHelp.checkCard(i)).toBeVisible();
-        expect(await earnHelp.checkCard(i)).toBeEnabled();
+        expect(await earnHelp.checkCard(specialCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(specialCards, i)).toBeEnabled();
         await page.waitForTimeout(1000);
     }
 });
 
 
 test ('Check finance card info', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page)
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await page.waitForTimeout(2000);
-    console.log('Total count of cards -> '+ await earn.card.locator('>div').count());
-    const cardsFinance = await earn.card.locator('>div').count()
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(2)>div>div').count());
+    const cardsFinance = await earn.card.locator('>div:nth-child(2)>div>div').count()
 
     for (let i = 1; i <= cardsFinance; i++) {
-        const name = await (await earnHelp.checkCardName(i));
-        const cardName = await earnHelp.findCardByName(name);
+        const name = (await earnHelp.checkCardName(financeCards, i));
+        const cardName = await earnHelp.findCardByName(financeCards, name);
         const cardNumber = cardName as number
-        const profit = await earnHelp.checkCardsProfit(cardNumber);
-        const price = await earnHelp.checkCardPrice(cardNumber);
+        const profit = await earnHelp.checkCardsProfit(financeCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(financeCards, cardNumber);
         if (!name || name === '' || name === ' ' || name === undefined) {
             throw new Error('Card Name is empty or undefined');
         }
@@ -122,38 +109,32 @@ test ('Check finance card info', async ({ page }) => {
         if (!price || price === undefined) {
             throw new Error('Card Price is empty or undefined');
         }
-        expect(await earnHelp.checkCardName(cardNumber)).toMatch(name);
-        expect(await earnHelp.checkCardsProfit(cardNumber)).toEqual(profit);
-        if(!(await earnHelp.checkCardPrice(cardNumber) === await earnHelp.checkCardsProfit(cardNumber)*10)){
-            console.log('Special price: -> '+ await earnHelp.checkCardName(cardNumber));
+        expect(await earnHelp.checkCardName(financeCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(financeCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(financeCards, cardNumber) === await earnHelp.checkCardsProfit(financeCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(financeCards, cardNumber));
         }else{
-            expect(await earnHelp.checkCardPrice(cardNumber)).toEqual(await earnHelp.checkCardsProfit(cardNumber)*10);
+            expect(await earnHelp.checkCardPrice(financeCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(financeCards, cardNumber)*10);
         }
-        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(cardNumber));
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(financeCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(financeCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(financeCards, cardNumber));
     }
 });
 
 test ('Check welfare cards info', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page)
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await earn.pressWelfare();
     await page.waitForTimeout(2000)
-    console.log('Total count of cards -> '+ await earn.card.locator('>div').count());
-    const cardsWelfare = await earn.card.locator('>div').count()
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(3)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(3)>div>div').count()
 
     for (let i = 1; i <= cardsWelfare; i++) {
-        const name = await (await earnHelp.checkCardName(i));
-        const cardName = await earnHelp.findCardByName(name);
+        const name = await (await earnHelp.checkCardName(welfareCards, i));
+        const cardName = await earnHelp.findCardByName(welfareCards, name);
         const cardNumber = cardName as number
-        const profit = await earnHelp.checkCardsProfit(cardNumber);
-        const price = await earnHelp.checkCardPrice(cardNumber);
+        const profit = await earnHelp.checkCardsProfit(welfareCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(welfareCards, cardNumber);
         if (!name || name === '' || name === ' ' || name === undefined) {
             throw new Error('Card Name is empty or undefined');
         }
@@ -163,38 +144,32 @@ test ('Check welfare cards info', async ({ page }) => {
         if (!price || price === undefined) {
             throw new Error('Card Price is empty or undefined');
         }
-        expect(await earnHelp.checkCardName(cardNumber)).toMatch(name);
-        expect(await earnHelp.checkCardsProfit(cardNumber)).toEqual(profit);
-        if(!(await earnHelp.checkCardPrice(cardNumber) === await earnHelp.checkCardsProfit(cardNumber)*10)){
-            console.log('Special price: -> '+ await earnHelp.checkCardName(cardNumber));
+        expect(await earnHelp.checkCardName(welfareCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(welfareCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(welfareCards, cardNumber) === await earnHelp.checkCardsProfit(welfareCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(welfareCards, cardNumber));
         }else{
-            expect(await earnHelp.checkCardPrice(cardNumber)).toEqual(await earnHelp.checkCardsProfit(cardNumber)*10);
+            expect(await earnHelp.checkCardPrice(welfareCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(welfareCards, cardNumber)*10);
         }
-        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(cardNumber));
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(welfareCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(welfareCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(welfareCards, cardNumber));
     }
 });
 
 test ('Check special cards info', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page)
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await earn.pressSpecialCardsButton();
     await page.waitForTimeout(2000)
-    console.log('Total count of cards -> '+ await earn.card.locator('>div').count());
-    const cardsWelfare = await earn.card.locator('>div').count()
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(4)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(4)>div>div').count()
 
     for (let i = 1; i <= cardsWelfare; i++) {
-        const name = await (await earnHelp.checkCardName(i));
-        const cardName = await earnHelp.findCardByName(name);
+        const name = await (await earnHelp.checkCardName(specialCards, i));
+        const cardName = await earnHelp.findCardByName(specialCards, name);
         const cardNumber = cardName as number
-        const profit = await earnHelp.checkCardsProfit(cardNumber);
-        const price = await earnHelp.checkCardPrice(cardNumber);
+        const profit = await earnHelp.checkCardsProfit(specialCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(specialCards, cardNumber);
         if (!name || name === '' || name === ' ' || name === undefined) {
             throw new Error('Card Name is empty or undefined');
         }
@@ -204,13 +179,42 @@ test ('Check special cards info', async ({ page }) => {
         if (!price || price === undefined) {
             throw new Error('Card Price is empty or undefined');
         }
-        expect(await earnHelp.checkCardName(cardNumber)).toMatch(name);
-        expect(await earnHelp.checkCardsProfit(cardNumber)).toEqual(profit);
-        if(!(await earnHelp.checkCardPrice(cardNumber) === await earnHelp.checkCardsProfit(cardNumber)*10)){
-            console.log('Special price: -> '+ await earnHelp.checkCardName(cardNumber));
+        expect(await earnHelp.checkCardName(specialCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(specialCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(specialCards, cardNumber) === await earnHelp.checkCardsProfit(specialCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(specialCards, cardNumber));
         }else{
-            expect(await earnHelp.checkCardPrice(cardNumber)).toEqual(await earnHelp.checkCardsProfit(cardNumber)*10);
+            expect(await earnHelp.checkCardPrice(specialCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(specialCards, cardNumber)*10);
         }
-        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(cardNumber));
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(specialCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(specialCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(specialCards, cardNumber));
+    }
+});
+
+test ('Check finance card modal info', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+
+    const cardName = await earnHelp.findCardByName(financeCards, 'NFT Marketplace');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    try{
+        expect.soft(await earn.getCardNameModal()).toMatch('NFT Marketplace');
+    }catch(error){
+        throw new Error('Card name modal error');
+    }
+    try{
+        expect.soft(await earn.getCurrentProfitModal()).toEqual(0);
+    }catch(error){
+        throw new Error('Card current profit modal error');
+    }
+    try{
+        expect.soft(await earn.getUpProfitModal()).toEqual(35);
+    }catch(error){
+        throw new Error('Card up profit modal error');
+    }
+    try{
+        expect.soft(await earn.getCostModal()).toEqual(350);
+    }catch(error){
+        throw new Error('Card cost modal error');
     }
 });
