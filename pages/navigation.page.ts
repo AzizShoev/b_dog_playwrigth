@@ -5,15 +5,17 @@ export class NavigationMenu {
  
  
  
-  public homeButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Main' })
+  public homeButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[href ="/"]')
  
-  public earnButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Earn' })
+  public earnButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[href ="/earn"]')
  
-  public friendsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Friends' })
+  public friendsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[href ="/friends"]')
  
-  public tasksButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'menu Tasks' })
+  public tasksButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[href ="/tasks"]')
  
-  public settingsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('link', { name: 'setting' })
+  public settingsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[href ="/setting"]')
+
+  public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
   public backButton =  this.page.getByLabel('Back')
  
@@ -41,6 +43,10 @@ export class NavigationMenu {
 
   async goTasks() {
     await this.tasksButton.click();
+  }
+
+  async goRating() {
+    await this.ratingButton.click();
   }
   async goSettings() {
     await this.settingsButton.click();
