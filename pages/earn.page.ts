@@ -13,7 +13,7 @@ export class EarnPage {
  
  //Cards
 //use nth(1-~)
- public card = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) > div > div')
+ public card = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section> div:nth-of-type(4)')
  
  public cardName = this.card.locator('>div >div div:nth-child(2) p').first()
 
@@ -31,7 +31,7 @@ export class EarnPage {
 
  public currentProfitModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(4) div div p').first()
 
- public upProfitModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(4) div div span')
+ public upProfitModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(4) div div span').first()
 
  public costModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(5) div p').first()
  
