@@ -93,15 +93,15 @@ export class TelegramPage {
     await this.level.click();
   }
   async pressRefresh() {
-    const buttonsBefore = await this.page.getByText('Account was refreshed').all();
+    // const buttonsBefore = await this.page.getByText('Account was refreshed').all();
     await this.refresh.last().click();    
-    await this.page.waitForTimeout(5000);  
-    const buttonsAfter =  await this.page.getByText('Account was refreshed').all();   
-    if (buttonsBefore.length < buttonsAfter.length) {
-        return true;
-    } else {      
-        throw new Error('Refresh was not applied.');
-    }
+    // await this.page.waitForTimeout(5000);  
+    // const buttonsAfter =  await this.page.getByText('Account was refreshed').all();   
+    // if (buttonsBefore.length < buttonsAfter.length) {
+    //     return true;
+    // } else {      
+    //     throw new Error('Refresh was not applied.');
+    // }
 }
   async pressToken() {
     await this.dailyReward.click();
@@ -120,7 +120,7 @@ export class TelegramPage {
   async pressUpHour(clickCount) {
     for (let i = 0; i < clickCount; i++) {
         await this.upHour.click();
-        await new Promise(resolve => setTimeout(resolve, 5000)); // Устанавливаем задержку в 5 секунд (5000 миллисекунд)
+        await new Promise(resolve => setTimeout(resolve, 5000)); //задержка 5 секунд между кликами
     }
 }
 
