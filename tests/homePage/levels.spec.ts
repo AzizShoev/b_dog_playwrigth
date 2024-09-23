@@ -96,7 +96,7 @@ test ('Up level from 1 to 2', async ({ page }) => {
 
     await tg.topUp('6809402010', '24999')
     await help.openApp();
-    await home.mine();
+    await help.mineTap(2);
     await page.waitForTimeout(2000)
     try {
         expect.soft(await home.getLevelName()).toMatch('Samurai Doge');
@@ -119,7 +119,7 @@ test ('Up level from 2 to 3', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '49998')
+    await tg.topUp('6809402010', '49999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
@@ -141,7 +141,7 @@ test ('Up level from 3 to 4', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '299997')
+    await tg.topUp('6809402010', '299999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
@@ -163,7 +163,7 @@ test ('Up level from 4 to 5', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '499996')
+    await tg.topUp('6809402010', '499999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
@@ -185,7 +185,7 @@ test ('Up level from 5 to 6', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '999995')
+    await tg.topUp('6809402010', '999999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
@@ -207,12 +207,12 @@ test ('Up level from 6 to 7', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '9999994')
+    await tg.topUp('6809402010', '9999999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
     try {
-        expect.soft(await home.getLevelName()).toMatch('Duke Doge');
+        expect.soft(await home.getLevelName()).toMatch('Developer Doge');
     } catch (error) {
         throw new Error('Level name is not as expected');
     }
@@ -229,12 +229,12 @@ test ('Up level from 7 to 8', async ({ page }) => {
     const board = new RatingPage (page);
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '99999993')
+    await tg.topUp('6809402010', '99999999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
     try {
-        expect.soft(await home.getLevelName()).toMatch('Alpha Doge');
+        expect.soft(await home.getLevelName()).toMatch('Vet Doge');
     } catch (error) {
         throw new Error('Level name is not as expected');
     }
@@ -251,7 +251,7 @@ test ('Up level from 8 to 9', async ({ page }) => {
     const board = new RatingPage (page);    
     const help = new TestHelper(page);
 
-    await tg.topUp('6809402010', '499999992')
+    await tg.topUp('6809402010', '499999999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
@@ -275,7 +275,7 @@ test ('Up level from 9 to 10', async ({ page }) => {
     const nav  = new NavigationMenu (page);
     const boost = new BoostsPage (page);
 
-    await tg.topUp('6809402010', '999999991')
+    await tg.topUp('6809402010', '999999999')
     await help.openApp();
     await home.mine();
     await page.waitForTimeout(7000)
