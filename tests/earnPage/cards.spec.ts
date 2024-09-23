@@ -249,3 +249,96 @@ test ('Sorting cards by level', async ({ page }) => {
     expect.soft(await earnHelp.checkCardName(financeCards, 2)).toMatch('Baby Doge Games');
     expect.soft(await earnHelp.checkCardLevel(financeCards, 2)).toMatch('LVL 1');
 })
+
+test ('Sorting cards by price', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
+
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName1 = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber1 = cardName1 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber1)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await (await earnHelp.checkCard(financeCards, 2)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    await earn.sortCardsList.click();
+    await earn.sortByPrice.click();
+    await page.waitForTimeout(1000);
+    console.log('First card after sort by price: ' + await earnHelp.checkCardName(financeCards, 1));
+    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
+    console.log('First card price after sort by price: ' + await earnHelp.checkCardPrice(financeCards, 1));
+    expect.soft(await earnHelp.checkCardPrice(financeCards, 1)).toEqual(41429);
+})
+
+test ('Sorting cards by profit per hour', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
+
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName1 = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber1 = cardName1 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber1)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName2 = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber2 = cardName2 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber2)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    await earn.sortCardsList.click();
+    await earn.sortByProfit.click();
+
+    console.log('First card after sort by profit: ' + await earnHelp.checkCardName(financeCards, 1));
+    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
+    console.log('First card profit per hour after sort by profit: ' + await earnHelp.checkCardsProfit(financeCards, 1));
+    expect.soft(await earnHelp.checkCardsProfit(financeCards, 1)).toEqual(5164);
+});
+
+test ('Reverse sorting', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
+
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await earn.reverseSortingButton.click();
+    try {
+        console.log('Afetr sorting last card: ' + await earnHelp.checkCardName(financeCards, 17));
+        expect(await earnHelp.checkCardName(financeCards, 17)).toMatch('Crypto Risk Management');
+    } catch (error) {
+        throw new Error('After sorting last card is not as expected');
+    }
+});
