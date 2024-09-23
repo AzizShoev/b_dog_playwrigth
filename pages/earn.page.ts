@@ -1,16 +1,32 @@
 import { Page } from '@playwright/test';
+import { text } from 'stream/consumers';
 
 export class EarnPage {
   constructor(private page: Page) {}
  
  public currentBalance = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main h2')
 
+ public cardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="cards"]')
+
+ public boostersButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="boosters"]')
+
  public welfareButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Welfare"]')
  
  public specialCardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Special Cards"]')
  
  public financeButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Finance"]');
+
+ public sortCardsList = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section> div:nth-of-type(4) >div>div p span').first()
+
+ public reverseSortingButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section> div:nth-of-type(4) >div>div:nth-child(2) img')
  
+ public listSortBy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section> div:nth-of-type(4) div:nth-of-type(2)').first()
+ 
+ public sortByLevel = this.listSortBy.getByText('By Level')
+
+ public sortByPrice = this.listSortBy.getByText('By Price')
+
+ public sortByProfit = this.listSortBy.getByText('By Per Hour')
  //Cards
 //use nth(1-~)
  public card = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section> div:nth-of-type(4)')
@@ -107,6 +123,12 @@ async getCostModal() {
 
 async getLowBalanceSing() {
   return await this.lowBalanceSing.innerText();
+}
+
+//Boosts
+
+async goBoosters() {
+  await this.boostersButton.click();
 }
 
 
