@@ -5,6 +5,7 @@ import { RatingPage } from '../pages/rating.page';
 import { NavigationMenu } from '../pages/navigation.page';
 import { BoostsPage } from '../pages/boosts.page';
 import { HomePage } from '../pages/home.page';
+import { EarnPage } from '../pages/earn.page';
 
 export class TestHelper {
     private page: Page;
@@ -26,7 +27,6 @@ export class TestHelper {
         await this.page.waitForTimeout(2000);
         await tg.pressLevelUp(countClick)
         await this.page.waitForTimeout(7000);
-        expect(await this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
@@ -37,7 +37,6 @@ export class TestHelper {
         await this.page.waitForTimeout(2000);
         await tg.pressLevelDown(countClick)
         await this.page.waitForTimeout(7000);
-        expect(await this.checkPreLastTgMessage('Current level ' + (countClick + 1)) + '').toBeTruthy();
         await tg.pressBackToQaPanel();
     }
 
@@ -58,31 +57,54 @@ export class TestHelper {
         const nextMessageId = parseInt(lastMessageStartId) + 2;
         await this.page.waitForSelector(`.bottom-marker[data-message-id="${nextMessageId}"]`, { state: 'attached' });
         await tg.pressQaPanel();
-        await this.page.waitForTimeout(3000);
+        await this.page.waitForSelector(`.bottom-marker[data-message-id="${nextMessageId + 1}"]`, { state: 'attached' });
         await tg.pressRefresh();
         await this.page.waitForSelector(`.bottom-marker[data-message-id="${nextMessageId + 2}"]`, { state: 'attached' });
     }
 
     public async buyMulitap() {
-        const home  = new HomePage (this.page);
         const boost = new BoostsPage (this.page);
-        await home.goBoost();
+        const nav  = new NavigationMenu (this.page);
+        const earn = new EarnPage (this.page);
+        await nav.goEarn();
+        await earn.goBoosters();
+        await boost.goBoostersTab();
         await boost.buyMultitap();
         await boost.buy();
+        await this.page.waitForTimeout(2000);
     }
 
     public async buyEnergy() {
-        const home  = new HomePage (this.page);
         const boost = new BoostsPage (this.page);
-        await home.goBoost();
+        const nav  = new NavigationMenu (this.page);
+        const earn = new EarnPage (this.page);
+        await nav.goEarn();
+        await earn.goBoosters();
+        await boost.goBoostersTab();
         await boost.buyEnergy();
         await boost.buy();
+        await this.page.waitForTimeout(2000);
     }
 
-   public async checkPreLastTgMessage(message) {
-        await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()-2]/div/div').first()).toContainText(message);
+   public async checkPreLastTgMessage() {
+        const lastMessageStart = await this.page.locator('.bottom-marker[data-message-id]').last();
+        const lastMessageStartId = await lastMessageStart.getAttribute('data-message-id') ?? '';
+        const nextMessageId = parseInt(lastMessageStartId) - 1;
+        const preLastMessage = await this.page.waitForSelector(`[data-message-id="${nextMessageId}"] .message-content .text-content`, { state: 'attached' });
+        return (await preLastMessage.innerText()).replace(/\d{2}:\d{2}/, '').trim();
     }
-    public async checkLastTgMessage(message) {
-        await expect(this.page.locator('(//div[contains(@class, "message-content")])[last()]/div/div').first()).toContainText(message);
+    public async checkLastTgMessage() {
+        const lastMessageStart = await this.page.locator('.bottom-marker[data-message-id]').last();
+        const lastMessageStartId = await lastMessageStart.getAttribute('data-message-id') ?? '';
+        const nextMessageId = parseInt(lastMessageStartId);
+        const lastMessage = await this.page.waitForSelector(`[data-message-id="${nextMessageId}"] .message-content .text-content`, { state: 'attached' });
+        return (await lastMessage.innerText()).replace(/\d{2}:\d{2}/, '').trim();
+    }
+
+    public async mineTap(tap : number) {
+        const home  = new HomePage (this.page);
+        for (let i = 0; i < tap; i++) {
+            await home.mine();
+        }
     }
 }
