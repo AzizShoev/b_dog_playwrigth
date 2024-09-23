@@ -6,8 +6,6 @@ export class HomePage {
 
  public mineButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section [alt="doge"]')
  
- public boostButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Boost' })
- 
  public earnPerTap = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) p:nth-child(2)').first();
  
  public profitPerHour =this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div > div:nth-child(2) div p:nth-child(2)')
@@ -16,7 +14,7 @@ export class HomePage {
  
  //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
- public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) p').first()
+ public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(4) p').first()
  
  public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
@@ -57,10 +55,6 @@ else{console.log('reward window is not disaplyed')}
 
   async mine() {
     await this.mineButton.click();
-  }
-
-  async goBoost() {
-    await this.boostButton.click();
   }
 
   async goRanks() {
