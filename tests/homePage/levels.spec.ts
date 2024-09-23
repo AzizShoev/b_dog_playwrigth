@@ -48,7 +48,7 @@ test ('Check default level', async ({ page }) => {
     }
 });
 
-test ('Up to level 3', async ({ page }) => {
+test ('Up to level 3 with QA panel', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
@@ -68,7 +68,7 @@ test ('Up to level 3', async ({ page }) => {
     }
 });
 
-test ('Up to max level', async ({ page }) => {
+test ('Up to max level with QA panel', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
