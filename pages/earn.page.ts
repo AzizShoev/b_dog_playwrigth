@@ -10,6 +10,8 @@ export class EarnPage {
 
  public boostersButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="boosters"]')
 
+ public skinsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="skins"]')
+ 
  public welfareButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Welfare"]')
  
  public specialCardsButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('label[for="Special Cards"]')
