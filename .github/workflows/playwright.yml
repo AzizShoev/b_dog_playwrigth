@@ -1,9 +1,9 @@
 name: BabyDoge Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, flow ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, flow ]
 jobs:
   test:
     timeout-minutes: 60
