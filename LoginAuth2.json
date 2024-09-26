@@ -5,7 +5,7 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "telegram.me",
       "path": "/",
-      "expires": 1758040097.575087,
+      "expires": 1758821100.365354,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -15,7 +15,7 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "t.me",
       "path": "/",
-      "expires": 1757746238.577187,
+      "expires": 1758641295.565975,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -27,23 +27,15 @@
       "localStorage": [
         {
           "name": "dc2_auth_key",
-          "value": "\"86d631eb7c05b09068f488678c06505bd36530c2d4efc4723371155e38005cbd9a6ecfe93082ee192c06a972f31b6b2bfa2b2d0ec7e662742a1e4048549631bc62012d300afc0989737e4c43b87721bca6e2d6fe831f5df2f9acc08a8ecb1f0ac9dd840b9a7e02a6784dfacfbdccd95b8b5742ac508b1ff09932074fdc166424209d10de3c87a841bd2990e22b1411cd092d672dac9d6ca3122b63bb4f97e26b0307f7db2794e44ea361beea805b43305c21b243a4d9676f9a6ee638dc2040f0f31117336a83b042e265c27c494a343a24c897d6a22016b652a64b46c0dd0682578b93a08b8cf72478d86e3dc925777cbf28830c309596811071200a2a31045a\""
+          "value": "\"2762e9f55832c75d6ced520ef6930cf4ed98202c2fc7c75b6d6aaeb625281dc696b7a8bdbc798d37a5929374810dd1d7bab118ad4f7398aed65e5d8d2f42003fb18c291c404457df4376dc0c004ed7f6df25be2b7752ed8fe8e5bee6be139f62909775936637ff612443a99f181b1bd5476aeb3dd0515a8f645b88f9930cc671c6a59a904dff8cca5f9d60525c08b994c5f614e335df5bb4302b9cab8417fc97cdac9be5c771bd362a0eb6e5db4a9f09ec5564c66de6227b7d20360e543e2b4c729778ae4a26ebc960c77ec40b151b546ce4b1ad2b213599c39d0a5eb34ab689fc28ab30b39c7156e92d201669a331c5e729f17ea0cae0e3a16d46b84356e060\""
         },
         {
           "name": "dc2_hash",
-          "value": "\"aee9566fc976942aff87ad7f099796bab8617478\""
+          "value": "\"5047fe41c8fe5feb086845a3c6e62087f4b99ecd\""
         },
         {
           "name": "tgme_sync",
-          "value": "{\"canRedirect\":true,\"ts\":1726680799}"
-        },
-        {
-          "name": "dc1_auth_key",
-          "value": "\"ab30fdf638fdbf267e79ced09568316976faf6e43d47e2ef7bba1e4d0b1c059905d44b7eb39edd83db185bb53fd3532939c51f7b8b4fa8982f34dc86128e03ebc9dba0fb10e9a77820d3178a54578a42e2743893e998b71c40ff2c78c2f5fd78244ec2d1900411cd87a6ee9704ee2327dacd04cab8aa78deb094ad2386c8298a0b5da6e0a27730a7b7a8e8bfbadf30e5bfbe950f46c3905453ca3de79a6b8b87778148f788ef8bb850e65f27d49c3b295b79e430b0ae71178c9faf166195180c32d5c27327fb28b93ff6fd90fd428ca64254d2978faa520dd2bd8e73aea201293113053f0d41935cff693075c3688d83088fee132976c3ce1932ecd366d66727\""
-        },
-        {
-          "name": "dc1_hash",
-          "value": "\"add5d1b2b67b734b73a4513dba0025a4698bcb0f\""
+          "value": "{\"canRedirect\":true,\"ts\":1727362143}"
         },
         {
           "name": "user_auth",
@@ -55,15 +47,15 @@
         },
         {
           "name": "tt-active-tab",
-          "value": "1726680756640.927"
+          "value": "1727362100834.484"
         },
         {
           "name": "dc4_auth_key",
-          "value": "\"03f2dbde5e520b6edcade3eef59644c713f59ed0556a0322f7aa42f25aec54282d1da9e9e9922e46925b54c07ded42918d8a43e8f2c3c13adff529ec0883922c7ee6af895ed075bd79828d35284b3438445a88b149f03e7548c8458baa21d911b53a1bfa73346f5e6898c5250ba3851a9125f1f6a449bb64ec9aad07ad6c8372beefbe7c5cd3fcca54e30fe780a50aad752bb8a93be9f8747c2800fae505bde17bd65a449ad0ad4b4a0cdb8a76b3dbac8bc672a35b2a74341c5cba5f182dda47cd0acf7fc9f469d1cfd1eec19f9a2eeafeca22026ea778e99f205f39b5d54a400d52fb6dd9cbfc5686aa3cc11f6a7c0e0f93eb634b4fc17bc46a992dc2163c2c\""
+          "value": "\"280fec295501203b2b209bb3882003c75b0e4fa71dbeccbfb72a9a81f10471315d0c62fe73d2dccf29682cae1924f2d0f4ba976b4354b8ebc0ab2cf02c14aa491928303910dc6cae736b6374fafb7c03cc57d8ac1a0a3562510cb0343ab4531a92d3785aa032c1be390e5c10d4530f6e99860f3a0ce62277c864f9e05c373eeefe52f81d4c41f93931feed636787817d68dbae3daa070d38d6bb2e87c3d3ea3ea5e1f438444b24d7dc4d1e4074eb97d70f111b39b54abe08fa97cb9ef95685995785fd017ccf054f152bd108c0d66ae136db87c6dd8579d5ec1445ebafa49e3e3b957ce180a8d60bc5e85ed03b40abf9448d510cd96fd81a7bd805ce5e82ed1f\""
         },
         {
           "name": "dc4_hash",
-          "value": "\"ac114cb72c4c365b7ee99ec9aa4d5a6cdbc18bcf\""
+          "value": "\"f4d31aeeaf3d3535ee887022aaff24bc042ccc7a\""
         }
       ]
     }
