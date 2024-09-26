@@ -1,0 +1,71 @@
+{
+  "cookies": [
+    {
+      "name": "stel_web_auth",
+      "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
+      "domain": "telegram.me",
+      "path": "/",
+      "expires": 1758040097.575087,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "stel_web_auth",
+      "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
+      "domain": "t.me",
+      "path": "/",
+      "expires": 1757746238.577187,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://web.telegram.org",
+      "localStorage": [
+        {
+          "name": "dc2_auth_key",
+          "value": "\"86d631eb7c05b09068f488678c06505bd36530c2d4efc4723371155e38005cbd9a6ecfe93082ee192c06a972f31b6b2bfa2b2d0ec7e662742a1e4048549631bc62012d300afc0989737e4c43b87721bca6e2d6fe831f5df2f9acc08a8ecb1f0ac9dd840b9a7e02a6784dfacfbdccd95b8b5742ac508b1ff09932074fdc166424209d10de3c87a841bd2990e22b1411cd092d672dac9d6ca3122b63bb4f97e26b0307f7db2794e44ea361beea805b43305c21b243a4d9676f9a6ee638dc2040f0f31117336a83b042e265c27c494a343a24c897d6a22016b652a64b46c0dd0682578b93a08b8cf72478d86e3dc925777cbf28830c309596811071200a2a31045a\""
+        },
+        {
+          "name": "dc2_hash",
+          "value": "\"aee9566fc976942aff87ad7f099796bab8617478\""
+        },
+        {
+          "name": "tgme_sync",
+          "value": "{\"canRedirect\":true,\"ts\":1726680799}"
+        },
+        {
+          "name": "dc1_auth_key",
+          "value": "\"ab30fdf638fdbf267e79ced09568316976faf6e43d47e2ef7bba1e4d0b1c059905d44b7eb39edd83db185bb53fd3532939c51f7b8b4fa8982f34dc86128e03ebc9dba0fb10e9a77820d3178a54578a42e2743893e998b71c40ff2c78c2f5fd78244ec2d1900411cd87a6ee9704ee2327dacd04cab8aa78deb094ad2386c8298a0b5da6e0a27730a7b7a8e8bfbadf30e5bfbe950f46c3905453ca3de79a6b8b87778148f788ef8bb850e65f27d49c3b295b79e430b0ae71178c9faf166195180c32d5c27327fb28b93ff6fd90fd428ca64254d2978faa520dd2bd8e73aea201293113053f0d41935cff693075c3688d83088fee132976c3ce1932ecd366d66727\""
+        },
+        {
+          "name": "dc1_hash",
+          "value": "\"add5d1b2b67b734b73a4513dba0025a4698bcb0f\""
+        },
+        {
+          "name": "user_auth",
+          "value": "{\"dcID\":4,\"id\":\"6809402010\"}"
+        },
+        {
+          "name": "dc",
+          "value": "4"
+        },
+        {
+          "name": "tt-active-tab",
+          "value": "1726680756640.927"
+        },
+        {
+          "name": "dc4_auth_key",
+          "value": "\"03f2dbde5e520b6edcade3eef59644c713f59ed0556a0322f7aa42f25aec54282d1da9e9e9922e46925b54c07ded42918d8a43e8f2c3c13adff529ec0883922c7ee6af895ed075bd79828d35284b3438445a88b149f03e7548c8458baa21d911b53a1bfa73346f5e6898c5250ba3851a9125f1f6a449bb64ec9aad07ad6c8372beefbe7c5cd3fcca54e30fe780a50aad752bb8a93be9f8747c2800fae505bde17bd65a449ad0ad4b4a0cdb8a76b3dbac8bc672a35b2a74341c5cba5f182dda47cd0acf7fc9f469d1cfd1eec19f9a2eeafeca22026ea778e99f205f39b5d54a400d52fb6dd9cbfc5686aa3cc11f6a7c0e0f93eb634b4fc17bc46a992dc2163c2c\""
+        },
+        {
+          "name": "dc4_hash",
+          "value": "\"ac114cb72c4c365b7ee99ec9aa4d5a6cdbc18bcf\""
+        }
+      ]
+    }
+  ]
+}
