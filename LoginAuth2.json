@@ -5,7 +5,7 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "telegram.me",
       "path": "/",
-      "expires": 1758821100.365354,
+      "expires": 1758766772.055162,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -15,7 +15,7 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "t.me",
       "path": "/",
-      "expires": 1758641295.565975,
+      "expires": 1758454712.055729,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -26,16 +26,16 @@
       "origin": "https://web.telegram.org",
       "localStorage": [
         {
-          "name": "dc2_auth_key",
-          "value": "\"2762e9f55832c75d6ced520ef6930cf4ed98202c2fc7c75b6d6aaeb625281dc696b7a8bdbc798d37a5929374810dd1d7bab118ad4f7398aed65e5d8d2f42003fb18c291c404457df4376dc0c004ed7f6df25be2b7752ed8fe8e5bee6be139f62909775936637ff612443a99f181b1bd5476aeb3dd0515a8f645b88f9930cc671c6a59a904dff8cca5f9d60525c08b994c5f614e335df5bb4302b9cab8417fc97cdac9be5c771bd362a0eb6e5db4a9f09ec5564c66de6227b7d20360e543e2b4c729778ae4a26ebc960c77ec40b151b546ce4b1ad2b213599c39d0a5eb34ab689fc28ab30b39c7156e92d201669a331c5e729f17ea0cae0e3a16d46b84356e060\""
-        },
-        {
-          "name": "dc2_hash",
-          "value": "\"5047fe41c8fe5feb086845a3c6e62087f4b99ecd\""
-        },
-        {
           "name": "tgme_sync",
-          "value": "{\"canRedirect\":true,\"ts\":1727362143}"
+          "value": "{\"canRedirect\":true,\"ts\":1727362623}"
+        },
+        {
+          "name": "dc1_auth_key",
+          "value": "\"35b78233ca11e9adb305a1ac317d42f97332c8909f7925b7c662257e6f7ffecd015ed513db6e1eccd75725d23ae76298cf1f7ba18dcba5b730707d1ffe9c7bf32f466ff30de290cdc4d409bc1dfffc110c6f0832617807fe80c7d130e92048f449a489b1b42d9735e73215093a044c879badb3f28004f7f3d183fdc2fdb83ab4ec4786ebe1c638a535e496de6a0d1de30a14a24caf4bd6d1b028d781f25c14cf784b5767a7fe7c80c4947dc8f439ad39f49a755f30781338f21d6b272ab1c3c0c575ac00f477fe3202c4eb01656bad8c02513d78241d08345d7614b1269432724ffff3d16ad14b60ec9faea7b5d7b76a61c859411cffca892226e4a260635ec8\""
+        },
+        {
+          "name": "dc1_hash",
+          "value": "\"a5a3e80f11f0e7134c65d22f331dec534776f0bd\""
         },
         {
           "name": "user_auth",
@@ -47,15 +47,15 @@
         },
         {
           "name": "tt-active-tab",
-          "value": "1727362100834.484"
+          "value": "1727362600020.3616"
         },
         {
           "name": "dc4_auth_key",
-          "value": "\"280fec295501203b2b209bb3882003c75b0e4fa71dbeccbfb72a9a81f10471315d0c62fe73d2dccf29682cae1924f2d0f4ba976b4354b8ebc0ab2cf02c14aa491928303910dc6cae736b6374fafb7c03cc57d8ac1a0a3562510cb0343ab4531a92d3785aa032c1be390e5c10d4530f6e99860f3a0ce62277c864f9e05c373eeefe52f81d4c41f93931feed636787817d68dbae3daa070d38d6bb2e87c3d3ea3ea5e1f438444b24d7dc4d1e4074eb97d70f111b39b54abe08fa97cb9ef95685995785fd017ccf054f152bd108c0d66ae136db87c6dd8579d5ec1445ebafa49e3e3b957ce180a8d60bc5e85ed03b40abf9448d510cd96fd81a7bd805ce5e82ed1f\""
+          "value": "\"36c4dbf8b42f982eb6f107645678e596a960a314a471408bb6b7298865e54e083652197ac96e4a8620848cc2078eeb896b6b4b7763bcb65193bc078833cc4f260121e1997a4dd4ff46aa8208268560be2f0275113e00454f2b9371a9683bef6b61de6aec28070be9b3abd9445f81c63414f0692319d440d8f09ff1e84189271a30be8c4688f7d53f7f8fc940c429dc65ddd8bc6fef7d8d2f9fc1b2cdf66634c7223cc09eaca7600f604c04c7443c7cb23dde77ea2950044e0d2d806add5cd2ae784f2772768595315eb0eb1101163d1c6e50978eae22ffc780955e79e02ea0aacf920999be8d28d4707095bd223c99e61554c2b35e28fed2eaaede37c9c4c4f6\""
         },
         {
           "name": "dc4_hash",
-          "value": "\"f4d31aeeaf3d3535ee887022aaff24bc042ccc7a\""
+          "value": "\"1cc387e76d06f83b00fd1f7f20309e449fded2c6\""
         }
       ]
     }
