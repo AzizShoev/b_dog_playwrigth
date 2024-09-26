@@ -22,10 +22,7 @@ jobs:
     - name: Run Playwright tests
       run: |
         export DEBUG=pw:*
-        npx playwright test --headful
-    - name: Create screenshots on failure
-      if: failure()
-      run: npx playwright test --retries=3 --collect=on-first-retry
+        npx playwright test --headed
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
