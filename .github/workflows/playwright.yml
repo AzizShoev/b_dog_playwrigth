@@ -1,18 +1,16 @@
 name: BabyDoge Playwright Tests
 on:
-  push:
-    branches: [ main, flow ]
-  pull_request:
-    branches: [ main, flow ]
+  workflow_dispatch:
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - uses: microsoft/playwright-github-action@v1
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright
