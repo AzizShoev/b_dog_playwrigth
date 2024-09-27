@@ -12,9 +12,11 @@ export class HomePage {
  
  public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div:nth-child(3) p:nth-child(2)')
  
+ public boostButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[data-testid="boost_button"]')
+ 
  //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
- public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(4) p').first()
+ public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(5) p').first()
  
  public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
@@ -69,6 +71,10 @@ else{console.log('reward window is not disaplyed')}
 
   async goRating() {
     await this.ratingButton.click();
+  }
+
+  async goBoosts() {
+    await this.boostButton.click();
   }
  
   async obtainReward() {

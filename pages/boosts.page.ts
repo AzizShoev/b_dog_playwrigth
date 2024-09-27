@@ -40,13 +40,15 @@ export class BoostsPage {
 
   public copyModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-of-type(4) button:nth-child(2)');
 
-  public useFreeBoostButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(5) >button');
+  public useFreeBoostButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-of-type(1)  button:nth-of-type(2)').last();
 
-  public dailyTaskLvl1 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="0"]');
+  public buyEnergyModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-of-type(1) div:nth-child(6) button');
+  
+  // public dailyTaskLvl1 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="0"]');
 
-  public dailyTaskLvl2 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="1"]');
+  // public dailyTaskLvl2 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="1"]');
 
-  public dailyTaskLvl3 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="4"]');
+  // public dailyTaskLvl3 = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[needtoinvite="4"]');
  async goDailyBoostsTab() {
     await this.dailyBoostersTab.click();
   }
