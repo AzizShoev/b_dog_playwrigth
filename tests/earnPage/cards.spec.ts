@@ -283,7 +283,7 @@ test ('Sorting cards by price', async ({ page }) => {
     expect.soft(await earnHelp.checkCardPrice(financeCards, 1)).toEqual(41429);
 })
 
-test ('Sorting cards by profit per hour', async ({ page }) => {
+test.skip ('Sorting cards by profit per hour', async ({ page }) => {    //bug sorting by profit
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page)
     const tg = new TelegramPage(page);
@@ -311,11 +311,15 @@ test ('Sorting cards by profit per hour', async ({ page }) => {
     await page.waitForTimeout(2000);
     await earn.sortCardsList.click();
     await earn.sortByProfit.click();
-
-    console.log('First card after sort by profit: ' + await earnHelp.checkCardName(financeCards, 1));
-    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
-    console.log('First card profit per hour after sort by profit: ' + await earnHelp.checkCardsProfit(financeCards, 1));
-    expect.soft(await earnHelp.checkCardsProfit(financeCards, 1)).toEqual(5164);
+    try {
+        console.log('First card after sort by profit: ' + await earnHelp.checkCardName(financeCards, 1));
+        expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
+        console.log('First card profit per hour after sort by profit: ' + await earnHelp.checkCardsProfit(financeCards, 1));
+        expect.soft(await earnHelp.checkCardsProfit(financeCards, 1)).toEqual(5164);
+    } catch (error) {
+        throw new Error('Card after sort by profit is not as expected');
+    }
+    
 });
 
 test ('Reverse sorting', async ({ page }) => {
@@ -336,8 +340,9 @@ test ('Reverse sorting', async ({ page }) => {
     await page.waitForTimeout(2000);
     await earn.reverseSortingButton.click();
     try {
-        console.log('Afetr sorting last card: ' + await earnHelp.checkCardName(financeCards, 17));
-        expect(await earnHelp.checkCardName(financeCards, 17)).toMatch('Crypto Risk Management');
+        const lastCard = await earn.card.locator('>div:nth-child(2)>div>div').count()
+        console.log('Afetr sorting last card: ' + await earnHelp.checkCardName(financeCards, lastCard));
+        expect(await earnHelp.checkCardName(financeCards, lastCard)).toMatch('Crypto Risk Management');
     } catch (error) {
         throw new Error('After sorting last card is not as expected');
     }

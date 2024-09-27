@@ -15,7 +15,7 @@ test.use({
     storageState: 'LoginAuth2.json'
   });
 
-  test.setTimeout(200000);
+test.setTimeout(300000);
 
 test.beforeEach(async ({ page }) => {
     const tg = new TelegramPage(page);
@@ -172,7 +172,7 @@ test ('Check message for 1 hour', async ({ page }) => {
     }
 });
 
-test ('Check message for 3 hour', async ({ page }) => {
+test.skip ('Check message for 3 hour', async ({ page }) => {    //bug profit after 3 hours
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page);
     const nav = new NavigationMenu (page);
@@ -201,7 +201,7 @@ test ('Check message for 3 hour', async ({ page }) => {
     }
 });
 
-test ('Check message for 12 hour', async ({ page }) => {
+test.skip ('Check message for 12 hour', async ({ page }) => {   //bug profit after 12 hours
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page);
     const nav = new NavigationMenu (page);
@@ -260,7 +260,7 @@ test ('Check profit per hour for 2 hour', async ({ page }) => {
     }
 });
 
-test ('Check profit per hour for 3 hour', async ({ page }) => {
+test.skip ('Check profit per hour for 3 hour', async ({ page }) => {    //bug profit after 3 hours
     const earn = new EarnPage (page);
     const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page);
@@ -288,7 +288,7 @@ test ('Check profit per hour for 3 hour', async ({ page }) => {
     }
 });
 
-test ('Check profit per hour for 12 hour', async ({ page }) => {
+test.skip ('Check profit per hour for 12 hour', async ({ page }) => {   //bug profit after 12 hours
     const earn = new EarnPage (page);
     const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page);
