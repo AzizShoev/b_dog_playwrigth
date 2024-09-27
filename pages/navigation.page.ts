@@ -21,7 +21,7 @@ export class NavigationMenu {
  
   public closeButton =  this.page.getByRole('button', { name: 'Close' })
 
-  public headerButton = this.page.locator('.modal-header div button')
+  public headerButton = this.page.locator('.modal-header [title="More actions"]')
 
   public reloadPage = this.page.locator('.modal-header div [role="presentation"]')
   
