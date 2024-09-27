@@ -65,10 +65,8 @@ export class TestHelper {
 
     public async buyMulitap() {
         const boost = new BoostsPage (this.page);
-        const nav  = new NavigationMenu (this.page);
-        const earn = new EarnPage (this.page);
-        await nav.goEarn();
-        await earn.goBoosters();
+        const home = new HomePage (this.page);
+        await home.goBoosts();
         await boost.goBoostersTab();
         await boost.buyMultitap();
         await boost.buy();
@@ -77,10 +75,8 @@ export class TestHelper {
 
     public async buyEnergy() {
         const boost = new BoostsPage (this.page);
-        const nav  = new NavigationMenu (this.page);
-        const earn = new EarnPage (this.page);
-        await nav.goEarn();
-        await earn.goBoosters();
+        const home = new HomePage (this.page);
+        await home.goBoosts();
         await boost.goBoostersTab();
         await boost.buyEnergy();
         await boost.buy();
