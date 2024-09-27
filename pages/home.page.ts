@@ -42,7 +42,13 @@ export class HomePage {
  
  public profitByAway = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app> div:nth-child(1) div:nth-child(3) p')
 
+ public promoInvite = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-child(1) button:nth-child(1)').last()
 
+ public promoCopy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-child(1) button:nth-child(2)')
+
+ public promoJoin = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div button:nth-of-type(2) span')
+
+ public promoClose = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app button [alt="close"]')
  async closeReward() {
   
   if (await this.claimRewardButton.isVisible) 
@@ -135,5 +141,18 @@ async pressProfitByAwayOk() {
 }
 async pressProfitByAwayClose() {
   await this.profitByAwayCloseButton.click()
+}
+
+async pressPromoInvite() {
+  await this.promoInvite.click()
+}
+async pressPromoCopy() {
+  await this.promoCopy.click()
+}
+async pressPromoJoin() {
+  await this.promoJoin.click()
+}
+async pressPromoClose() {
+  await this.promoClose.click()
 }
 }
