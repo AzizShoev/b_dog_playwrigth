@@ -15,12 +15,13 @@ export class TestHelper {
 
     public async openApp() {
         const tg = new TelegramPage(this.page);
+        const nav = new NavigationMenu (this.page);
         await tg.checkErrorMessage();
         await tg.pressPlay();
         await tg.pressConfirm();
         await this.page.waitForTimeout(5000);
+        await nav.reloadApp();
     }
-
     public async upLevel(countClick) {
         const tg = new TelegramPage(this.page);
         await tg.pressLevel()
