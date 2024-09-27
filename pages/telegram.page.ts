@@ -19,7 +19,7 @@ export class TelegramPage {
  
   public friends =this.page.getByRole('button', { name: '👥 Friends' }).last()
 
-  public cardsProfit = this.page.getByRole('button', { name: '📈 Cards Profit' }).last()
+  public cardsProfit = this.page.getByRole('button', { name: '📈 Profit Per Hour' }).last()
  
   public level = this.page.getByRole('button', { name: '🔧 Level' }).last()
  

@@ -59,7 +59,7 @@ export class EarnPage {
 
  public closeCardButtonModal = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'close' })
 
- public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) span')
+ public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) span').first()
  
  
  async getBalance() {
