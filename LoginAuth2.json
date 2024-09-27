@@ -5,7 +5,7 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "t.me",
       "path": "/",
-      "expires": 1758663080.307503,
+      "expires": 1758702721.926607,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -15,8 +15,128 @@
       "value": "https%3A%2F%2Fweb.telegram.org%2Fa%2F",
       "domain": "telegram.me",
       "path": "/",
-      "expires": 1758447364.308396,
+      "expires": 1758254135.227489,
       "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "i",
+      "value": "LDtGWEt+Rk/HsopeJaMaADaYyvmQ76PfP5f9cbkDwGMz9C04rA8YDKQX2+Lw+brXZfApoAlCfcRj3WgoHUICsEcsF0A=",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1762029836.227951,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "yandexuid",
+      "value": "7443273581727469835",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1762029836.423333,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "yashr",
+      "value": "4315143491727469835",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1759005836.228021,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ym_uid",
+      "value": "1727469836367402333",
+      "domain": ".stage-babydogeclikerbot.com",
+      "path": "/",
+      "expires": 1759005836,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ym_d",
+      "value": "1727469836",
+      "domain": ".stage-babydogeclikerbot.com",
+      "path": "/",
+      "expires": 1759005836,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "yabs-sid",
+      "value": "568165071727469836",
+      "domain": "mc.yandex.ru",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "yuidss",
+      "value": "7443273581727469835",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1762029836.423392,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ymex",
+      "value": "2042829836.yrts.1727469836",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1759005836.423422,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "receive-cookie-deprecation",
+      "value": "1",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1759005883.757465,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ym_isad",
+      "value": "2",
+      "domain": ".stage-babydogeclikerbot.com",
+      "path": "/",
+      "expires": 1727541836,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ym_visorc",
+      "value": "b",
+      "domain": ".stage-babydogeclikerbot.com",
+      "path": "/",
+      "expires": 1727471683,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "bh",
+      "value": "EigiTm90O0E9QnJhbmQiO3Y9IjI0IiwgIkNocm9taXVtIjt2PSIxMjgiGgUieDg2IiIPIjEyOC4wLjY2MTMuMTgiKgI/MDoJIldpbmRvd3MiQggiMTAuMC4wIkoEIjY0IlI4Ik5vdDtBPUJyYW5kIjt2PSIyNC4wLjAuMCIsIkNocm9taXVtIjt2PSIxMjguMC42NjEzLjE4IiJgv7LctwY=",
+      "domain": ".yandex.ru",
+      "path": "/",
+      "expires": 1762029887.577462,
+      "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     }
@@ -27,23 +147,23 @@
       "localStorage": [
         {
           "name": "dc2_auth_key",
-          "value": "\"18e649a4fb34478af0b91cc7da85aebf351caaa35eb86e3b95cea1f2ace6ef815df33f5e46e315ff4128d02b5a12663877214fe4280977444c7b43fe7bde4c95af545aae16cc2bc8024bc224eeade7abc5e6b60f86d41871b823df834106e09717209bfaf1f1f6d4e0721d775bc049396f7e36f39f868b6a329e233a2b1cc49d6620b2218361bb74c6615be7520d0911dc81d5f559c46850544856cec67923649998c1c04e03670088196aee0c641afa174313c395889a6446f8eefaedd413d7f088da2582b77cd1b50d51fa38bc71b73a375c0e2415a5e4f2d5e09bc4207f92b713b310e4ccb58f7003a9f209f97e305eed66046f22fb69577d512146bb4ef3\""
+          "value": "\"0a4b2a0a3d83259ee5a99f11a3228fc0ff5166939df2cbfaefda503a3021beb95f045f8b533e88943bcca2e1dc53dc9b11c540b00f98f05b02e5795c340b821b03c9a3bf50449fc2b36fe56c778f4d89cdcfe70b8410acd99f165ee82de1a5259f4d9d80e3798a56656f828d30dfc635c128d353db309fb6dcba8d3c401d49e01a9db9d95dbe659f06c13edd5150798a78152e2ff7ff76a179b54acada53f8339e7e4eb49e8a1d2ae9116d6d6b7dc13bc4ef42b318373e05b2bffebd4318feb63176aa740309073819b334383d22e4cbd34437358fa24f72300cee8eb40a2d79349b4df00dec9f4f4feb3f98014092ad51858ab6e9693f54a6a3f2377e13fe3f\""
         },
         {
           "name": "dc2_hash",
-          "value": "\"df562de2e9c676cc10b938f97cd22e2317fa6ac3\""
+          "value": "\"cd04eafa724dfba2f8141a67bb7b9a7367627b34\""
         },
         {
           "name": "tgme_sync",
-          "value": "{\"canRedirect\":true,\"ts\":1727374457}"
+          "value": "{\"canRedirect\":true,\"ts\":1727469798}"
         },
         {
           "name": "dc1_auth_key",
-          "value": "\"8541558fed4cea466b98b34517f95283cd7feaf7eaf76437f56a1b5dbcca2da7e3850b754fb0a56cdf4cc97bc0decfecdc0a258f1d5c9d8b21d66717512e3637020595ed8694b76415e0ff5b619f244ca933c747ac57b4cbd9a0018bc2d4d74d6883a5944084aba5008871e6e0f6939e871bf967214511c92816a84f16515346ba97ed5145f5c45a0240c14bf6b12913f51f83101efbc3bb0adbd0b5fe19b0a64e08fdeecdecf74ad73680ccd731be74fbe6f75bc096e6664f28033e8d3df73675aae9696abbd52e047055d38fcb545b54cc9d42784a2f48d0c07b402ade8dd8abd53b3c7fb4593ecbe977a0dde63059e6ce15b108517c55673a0ec4c9128e08\""
+          "value": "\"744a74995cb2ab687d7d8f5d267fc292b94f505fdcc739c171a16fa063535163409ff1eabbed717d7f104b6ea6c25ed5093883eefa98a172c7a6d3bbf02c9e1e438f54650720591b434fda072f3729318514dc6b47b57952625f82e855dca27cb47cb22aa3bda202cf607278aa11af0d01d05a0d0968e33950ae59cc3c37ee8451a7c0f7dfd2d161b2b96c574bb93dc27d34d76e4f9cca6e71d4b37bd1b7e0fe905935a22d86d381f6411361eefaea9535b62773928024653678a184a4dee8350ea1cad88e243fb0337df8865f742c6f66484b6072c90e8f1783ff9e9789ab72bbf6dc940aeb55fb2c21986553c72e6cd00b6f4cf9c7709e8c5d3495b5cab99c\""
         },
         {
           "name": "dc1_hash",
-          "value": "\"b2aeec6ec89e8d5acb35fde6619fbfa20ebc0849\""
+          "value": "\"6881fd151aecd2edd8d5db3eaf0490d109eb3b2e\""
         },
         {
           "name": "user_auth",
@@ -55,15 +175,15 @@
         },
         {
           "name": "tt-active-tab",
-          "value": "1727374419229.8206"
+          "value": "1727469865951.2827"
         },
         {
           "name": "dc4_auth_key",
-          "value": "\"8a3a1f12901b59cbb15527a80ff2068d01b821c9477f6a5a083b1d2cb3b401eee15b969647922d5a64a8ebf54e632345f27059054d58c0cd431e92adddefe5d593be663167e25e5163bcb4bf2f3640a053e0d3c5e4f6c809c3ff90460de3babacf67cc29e5edf9cc7ac9a065493d975dd576a8d7b08761f9a784b92df261cd8250767762edeadcee3c32e4c57253c88e166c8c5d91d153b695b1b79a7a6464713ec61ff22377223b5fb191b6e14290f2b36fb3664ab8cda71f75d0f8f0dcb39ffcd0600afba48748ad04a0c34af64563c5e4c020adcc3398ac38859e926b384f7528a1092f55a466a7f50156fb4831ac48023b2d15e347595da5e29615dfe9f1\""
+          "value": "\"73c0b23872e4859272c0a8a588b62da2fbdf86a644d1b2f777e89ad181cc638105cd4741261d96d35725fa323ba43d0cf664c12129452faa0fce0380345c0c7648d3d706bd7f19a87bfd40dc2c0adab0c117547dad6e2b190e5b08845d6697c554b93fd28079264c6d4f13ce923ff8c443af6dd2538cc471bc2a1f31cabbd149f1879b214c59e9772bc75f69667bc1d3b02f26d33679e1693a642f8eeeb3f95e115dc86cc7543deab8f7224d7ca8b2afa646d2ba9dbc4e723d9119af4dbc036b9bd3ec76472d381e0f4858b20a6cde1ea2ced23e6005e145b547ff121abe3f23182bba0e3cd321d7142c04ad4c8af4d43b41241d3fe9e1c0a7020d03b7b6c209\""
         },
         {
           "name": "dc4_hash",
-          "value": "\"ffe889943d720cab9fabacd9623a907fd0bac5ac\""
+          "value": "\"82ca06887d73bba67db7794a9c74909e6abd2663\""
         }
       ]
     }
