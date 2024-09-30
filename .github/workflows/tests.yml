@@ -31,6 +31,11 @@ jobs:
       run: |
         npm install -D allure-playwright
         npm install -g allure-commandline --save-dev
+
+    - name: Create loginAuth.json from secret
+      run: |
+        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
     - name: Run Playwright tests with Allure report
       run: npx playwright test buyBoost.spec.ts --reporter=line,allure-playwright
 
@@ -65,6 +70,11 @@ jobs:
       run: |
         npm install -D allure-playwright
         npm install -g allure-commandline --save-dev
+
+    - name: Create loginAuth.json from secret
+      run: |
+        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
     - name: Run Playwright tests with Allure report
       run: npx playwright test buyCards.spec.ts --reporter=line,allure-playwright
 
@@ -102,7 +112,7 @@ jobs:
 
     - name: Create loginAuth.json from secret
       run: |
-          echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
     - name: Run Playwright tests with Allure report
       run: npx playwright test cards.spec.ts --reporter=line,allure-playwright
