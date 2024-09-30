@@ -1,7 +1,7 @@
 name: BabyDoge Playwright Tests
 
 on:
-  # Запуск вручную
+  push:
   workflow_dispatch:
   # Запуск по расписанию в 4:00 утра по Москве
   schedule:
