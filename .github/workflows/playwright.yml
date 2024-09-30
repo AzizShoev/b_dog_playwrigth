@@ -1,9 +1,7 @@
 name: BabyDoge Playwright Tests
 
 on:
-  push:
-    branches:
-      - flow
+  workflow_dispatch:
 
 jobs:
   Test_buy_use_boosters:
