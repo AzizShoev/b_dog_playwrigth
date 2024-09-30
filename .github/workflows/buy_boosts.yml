@@ -1,0 +1,41 @@
+name: Buy boosters Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Test_buy_use_boosters:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - uses: microsoft/playwright-github-action@v1
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright
+      run: npx playwright install
+
+    - name: Install Playwright Chrome dependencies
+      run: npx playwright install chrome
+
+    - name: Install Allure for reporting
+      run: |
+        npm install -D allure-playwright
+        npm install -g allure-commandline --save-dev
+
+    - name: Run Playwright tests with Allure report
+      run: npx playwright test buyBoost.spec.ts --reporter=line,allure-playwright
+
+    - name: Upload Allure results
+      uses: actions/upload-artifact@v4
+      if: ${{ always() }}
+      with:
+        name: allure-results-boosters
+        path: allure-results/
+        retention-days: 10
+
+ 
