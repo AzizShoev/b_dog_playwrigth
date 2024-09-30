@@ -102,6 +102,10 @@ jobs:
     - name: Run Playwright tests with Allure report
       run: npx playwright test cards.spec.ts --reporter=line,allure-playwright
 
+    - name: Create loginAuth.json from secret
+      run: |
+          echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
     - name: Upload Allure results
       uses: actions/upload-artifact@v4
       if: ${{ always() }}
