@@ -1,7 +1,9 @@
 name: Buy cards Tests
 
 on:
-  workflow_dispatch:
+    push:
+      branches:
+        - flow
 
 jobs:
   Test_buy_use_boosters:

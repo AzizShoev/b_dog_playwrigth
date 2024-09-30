@@ -1,8 +1,9 @@
 name: Visibility Cards Tests
 
 on:
-  workflow_dispatch:
-
+    push:
+      branches:
+        - flow
 jobs:
   Test_buy_use_boosters:
     runs-on: ubuntu-latest
