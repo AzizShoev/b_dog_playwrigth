@@ -1,4 +1,4 @@
-name: Visibility cards Tests
+name: Visibility Cards Tests
 
 on:
   workflow_dispatch:
@@ -37,5 +37,3 @@ jobs:
         name: allure-results-boosters
         path: allure-results/
         retention-days: 10
-
- 
