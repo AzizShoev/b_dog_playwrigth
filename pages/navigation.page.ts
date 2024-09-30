@@ -17,9 +17,9 @@ export class NavigationMenu {
 
   public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
-  public backButton =  this.page.getByLabel('Back')
+  public backButton =  this.page.locator('button[aria-label="Back"]')
  
-  public closeButton =  this.page.getByRole('button', { name: 'Close' })
+  public closeButton =  this.page.locator('button[aria-label="Close"]').first()
 
   public headerButton = this.page.locator('.modal-header [title="More actions"]')
 
