@@ -16,7 +16,7 @@ export class BoostsPage {
 
   public energyLevel = this.energyLimit.locator('div div div:nth-child(1) p')
 
-  public buyButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main >div >div div button')
+  public buyButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) button')
 
   public closeModalButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('button img[alt="close"]')
 
