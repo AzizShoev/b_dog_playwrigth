@@ -13,42 +13,53 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-    - uses: microsoft/playwright-github-action@v1
 
+    # Установка Playwright и зависимостей
     - name: Install dependencies
       run: npm ci
 
     - name: Install Playwright
       run: npx playwright install
 
-    - name: Install Playwright Chrome dependencies
-      run: npx playwright install chrome
+    # Настройка переменных окружения для BrowserStack
+    - name: Set up BrowserStack environment variables
+      run: |
+        echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
+        echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
 
+    # Создание файла loginAuth.json из секретов
     - name: Create loginAuth.json from secret
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    - name: Run Playwright tests with HTML report
-      run: npx playwright test -g "Buy Multitap" --reporter=line,html
+    # Запуск тестов Playwright с подключением к BrowserStack
+    - name: Run Playwright tests with BrowserStack and HTML report
+      run: |
+        npx playwright test --project=browserstack -g "Buy Multitap" --reporter=line,html
 
+    # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
       run: |
         mkdir -p public/playwright-report
         cp -r playwright-report/* public/playwright-report/
 
+    # Развертывание отчета в GitHub Pages
     - name: Deploy report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
 
+    # Печать ссылки на отчет
     - name: Print report URL
       run: |
         echo "HTML Report published at:"
         echo "${{ github.server_url }}/${{ github.repository }}/tree/gh-pages/playwright-report/index.html"
+
 
 
   # Test_buy_use_cards:
