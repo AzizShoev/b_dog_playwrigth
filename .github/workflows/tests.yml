@@ -57,9 +57,9 @@ jobs:
     # Печать ссылки на отчет
     - name: Print report URL
       run: |
-          REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.repository }}/index.html"
+          REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.repository }}/"
           echo "HTML Report published at: $REPORT_URL"
-          echo "::notice ::HTML Report published at: $REPORT_URL"
+          echo "::notice ::[HTML Report published here]($REPORT_URL)"
 
 
   # Test_buy_use_cards:
