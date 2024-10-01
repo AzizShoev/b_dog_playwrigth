@@ -64,7 +64,7 @@ jobs:
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${REPO_NAME}/"
           echo "Before changes:"
           cat README.md
-          sed -i '2i [HTML Report]('"$REPORT_URL"')' README.md
+          sed -i "2i [HTML Report]($REPORT_URL)" README.md
           echo "After changes:"
           cat README.md
           git config --global user.name "github-actions[bot]"
