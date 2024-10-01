@@ -22,7 +22,7 @@ export class BoostsPage {
 
   public currentBalance = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main div div:nth-child(3) div:nth-child(2) p')
   
-  public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main >div >div div button')
+  public lowBalanceSing = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div:nth-child(6) button')
   
   //DailyBoosts
 
