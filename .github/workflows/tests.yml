@@ -65,7 +65,6 @@ jobs:
           echo "Before changes:"
           cat README.md
             TEMP_FILE=$(mktemp)
-            echo "" >> "$TEMP_FILE" 
             echo "<strong>[HTML Report]($REPORT_URL)<strong>  " > "$TEMP_FILE"       
             cat README.md >> "$TEMP_FILE"   
             mv "$TEMP_FILE" README.md   
