@@ -62,7 +62,13 @@ jobs:
       run: |
           REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${REPO_NAME}/"
-          echo "::notice title=HTML Report::HTML Report published at links:: $REPORT_URL"
+          sed -i '2i [HTML Report]('"$REPORT_URL"')' README.md
+          git diff README.md
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update README with latest HTML report link"
+          git push
 
   # Test_buy_use_cards:
   #   runs-on: ubuntu-latest
