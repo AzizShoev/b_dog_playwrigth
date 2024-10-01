@@ -58,7 +58,7 @@ jobs:
     - name: Print report URL
       run: |
         echo "HTML Report published at:"
-        echo "${{ github.server_url }}/${{ github.repository }}/tree/gh-pages/playwright-report/index.html"
+        echo "https://<USERNAME>.github.io/<REPOSITORY>/playwright-report/index.html"
 
 
 
