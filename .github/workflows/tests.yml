@@ -58,7 +58,7 @@ jobs:
     - name: Print report URL
       run: |
         echo "HTML Report published at:"
-        echo "https://<USERNAME>.github.io/<REPOSITORY>/playwright-report/index.html"
+        echo "https://${{ github.repository_owner }}.github.io/${{ github.repository }}/playwright-report/index.html"
 
 
 
