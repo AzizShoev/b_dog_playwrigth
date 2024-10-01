@@ -78,7 +78,7 @@ export default defineConfig({
           wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(JSON.stringify({
             'os': 'Windows',
             'osVersion': '10',
-            'browserName': 'Chrome',
+            'browserName': 'playwright-chromium',
             'browserVersion': 'latest',
             'browserstack.username': process.env.BROWSERSTACK_USERNAME,
             'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
