@@ -1,3 +1,4 @@
+<strong>[HTML Report](https://AzizShoev.github.io/b_dog_playwrigth/)<strong>  
 <<<<<<< HEAD
 
 =======
