@@ -44,8 +44,8 @@ jobs:
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
       run: |
-        mkdir -p public/playwright-report
-        cp -r playwright-report/* public/playwright-report/
+        mkdir -p public
+        cp -r playwright-report/* public/
 
     # Развертывание отчета в GitHub Pages
     - name: Deploy report to GitHub Pages
