@@ -55,11 +55,11 @@ jobs:
         publish_dir: ./public
 
     # Печать ссылки на отчет
-    - name: Print report URL and create annotation
+    - name: Print report URL
       run: |
-        REPORT_URL="${{ github.server_url }}/${{ github.repository }}/playwright-report/index.html"
-        echo "HTML Report published at: $REPORT_URL"
-        echo "::notice ::HTML Report published at: $REPORT_URL"
+          REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.repository }}/playwright-report/index.html"
+          echo "HTML Report published at: $REPORT_URL"
+          echo "::notice ::HTML Report published at: $REPORT_URL"
 
 
   # Test_buy_use_cards:
