@@ -64,7 +64,11 @@ jobs:
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${REPO_NAME}/"
           echo "Before changes:"
           cat README.md
-          awk 'NR==2 {print "[HTML Report]("ENVIRON["REPORT_URL]")"} 1' README.md > README_tmp.md && mv README_tmp.md README.md
+            TEMP_FILE=$(mktemp)
+            echo "[HTML Report]($REPORT_URL)" > "$TEMP_FILE"       
+            cat README.md >> "$TEMP_FILE"   
+            mv "$TEMP_FILE" README.md   
+            echo "Updated README.md with the report link."
           echo "After changes:"
           cat README.md
           git config --global user.name "github-actions[bot]"
