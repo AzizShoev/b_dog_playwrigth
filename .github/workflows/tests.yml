@@ -66,7 +66,7 @@ jobs:
           cat README.md
             TEMP_FILE=$(mktemp)
             echo "" >> "$TEMP_FILE" 
-            echo "[<h2><strong>HTML Report</strong></h2>]($REPORT_URL)" > "$TEMP_FILE"       
+            echo "<strong>[HTML Report]($REPORT_URL)<strong>  " > "$TEMP_FILE"       
             cat README.md >> "$TEMP_FILE"   
             mv "$TEMP_FILE" README.md   
             echo "Updated README.md with the report link."
