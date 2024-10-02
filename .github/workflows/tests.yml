@@ -39,29 +39,24 @@ jobs:
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
     # Установка и запуск Ngrok для туннелирования порта 4444
-    - name: Install and Start Ngrok
-      run: |
-        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
-        echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
-        sudo apt update
-        sudo apt install ngrok
-        ngrok http 4444 > /dev/null &
-        sleep 5  # Даем Ngrok время для запуска
-        NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r .tunnels[0].public_url)
-        echo "Ngrok URL: $NGROK_URL"
-        echo "::set-output name=ngrok_url::$NGROK_URL"
+     # Установка LocalTunnel
+    - name: Install LocalTunnel
+      run: npm install -g localtunnel
 
-    # Печать ссылки на браузер в логах
-    - name: Print Browser URL
+   # Разворачивание ссылки на браузер с помощью LocalTunnel
+    - name: Start LocalTunnel
       run: |
-        echo "Access the browser at: ${{ steps.Install_and_Start_Ngrok.outputs.ngrok_url }}"
+       lt --port 4444 > lt_url.txt &
+       sleep 5  # Даем LocalTunnel время для запуска
+       LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt)
+       echo "LocalTunnel URL: $LT_URL"
+       echo "::set-output name=lt_url::$LT_URL"
 
-    # Запуск тестов Playwright с подключением к локальному браузеру
-    - name: Run Playwright tests with headful browser
+   # Запуск тестов Playwright с подключением к LocalTunnel
+    - name: Run Playwright tests with LocalTunnel and headful browser
       run: |
-        BROWSER_URL="${{ steps.Install_and_Start_Ngrok.outputs.ngrok_url }}"
-        echo "Running tests with browser available at: $BROWSER_URL"
-        npx playwright test -g "Buy Multitap" --reporter=line,html
+       echo "Access the browser at: ${{ steps.Start_LocalTunnel.outputs.lt_url }}"
+       npx playwright test -g "Buy Multitap" --reporter=line,html
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
