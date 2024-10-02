@@ -44,10 +44,13 @@ jobs:
     - name: Start LocalTunnel
       run: |
         lt --port 4444 > lt_url.txt &
-        sleep 30  # Даем время для установки туннеля
+        # Ожидаем, пока URL будет записан в файл, проверяем файл каждые 2 секунды
+        while ! grep -q "https://" lt_url.txt; do
+          sleep 2
+        done
         LT_URL=$(cat lt_url.txt)
         echo "Access the browser at: $LT_URL"
-
+        
     # Запуск тестов
     - name: Run Playwright tests
       run: |
