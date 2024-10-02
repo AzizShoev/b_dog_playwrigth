@@ -49,19 +49,19 @@ jobs:
         lt --port 4444 --subdomain $REPO_NAME --print-requests &
 
         # Даем LocalTunnel время для запуска
-        sleep 10  
+        sleep 20  
 
-        # Проверяем запущенные процессы, чтобы убедиться, что LocalTunnel работает
-        echo "Текущие процессы:"
-        ps aux | grep lt
+        # Проверяем доступность API LocalTunnel
+        echo "Проверяем доступность LocalTunnel API..."
+        curl -s http://localhost:4040/api/tunnels
 
-        # Пытаемся получить ссылку из lt_url.txt
+        # Пытаемся получить ссылку из API
         LT_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
         echo "LocalTunnel URL: $LT_URL"
 
         # Проверяем, существует ли переменная LT_URL
         if [ -z "$LT_URL" ]; then
-        echo "LocalTunnel URL не найден."
+          echo "LocalTunnel URL не найден."
         else
           echo "LT_URL=$LT_URL" >> $GITHUB_ENV
         fi
