@@ -30,7 +30,7 @@ jobs:
     # Запуск тестов 
     - name: Run Playwright tests 
       run: |
-       npx playwright test buyBoosts.spec.ts --reporter=line,html
+       npx playwright test buyBoost.spec.ts --reporter=line,html
 
     - name: Upload Playwright report
       if: ${{ always() }}
