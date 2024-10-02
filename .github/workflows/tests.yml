@@ -38,17 +38,28 @@ jobs:
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    # Разворачивание ссылки на браузер перед тестами
-    - name: Get Browser URL
+    # Установка и запуск Ngrok для туннелирования порта 4444
+    - name: Install and Start Ngrok
       run: |
-        BROWSER_URL="http://localhost:4444"
-        echo "Browser available at: $BROWSER_URL"
-        echo "::set-output name=browser_url::$BROWSER_URL"
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+        echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+        sudo apt update
+        sudo apt install ngrok
+        ngrok http 4444 > /dev/null &
+        sleep 5  # Даем Ngrok время для запуска
+        NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r .tunnels[0].public_url)
+        echo "Ngrok URL: $NGROK_URL"
+        echo "::set-output name=ngrok_url::$NGROK_URL"
 
-    # Запуск тестов Playwright с подключением к BrowserStack и выводом ссылки на браузер
-    - name: Run Playwright tests with BrowserStack and headful browser
+    # Печать ссылки на браузер в логах
+    - name: Print Browser URL
       run: |
-        BROWSER_URL="http://localhost:4444"
+        echo "Access the browser at: ${{ steps.Install_and_Start_Ngrok.outputs.ngrok_url }}"
+
+    # Запуск тестов Playwright с подключением к локальному браузеру
+    - name: Run Playwright tests with headful browser
+      run: |
+        BROWSER_URL="${{ steps.Install_and_Start_Ngrok.outputs.ngrok_url }}"
         echo "Running tests with browser available at: $BROWSER_URL"
         npx playwright test -g "Buy Multitap" --reporter=line,html
 
