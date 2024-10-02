@@ -42,19 +42,18 @@ jobs:
     - name: Install LocalTunnel
       run: npm install -g localtunnel
 
-   # Разворачивание ссылки на браузер с помощью LocalTunnel
+    # Запуск LocalTunnel
     - name: Start LocalTunnel
-      id: start_local_tunnel
       run: |
-        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_url.txt 2>&1 &
+        REPO_NAME=$(echo "AzizShoev/b_dog_playwrigth" | cut -d'/' -f2)
+        lt --port 4444 --subdomain $REPO_NAME > lt_url.txt 2>&1 &
         sleep 5  # Даем LocalTunnel время для запуска
         cat lt_url.txt  # Выводим содержимое lt_url.txt для отладки
-  
+
         # Пытаемся получить ссылку из lt_url.txt
         LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt | head -n 1)
         echo "LocalTunnel URL: $LT_URL"
-  
+
         # Проверяем, существует ли переменная LT_URL
         if [ -z "$LT_URL" ]; then
           echo "LocalTunnel URL не найден. Проверим ошибки:"
@@ -63,9 +62,8 @@ jobs:
           echo "LT_URL=$LT_URL" >> $GITHUB_ENV
         fi
 
-
- # Запуск тестов Playwright с подключением к LocalTunnel
-    - name: Run Playwright tests with LocalTunnel and headful browser
+    # Запуск тестов
+    - name: Run Playwright tests
       run: |
         echo "Access the browser at: $LT_URL"
         npx playwright test -g "Buy Multitap" --reporter=line,html
