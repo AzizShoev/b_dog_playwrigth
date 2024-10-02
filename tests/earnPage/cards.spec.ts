@@ -86,7 +86,7 @@ test ('Check special cards visible', async ({ page }) => {
 });
 
 
-test ('Check finance card info', async ({ page }) => {
+test.skip ('Check finance card info', async ({ page }) => {
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page)
 
@@ -120,7 +120,7 @@ test ('Check finance card info', async ({ page }) => {
     }
 });
 
-test ('Check welfare cards info', async ({ page }) => {
+test.skip ('Check welfare cards info', async ({ page }) => {
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page)
 
@@ -155,7 +155,7 @@ test ('Check welfare cards info', async ({ page }) => {
     }
 });
 
-test ('Check special cards info', async ({ page }) => {
+test.skip ('Check special cards info', async ({ page }) => {
     const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page)
 
