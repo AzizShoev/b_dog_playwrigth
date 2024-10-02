@@ -38,37 +38,15 @@ jobs:
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    # Установка LocalTunnel
     - name: Install LocalTunnel
       run: npm install -g localtunnel
 
-    # Запуск LocalTunnel
     - name: Start LocalTunnel
       run: |
-        REPO_NAME=$(echo "AzizShoev/b_dog_playwrigth" | cut -d'/' -f2)
-        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_logs.txt 2>&1 &
-
-        # Даем LocalTunnel время для запуска
-        sleep 20  
-
-        # Проверяем запущенные процессы
-        echo "Проверяем запущенные процессы:"
-        ps aux | grep lt
-
-        # Проверяем доступность API LocalTunnel
-        echo "Проверяем доступность LocalTunnel API..."
-        curl -s http://localhost:4040/api/tunnels || echo "Не удалось подключиться к API LocalTunnel."
-
-        # Пытаемся получить ссылку из API
-        LT_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-        echo "LocalTunnel URL: $LT_URL"
-
-        # Проверяем, существует ли переменная LT_URL
-        if [ -z "$LT_URL" ]; then
-          echo "LocalTunnel URL не найден."
-        else
-          echo "LT_URL=$LT_URL" >> $GITHUB_ENV
-        fi
+        lt --port 4444 > lt_url.txt &
+        sleep 30  # Даем время для установки туннеля
+        LT_URL=$(cat lt_url.txt)
+        echo "Access the browser at: $LT_URL"
 
     # Запуск тестов
     - name: Run Playwright tests
