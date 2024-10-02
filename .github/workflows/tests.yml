@@ -48,7 +48,10 @@ jobs:
         REPO_NAME=$(echo "AzizShoev/b_dog_playwrigth" | cut -d'/' -f2)
         lt --port 4444 --subdomain $REPO_NAME > lt_url.txt 2>&1 &
         sleep 5  # Даем LocalTunnel время для запуска
-        cat lt_url.txt  # Выводим содержимое lt_url.txt для отладки
+
+        # Выводим содержимое lt_url.txt для отладки
+        echo "Содержимое lt_url.txt:"
+        cat lt_url.txt
 
         # Пытаемся получить ссылку из lt_url.txt
         LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt | head -n 1)
