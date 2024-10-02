@@ -42,10 +42,9 @@ jobs:
     - name: Start Serveo Tunnel
       run: |
         ssh -o StrictHostKeyChecking=no -R 80:localhost:4444 serveo.net > serveo_url.txt &
-        # Ожидаем 5 секунд, чтобы дать время туннелю установиться
         sleep 5
         LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
-        echo "Access the browser at: $LT_URL"
+        echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
     # Запуск тестов
     - name: Run Playwright tests
