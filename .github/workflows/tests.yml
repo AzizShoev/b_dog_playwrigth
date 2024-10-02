@@ -38,19 +38,15 @@ jobs:
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    - name: Install LocalTunnel
-      run: npm install -g localtunnel
-
-    - name: Start LocalTunnel
+    # Установка Serveo и запуск туннеля
+    - name: Start Serveo Tunnel
       run: |
-        lt --port 4444 > lt_url.txt &
-        # Ожидаем, пока URL будет записан в файл, проверяем файл каждые 2 секунды
-        while ! grep -q "https://" lt_url.txt; do
-          sleep 2
-        done
-        LT_URL=$(cat lt_url.txt)
+        ssh -o StrictHostKeyChecking=no -R 80:localhost:4444 serveo.net > serveo_url.txt &
+        # Ожидаем 5 секунд, чтобы дать время туннелю установиться
+        sleep 5
+        LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
         echo "Access the browser at: $LT_URL"
-        
+
     # Запуск тестов
     - name: Run Playwright tests
       run: |
