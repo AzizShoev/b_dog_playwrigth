@@ -40,21 +40,20 @@ jobs:
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    # Установка Serveo и запуск туннеля
+     # Установка Serveo и запуск туннеля
     - name: Start Serveo Tunnel
       run: |
-        ssh -o StrictHostKeyChecking=no -R 80:localhost:8080 serveo.net > serveo_url.txt & 
-        sleep 5
-        LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
-        echo "LT_URL=$LT_URL" >> $GITHUB_ENV
+       ssh -o StrictHostKeyChecking=no -R 80:localhost:4444 serveo.net > serveo_url.txt & 
+       sleep 5
+       LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
+       echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
-    # Запуск тестов в режиме headed с использованием xvfb
-    - name: Run Playwright tests in headful mode with xvfb
+    # Запуск тестов Playwright с использованием Selenoid и настройками capabilities
+    - name: Run Playwright tests with Selenoid and capabilities
       run: |
-        echo "Access the browser at: $LT_URL"
-        xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html --browser=chromium --use-webdriver-url=http://57.128.17.4:4444/wd/hub
-
-    # Копирование отчета в папку public
+       npx playwright test --browser-url='ws://57.128.17.4:4444' --headed --reporter=line,html --capabilities='{"browserName": "chrome", "browserVersion": "110.0", "selenoid:options": {"enableVideo": false}}'
+    
+       # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
       if: ${{ always() }}
       run: |
