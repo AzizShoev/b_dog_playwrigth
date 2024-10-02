@@ -27,6 +27,11 @@ jobs:
     - name: Install Playwright
       run: npx playwright install
 
+    # Создание файла loginAuth.json из секретов
+    - name: Create loginAuth.json from secret
+      run: |
+        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
     # Установка Serveo и запуск туннеля
     - name: Start Serveo Tunnel
       run: |
@@ -40,7 +45,7 @@ jobs:
       run: |
         echo "Access the browser at: $LT_URL"
         xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html
-        
+
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
       if: ${{ always() }}
