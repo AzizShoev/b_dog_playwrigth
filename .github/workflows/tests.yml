@@ -4,20 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
-  # schedule:             /// запуск по времени
-  #   - cron: '0 1 * * *' 
-  
 
 jobs:
   Test_buy_use_boosters:
     runs-on: ubuntu-latest
-    services:
-      # Определяем Docker-сервис для браузера
-      browser:
-        image: selenium/standalone-chrome:latest
-        options: --network-alias browser
-        ports:
-          - 4444:4444  # Порт для доступа к браузеру
 
     steps:
     - uses: actions/checkout@v4
@@ -33,28 +23,19 @@ jobs:
     - name: Install Playwright
       run: npx playwright install
 
-    # Установка xvfb
-    - name: Install xvfb
-      run: sudo apt-get install -y xvfb
-
-    # Создание файла loginAuth.json из секретов
-    - name: Create loginAuth.json from secret
-      run: |
-        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
-
     # Установка Serveo и запуск туннеля
     - name: Start Serveo Tunnel
       run: |
-        ssh -o StrictHostKeyChecking=no -R 80:localhost:4444 serveo.net > serveo_url.txt & 
+        ssh -o StrictHostKeyChecking=no -R 80:localhost:3000 serveo.net > serveo_url.txt & 
         sleep 5
         LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
         echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
-    # Запуск тестов в режиме headed с использованием xvfb
+    # Запуск тестов в режиме headed
     - name: Run Playwright tests in headful mode
       run: |
         echo "Access the browser at: $LT_URL"
-        xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html
+        npx playwright test -g "Buy Multitap" --headed --reporter=line,html
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
