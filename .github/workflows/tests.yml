@@ -2,13 +2,23 @@ name: BabyDoge Playwright Tests
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
+  push:
+    branches: [ main, master ]
+  # schedule:             /// запуск по времени
+  #   - cron: '0 1 * * *' 
   
 
 jobs:
   Test_buy_use_boosters:
     runs-on: ubuntu-latest
+    services:
+      # Определяем Docker-сервис для браузера
+      browser:
+        image: selenium/standalone-chrome:latest
+        options: --network-alias browser
+        ports:
+          - 4444:4444  # Порт для доступа к браузеру
+
     steps:
     - uses: actions/checkout@v4
     
@@ -23,21 +33,24 @@ jobs:
     - name: Install Playwright
       run: npx playwright install
 
-    # Настройка переменных окружения для BrowserStack
-    - name: Set up BrowserStack environment variables
-      run: |
-        echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
-        echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
-
     # Создание файла loginAuth.json из секретов
     - name: Create loginAuth.json from secret
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    # Запуск тестов Playwright с подключением к BrowserStack
-    - name: Run Playwright tests with BrowserStack and HTML report
+    # Разворачивание ссылки на браузер перед тестами
+    - name: Get Browser URL
       run: |
-        npx playwright test --project=browserstack -g "Buy Multitap" --reporter=line,html
+        BROWSER_URL="http://localhost:4444"
+        echo "Browser available at: $BROWSER_URL"
+        echo "::set-output name=browser_url::$BROWSER_URL"
+
+    # Запуск тестов Playwright с подключением к BrowserStack и выводом ссылки на браузер
+    - name: Run Playwright tests with BrowserStack and headful browser
+      run: |
+        BROWSER_URL="http://localhost:4444"
+        echo "Running tests with browser available at: $BROWSER_URL"
+        npx playwright test -g "Buy Multitap" --reporter=line,html
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
@@ -62,11 +75,9 @@ jobs:
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${REPO_NAME}/"
           echo "Before changes:"
           cat README.md
-            TEMP_FILE=$(mktemp)
-            echo "<strong>[HTML Report]($REPORT_URL)<strong>  " > "$TEMP_FILE"       
-            cat README.md >> "$TEMP_FILE"   
-            mv "$TEMP_FILE" README.md   
-            echo "Updated README.md with the report link."
+            FIRST_LINE="<strong>[HTML Report](${REPORT_URL})</strong>"
+            REST_OF_FILE=$(tail -n +2 README.md)  # Получаем всё кроме первой строки
+            echo -e "$FIRST_LINE\n$REST_OF_FILE" > README.md
           echo "After changes:"
           cat README.md
           git config --global user.name "github-actions[bot]"
