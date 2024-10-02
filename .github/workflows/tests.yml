@@ -16,6 +16,10 @@ jobs:
       with:
         node-version: lts/*
 
+    # Установка xvfb
+    - name: Install Xvfb
+      run: sudo apt-get install -y xvfb
+
     # Установка Playwright и зависимостей
     - name: Install dependencies
       run: npm ci
@@ -31,12 +35,12 @@ jobs:
         LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
         echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
-    # Запуск тестов в режиме headed
-    - name: Run Playwright tests in headful mode
+    # Запуск тестов в режиме headed с использованием xvfb
+    - name: Run Playwright tests in headful mode with xvfb
       run: |
         echo "Access the browser at: $LT_URL"
-        npx playwright test -g "Buy Multitap" --headed --reporter=line,html
-
+        xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html
+        
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
       if: ${{ always() }}
