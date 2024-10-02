@@ -46,21 +46,22 @@ jobs:
     - name: Start LocalTunnel
       run: |
         REPO_NAME=$(echo "AzizShoev/b_dog_playwrigth" | cut -d'/' -f2)
-        lt --port 4444 --subdomain $REPO_NAME > lt_url.txt 2>&1 &
-        sleep 5  # Даем LocalTunnel время для запуска
+        lt --port 4444 --subdomain $REPO_NAME --print-requests &
 
-        # Выводим содержимое lt_url.txt для отладки
-        echo "Содержимое lt_url.txt:"
-        cat lt_url.txt
+        # Даем LocalTunnel время для запуска
+        sleep 10  
+
+        # Проверяем запущенные процессы, чтобы убедиться, что LocalTunnel работает
+        echo "Текущие процессы:"
+        ps aux | grep lt
 
         # Пытаемся получить ссылку из lt_url.txt
-        LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt | head -n 1)
+        LT_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
         echo "LocalTunnel URL: $LT_URL"
 
         # Проверяем, существует ли переменная LT_URL
         if [ -z "$LT_URL" ]; then
-          echo "LocalTunnel URL не найден. Проверим ошибки:"
-          cat lt_url.txt  # Печатаем ошибки, если есть
+        echo "LocalTunnel URL не найден."
         else
           echo "LT_URL=$LT_URL" >> $GITHUB_ENV
         fi
