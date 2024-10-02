@@ -52,7 +52,7 @@ jobs:
     - name: Run Playwright tests in headful mode with xvfb
       run: |
         echo "Access the browser at: $LT_URL"
-        xvfb-run -a npx playwright test -g "Buy Multitap" --browser-url='ws://57.128.17.4:4444' --headed --reporter=line,html
+        xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html --browser=chromium --use-webdriver-url=http://57.128.17.4:4444/wd/hub
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
