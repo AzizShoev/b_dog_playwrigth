@@ -46,14 +46,18 @@ jobs:
     - name: Start LocalTunnel
       run: |
         REPO_NAME=$(echo "AzizShoev/b_dog_playwrigth" | cut -d'/' -f2)
-        lt --port 4444 --subdomain $REPO_NAME --print-requests &
+        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_logs.txt 2>&1 &
 
         # Даем LocalTunnel время для запуска
         sleep 20  
 
+        # Проверяем запущенные процессы
+        echo "Проверяем запущенные процессы:"
+        ps aux | grep lt
+
         # Проверяем доступность API LocalTunnel
         echo "Проверяем доступность LocalTunnel API..."
-        curl -s http://localhost:4040/api/tunnels
+        curl -s http://localhost:4040/api/tunnels || echo "Не удалось подключиться к API LocalTunnel."
 
         # Пытаемся получить ссылку из API
         LT_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
