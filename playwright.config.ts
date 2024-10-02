@@ -33,10 +33,10 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
 
     // {
     //   name: 'Mobile Safari',
@@ -65,27 +65,27 @@ export default defineConfig({
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
     // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
     {
-      name: 'browserstack',
-      use: {
-        browserName: 'chromium', // Можно выбрать 'firefox' или 'webkit'
-        viewport: { width: 1280, height: 1024 },
-        connectOptions: {
-          wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(JSON.stringify({
-            'os': 'Windows',
-            'osVersion': '10',
-            'browserName': 'playwright-chromium',
-            'browserVersion': 'latest',
-            'browserstack.username': process.env.BROWSERSTACK_USERNAME,
-            'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
-          }))}`,
-        },
-      },
+      name: 'Google Chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     },
+    // {
+    //   name: 'browserstack',
+    //   use: {
+    //     browserName: 'chromium', // Можно выбрать 'firefox' или 'webkit'
+    //     viewport: { width: 1280, height: 1024 },
+    //     connectOptions: {
+    //       wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(JSON.stringify({
+    //         'os': 'Windows',
+    //         'osVersion': '10',
+    //         'browserName': 'playwright-chromium',
+    //         'browserVersion': 'latest',
+    //         'browserstack.username': process.env.BROWSERSTACK_USERNAME,
+    //         'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
+    //       }))}`,
+    //     },
+    //   },
+    // },
   ],
 
 
