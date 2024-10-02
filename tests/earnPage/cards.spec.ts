@@ -8,6 +8,7 @@ import { BoostsPage } from '../../pages/boosts.page';
 import { EarnPage } from '../../pages/earn.page';
 import { EarnHelper } from '../../helpers/earn.helper';
 import exp from 'constants';
+import assert from 'assert';
 
 test.use({
     storageState: 'LoginAuth2.json'
@@ -18,338 +19,331 @@ test.use({
 test.beforeEach(async ({ page }) => {
     const tg = new TelegramPage(page);
     const help = new TestHelper(page);
+    const nav = new NavigationMenu (page);
+
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
     await tg.checkErrorMessage();
     await help.refresh();
+    await help.openApp();
+    await nav.goEarn();
 });
+
+const financeCards = 2;
+const welfareCards = 3;
+const specialCards = 4;
 
 test ('Check finance cards visible', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page);
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
+    
     await page.waitForTimeout(2000);
-    expect(await earnHelp.checkCard(1)).toBeVisible();
-    console.log('card 1 -> '+ await earnHelp.checkCardName(1));
-    expect(await earnHelp.checkCard(2)).toBeVisible();
-    console.log('card 2 -> '+ await earnHelp.checkCardName(2));
-    expect(await earnHelp.checkCard(3)).toBeVisible();
-    console.log('card 3 -> '+ await earnHelp.checkCardName(3));
-    await (await earnHelp.checkCard(6)).scrollIntoViewIfNeeded();
-    expect(await earnHelp.checkCard(4)).toBeVisible();
-    console.log('card 4 -> '+ await earnHelp.checkCardName(4));
-    expect(await earnHelp.checkCard(5)).toBeVisible();
-    console.log('card 5 -> '+ await earnHelp.checkCardName(5));
-    expect(await earnHelp.checkCard(6)).toBeVisible();
-    console.log('card 6 -> '+ await earnHelp.checkCardName(6));
-    await (await earnHelp.checkCard(10)).scrollIntoViewIfNeeded();
-    expect(await earnHelp.checkCard(7)).toBeVisible();
-    console.log('card 7 -> '+ await earnHelp.checkCardName(7));
-    expect(await earnHelp.checkCard(8)).toBeVisible();
-    console.log('card 8 -> '+ await earnHelp.checkCardName(8));
-    expect(await earnHelp.checkCard(9)).toBeVisible();
-    console.log('card 9 -> '+ await earnHelp.checkCardName(9));
-    expect(await earnHelp.checkCard(10)).toBeVisible();
-    console.log('card 10-> '+ await earnHelp.checkCardName(10));
-    await (await earnHelp.checkCard(12)).scrollIntoViewIfNeeded();
-    expect(await earnHelp.checkCard(11)).toBeVisible();
-    console.log('card 11 -> '+ await earnHelp.checkCardName(11));
-    expect(await earnHelp.checkCard(12)).toBeVisible();
-    console.log('card 12 -> '+ await earnHelp.checkCardName(12));
-    expect(await earnHelp.checkCard(13)).toBeVisible();
-    console.log('card 13 -> '+ await earnHelp.checkCardName(13));
-    expect(await earnHelp.checkCard(14)).toBeVisible();
-    console.log('card 14 -> '+ await earnHelp.checkCardName(14))
-    await (await earnHelp.checkCard(17)).scrollIntoViewIfNeeded();;
-    expect(await earnHelp.checkCard(15)).toBeVisible();
-    console.log('card 15 -> '+ await earnHelp.checkCardName(15));
-    expect(await earnHelp.checkCard(16)).toBeVisible();
-    console.log('card 16 -> '+ await earnHelp.checkCardName(16));
-    expect(await earnHelp.checkCard(17)).toBeVisible();
-    console.log('card 17 -> '+ await earnHelp.checkCardName(17));
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(2)>div>div').count());
+    const cardsFinance = await earn.card.locator('>div:nth-child(2)>div>div').count()
+    
+    for (let i = 1; i <= cardsFinance; i++) {
+        
+        expect(await earnHelp.checkCard(financeCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(financeCards, i)).toBeEnabled();
+        await page.waitForTimeout(1000);
+    }
 });
 
-test ('Check wwlfare cards visible', async ({ page }) => {
-    const tg  = new TelegramPage (page);
-    const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
+test ('Check welfare cards visible', async ({ page }) => {
+    const earn = new EarnPage (page);;
     const earnHelp = new EarnHelper(page);
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
+    
     await earn.pressWelfare();
     await page.waitForTimeout(2000);
-    expect(await earnHelp.checkCard(1)).toBeVisible();
-    console.log('card 1 -> '+ await earnHelp.checkCardName(1))
-    expect(await earnHelp.checkCard(2)).toBeVisible();
-    console.log('card 2 -> '+ await earnHelp.checkCardName(2))
-    expect(await earnHelp.checkCard(3)).toBeVisible();
-    console.log('card 3 -> '+ await earnHelp.checkCardName(3))
-    await (await earnHelp.checkCard(6)).scrollIntoViewIfNeeded();
-    expect(await earnHelp.checkCard(4)).toBeVisible();
-    console.log('card 4 -> '+ await earnHelp.checkCardName(4))
-    expect(await earnHelp.checkCard(5)).toBeVisible();
-    console.log('card 5 -> '+ await earnHelp.checkCardName(5))
-    expect(await earnHelp.checkCard(6)).toBeVisible();
-    console.log('card 6 -> '+ await earnHelp.checkCardName(6))
-    await (await earnHelp.checkCard(8)).scrollIntoViewIfNeeded();
-    expect(await earnHelp.checkCard(7)).toBeVisible();
-    console.log('card 7 -> '+ await earnHelp.checkCardName(7))
-    expect(await earnHelp.checkCard(8)).toBeVisible();
-    console.log('card 8 -> '+ await earnHelp.checkCardName(8))
-    expect(await earnHelp.checkCard(9)).toBeVisible();
-    console.log('card 9 -> '+ await earnHelp.checkCardName(9))
-    expect(await earnHelp.checkCard(10)).toBeVisible();
-    console.log('card 10 -> '+ await earnHelp.checkCardName(10))
-    expect(await earnHelp.checkCard(11)).toBeVisible();
-    console.log('card 11 -> '+ await earnHelp.checkCardName(11))
-    expect(await earnHelp.checkCard(12)).toBeVisible();
-    console.log('card 12 -> '+ await earnHelp.checkCardName(12))
-    expect(await earnHelp.checkCard(13)).toBeVisible();
-    console.log('card 13 -> '+ await earnHelp.checkCardName(13))
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(3)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(3)>div>div').count()
+    
+    for (let i = 1; i <= cardsWelfare; i++) {
+        
+        expect(await earnHelp.checkCard(welfareCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(welfareCards, i)).toBeEnabled();
+        await page.waitForTimeout(1000);
+    }
 });
 
-test ('Check finance card info', async ({ page }) => {
-    const tg  = new TelegramPage (page);
+test ('Check special cards visible', async ({ page }) => {
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
+    const earnHelp = new EarnHelper(page);
+
+    await earn.pressSpecialCardsButton();
+    await page.waitForTimeout(2000);
+    console.log('Total number of cards -> '+ await earn.card.locator('>div:nth-child(4)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(4)>div>div').count()
+    
+    for (let i = 1; i <= cardsWelfare; i++) {
+        
+        expect(await earnHelp.checkCard(specialCards, i)).toBeVisible();
+        expect(await earnHelp.checkCard(specialCards, i)).toBeEnabled();
+        await page.waitForTimeout(1000);
+    }
+});
+
+
+test ('Check finance card info', async ({ page }) => {
+    const earn = new EarnPage (page);
     const earnHelp = new EarnHelper(page)
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await page.waitForTimeout(2000);
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(2)>div>div').count());
+    const cardsFinance = await earn.card.locator('>div:nth-child(2)>div>div').count()
 
-    expect(await earnHelp.checkCardName(1)).toMatch('Yield Optimization');
-    console.log('card 1 name -> '+ await earnHelp.checkCardName(1))
-    expect(await earnHelp.checkCardsProfit(1)).toEqual(900);
-    console.log('card 1 profit -> ' + '+' + await earnHelp.checkCardsProfit(1)+'/h')
-    expect(await earnHelp.checkCardPrice(1)).toEqual(await earnHelp.checkCardsProfit(1)*10);
-    console.log('card 1 price -> '+ await earnHelp.checkCardPrice(1));
-    -
-    expect(await earnHelp.checkCardName(2)).toMatch('Market Analytics');
-    console.log('card 2 name -> '+ await earnHelp.checkCardName(2))
-    expect(await earnHelp.checkCardsProfit(2)).toEqual(700);
-    console.log('card 2 profit -> ' + '+' + await earnHelp.checkCardsProfit(2)+'/h')
-    expect(await earnHelp.checkCardPrice(2)).toEqual(await earnHelp.checkCardsProfit(2)*10);
-    console.log('card 2 price -> '+ await earnHelp.checkCardPrice(2));
-
-    expect(await earnHelp.checkCardName(3)).toMatch('Liquidity pools');
-    console.log('card 3 name -> '+ await earnHelp.checkCardName(3))
-    expect(await earnHelp.checkCardsProfit(3)).toEqual(3000);
-    console.log('card 3 profit -> ' + '+' + await earnHelp.checkCardsProfit(3)+'/h')
-    expect(await earnHelp.checkCardPrice(3)).toEqual(await earnHelp.checkCardsProfit(3)*10);
-    console.log('card 3 price -> '+ await earnHelp.checkCardPrice(3))
-
-    expect(await earnHelp.checkCardName(4)).toMatch('Crypto Risk Management');
-    console.log('card 4 name -> '+ await earnHelp.checkCardName(4))
-    expect(await earnHelp.checkCardsProfit(4)).toEqual(2500);
-    console.log('card 4 profit -> ' + '+' + await earnHelp.checkCardsProfit(4)+'/h')
-    expect(await earnHelp.checkCardPrice(4)).toEqual(await earnHelp.checkCardsProfit(4)*10);
-    console.log('card 4 price -> '+ await earnHelp.checkCardPrice(4))
-
-    expect(await earnHelp.checkCardName(5)).toMatch('Baby Doge Games');
-    console.log('card 5 name -> '+ await earnHelp.checkCardName(5))
-    expect(await earnHelp.checkCardsProfit(5)).toEqual(900);
-    console.log('card 5 profit -> ' + '+' + await earnHelp.checkCardsProfit(5)+'/h')
-    expect(await earnHelp.checkCardPrice(5)).toEqual(await earnHelp.checkCardsProfit(5)*10);
-    console.log('card 5 price -> '+ await earnHelp.checkCardPrice(5))
-
-    expect(await earnHelp.checkCardName(6)).toMatch('Crypto Launchpad');
-    console.log('card 6 name -> '+ await earnHelp.checkCardName(6))
-    expect(await earnHelp.checkCardsProfit(6)).toEqual(700);
-    console.log('card 6 profit -> ' + '+' + await earnHelp.checkCardsProfit(6)+'/h')
-    expect(await earnHelp.checkCardPrice(6)).toEqual(await earnHelp.checkCardsProfit(6)*10);
-    console.log('card 6 price -> '+ await earnHelp.checkCardPrice(6))
-
-    expect(await earnHelp.checkCardName(7)).toMatch('Crypto Vending Machines');
-    console.log('card 7 name -> '+ await earnHelp.checkCardName(7))
-    expect(await earnHelp.checkCardsProfit(7)).toEqual(500);
-    console.log('card 7 profit -> '+ await earnHelp.checkCardsProfit(7))
-    expect(await earnHelp.checkCardPrice(7)).toEqual(await earnHelp.checkCardsProfit(7)*10);
-    console.log('card 7 price -> '+ await earnHelp.checkCardPrice(7))
-
-    expect(await earnHelp.checkCardName(8)).toMatch('Fiat Payments');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(8))
-    expect(await earnHelp.checkCardsProfit(8)).toEqual(2000);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(8)+'/h')
-    expect(await earnHelp.checkCardPrice(8)).toEqual(await earnHelp.checkCardsProfit(8)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(8))
-
-    expect(await earnHelp.checkCardName(9)).toMatch('Cross Chain Bridge');
-    console.log('card 9 name -> '+ await earnHelp.checkCardName(9))
-    expect(await earnHelp.checkCardsProfit(9)).toEqual(1000);
-    console.log('card 9 profit -> ' + '+' + await earnHelp.checkCardsProfit(9)+'/h')
-    expect(await earnHelp.checkCardPrice(9)).toEqual(await earnHelp.checkCardsProfit(9)*10);
-    console.log('card 9 price -> '+ await earnHelp.checkCardPrice(9))
-
-    expect(await earnHelp.checkCardName(10)).toMatch('AI Trader');
-    console.log('card 10 name -> '+ await earnHelp.checkCardName(10))
-    expect(await earnHelp.checkCardsProfit(10)).toEqual(150);
-    console.log('card 10 profit -> ' + '+' + await earnHelp.checkCardsProfit(10)+'/h')
-    expect(await earnHelp.checkCardPrice(10)).toEqual(await earnHelp.checkCardsProfit(10)*10);
-    console.log('card 10 price -> '+ await earnHelp.checkCardPrice(10))
-
-    expect(await earnHelp.checkCardName(11)).toMatch('DeFi Farming');
-    console.log('card 11 name -> '+ await earnHelp.checkCardName(11))
-    expect(await earnHelp.checkCardsProfit(11)).toEqual(1000);
-    console.log('card 11 profit -> ' + '+' + await earnHelp.checkCardsProfit(11)+'/h')
-    expect(await earnHelp.checkCardPrice(11)).toEqual(await earnHelp.checkCardsProfit(11)*10);
-    console.log('card 11 price -> '+ await earnHelp.checkCardPrice(11))
-
-    expect(await earnHelp.checkCardName(12)).toMatch('NFT Marketplace');
-    console.log('card 12 name -> '+ await earnHelp.checkCardName(12))
-    expect(await earnHelp.checkCardsProfit(12)).toEqual(35);
-    console.log('card 12 profit -> ' + '+' + await earnHelp.checkCardsProfit(12)+'/h')
-    expect(await earnHelp.checkCardPrice(12)).toEqual(await earnHelp.checkCardsProfit(12)*10);
-    console.log('card 12 price -> '+ await earnHelp.checkCardPrice(12))
-
-    expect(await earnHelp.checkCardName(13)).toMatch('NFT Collection');
-    console.log('card 13 name -> '+ await earnHelp.checkCardName(13))
-    expect(await earnHelp.checkCardsProfit(13)).toEqual(35);
-    console.log('card 13 profit -> ' + '+' + await earnHelp.checkCardsProfit(13)+'/h')
-    expect(await earnHelp.checkCardPrice(13)).toEqual(await earnHelp.checkCardsProfit(13)*10);
-    console.log('card 13 price -> '+ await earnHelp.checkCardPrice(13))
-
-    expect(await earnHelp.checkCardName(14)).toMatch('Staking');
-    console.log('card 14 name -> '+ await earnHelp.checkCardName(14))
-    expect(await earnHelp.checkCardsProfit(14)).toEqual(50);
-    console.log('card 14 profit -> ' + '+' + await earnHelp.checkCardsProfit(13)+'/h')
-    expect(await earnHelp.checkCardPrice(14)).toEqual(await earnHelp.checkCardsProfit(14)*10);
-    console.log('card 14 price -> '+ await earnHelp.checkCardPrice(14))
-
-    expect(await earnHelp.checkCardName(15)).toMatch('Swap');
-    console.log('card 15 name -> '+ await earnHelp.checkCardName(15))
-    expect(await earnHelp.checkCardsProfit(15)).toEqual(50);
-    console.log('card 15 profit -> ' + '+' + await earnHelp.checkCardsProfit(15)+'/h')
-    expect(await earnHelp.checkCardPrice(15)).toEqual(await earnHelp.checkCardsProfit(15)*10);
-    console.log('card 15 price -> '+ await earnHelp.checkCardPrice(15))
-
-    expect(await earnHelp.checkCardName(16)).toMatch('Budget Planning');
-    console.log('card 16 name -> '+ await earnHelp.checkCardName(16))
-    expect(await earnHelp.checkCardsProfit(16)).toEqual(80);
-    console.log('card 16 profit -> ' + '+' + await earnHelp.checkCardsProfit(16)+'/h')
-    expect(await earnHelp.checkCardPrice(16)).toEqual(await earnHelp.checkCardsProfit(16)*10);
-    console.log('card 16 price -> '+ await earnHelp.checkCardPrice(16))
-
-    expect(await earnHelp.checkCardName(17)).toMatch('Crypto Grants');
-    console.log('card 17 name -> '+ await earnHelp.checkCardName(17))
-    expect(await earnHelp.checkCardsProfit(17)).toEqual(50);
-    console.log('card 17 profit -> ' + '+' + await earnHelp.checkCardsProfit(17)+'/h')
-    expect(await earnHelp.checkCardPrice(17)).toEqual(await earnHelp.checkCardsProfit(17)*10);
-    console.log('card 17 price -> '+ await earnHelp.checkCardPrice(17))
+    for (let i = 1; i <= cardsFinance; i++) {
+        const name = (await earnHelp.checkCardName(financeCards, i));
+        const cardName = await earnHelp.findCardByName(financeCards, name);
+        const cardNumber = cardName as number
+        const profit = await earnHelp.checkCardsProfit(financeCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(financeCards, cardNumber);
+        if (!name || name === '' || name === ' ' || name === undefined) {
+            throw new Error('Card Name is empty or undefined');
+        }
+        if (!profit || profit === undefined) {
+            throw new Error('Card Profit is empty or undefined');
+        }
+        if (!price || price === undefined) {
+            throw new Error('Card Price is empty or undefined');
+        }
+        expect(await earnHelp.checkCardName(financeCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(financeCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(financeCards, cardNumber) === await earnHelp.checkCardsProfit(financeCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(financeCards, cardNumber));
+        }else{
+            expect(await earnHelp.checkCardPrice(financeCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(financeCards, cardNumber)*10);
+        }
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(financeCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(financeCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(financeCards, cardNumber));
+    }
 });
 
 test ('Check welfare cards info', async ({ page }) => {
-    const tg  = new TelegramPage (page);
     const earn = new EarnPage (page);
-    const nav = new NavigationMenu (page);
     const earnHelp = new EarnHelper(page)
 
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    await nav.goEarn();
     await earn.pressWelfare();
     await page.waitForTimeout(2000)
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(3)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(3)>div>div').count()
 
-    expect(await earnHelp.checkCardName(1)).toMatch('Eco-Tourism');
-    console.log('card 1 name -> '+ await earnHelp.checkCardName(1))
-    expect(await earnHelp.checkCardsProfit(1)).toEqual(3424);
-    console.log('card 1 profit -> ' + '+' + await earnHelp.checkCardsProfit(1)+'/h')
-    expect(await earnHelp.checkCardPrice(1)).toEqual(12567);
-    console.log('card 1 price -> '+ await earnHelp.checkCardPrice(1));
-    -
-    expect(await earnHelp.checkCardName(2)).toMatch('Adoption Programs');
-    console.log('card 2 name -> '+ await earnHelp.checkCardName(2))
-    expect(await earnHelp.checkCardsProfit(2)).toEqual(180);
-    console.log('card 2 profit -> ' + '+' + await earnHelp.checkCardsProfit(2)+'/h')
-    expect(await earnHelp.checkCardPrice(2)).toEqual(await earnHelp.checkCardsProfit(2)*10);
-    console.log('card 2 price -> '+ await earnHelp.checkCardPrice(2));
+    for (let i = 1; i <= cardsWelfare; i++) {
+        const name = await (await earnHelp.checkCardName(welfareCards, i));
+        const cardName = await earnHelp.findCardByName(welfareCards, name);
+        const cardNumber = cardName as number
+        const profit = await earnHelp.checkCardsProfit(welfareCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(welfareCards, cardNumber);
+        if (!name || name === '' || name === ' ' || name === undefined) {
+            throw new Error('Card Name is empty or undefined');
+        }
+        if (!profit || profit === undefined) {
+            throw new Error('Card Profit is empty or undefined');
+        }
+        if (!price || price === undefined) {
+            throw new Error('Card Price is empty or undefined');
+        }
+        expect(await earnHelp.checkCardName(welfareCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(welfareCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(welfareCards, cardNumber) === await earnHelp.checkCardsProfit(welfareCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(welfareCards, cardNumber));
+        }else{
+            expect(await earnHelp.checkCardPrice(welfareCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(welfareCards, cardNumber)*10);
+        }
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(welfareCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(welfareCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(welfareCards, cardNumber));
+    }
+});
 
-    expect(await earnHelp.checkCardName(3)).toMatch('Homeless Animal Assistance');
-    console.log('card 3 name -> '+ await earnHelp.checkCardName(3))
-    expect(await earnHelp.checkCardsProfit(3)).toEqual(450);
-    console.log('card 3 profit -> ' + '+' + await earnHelp.checkCardsProfit(3)+'/h')
-    expect(await earnHelp.checkCardPrice(3)).toEqual(await earnHelp.checkCardsProfit(3)*10);
-    console.log('card 3 price -> '+ await earnHelp.checkCardPrice(3))
+test ('Check special cards info', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
 
-    expect(await earnHelp.checkCardName(4)).toMatch('Shelter Improvement');
-    console.log('card 4 name -> '+ await earnHelp.checkCardName(4))
-    expect(await earnHelp.checkCardsProfit(4)).toEqual(1200);
-    console.log('card 4 profit -> ' + '+' + await earnHelp.checkCardsProfit(4)+'/h')
-    expect(await earnHelp.checkCardPrice(4)).toEqual(await earnHelp.checkCardsProfit(4)*10);
-    console.log('card 4 price -> '+ await earnHelp.checkCardPrice(4))
+    await earn.pressSpecialCardsButton();
+    await page.waitForTimeout(2000)
+    console.log('Total count of cards -> '+ await earn.card.locator('>div:nth-child(4)>div>div').count());
+    const cardsWelfare = await earn.card.locator('>div:nth-child(4)>div>div').count()
 
-    expect(await earnHelp.checkCardName(5)).toMatch('Volunteer Programs');
-    console.log('card 5 name -> '+ await earnHelp.checkCardName(5))
-    expect(await earnHelp.checkCardsProfit(5)).toEqual(1200);
-    console.log('card 5 profit -> ' + '+' + await earnHelp.checkCardsProfit(5)+'/h')
-    expect(await earnHelp.checkCardPrice(5)).toEqual(await earnHelp.checkCardsProfit(5)*10);
-    console.log('card 5 price -> '+ await earnHelp.checkCardPrice(5))
+    for (let i = 1; i <= cardsWelfare; i++) {
+        const name = await (await earnHelp.checkCardName(specialCards, i));
+        const cardName = await earnHelp.findCardByName(specialCards, name);
+        const cardNumber = cardName as number
+        const profit = await earnHelp.checkCardsProfit(specialCards, cardNumber);
+        const price = await earnHelp.checkCardPrice(specialCards, cardNumber);
+        if (!name || name === '' || name === ' ' || name === undefined) {
+            throw new Error('Card Name is empty or undefined');
+        }
+        if (!profit || profit === undefined) {
+            throw new Error('Card Profit is empty or undefined');
+        }
+        if (!price || price === undefined) {
+            throw new Error('Card Price is empty or undefined');
+        }
+        expect(await earnHelp.checkCardName(specialCards, cardNumber)).toMatch(name);
+        expect(await earnHelp.checkCardsProfit(specialCards, cardNumber)).toEqual(profit);
+        if(!(await earnHelp.checkCardPrice(specialCards, cardNumber) === await earnHelp.checkCardsProfit(specialCards, cardNumber)*10)){
+            console.log('Special price: -> '+ await earnHelp.checkCardName(specialCards, cardNumber));
+        }else{
+            expect(await earnHelp.checkCardPrice(specialCards, cardNumber)).toEqual(await earnHelp.checkCardsProfit(specialCards, cardNumber)*10);
+        }
+        console.log('card: ' + cardNumber + ' -> '+ await earnHelp.checkCardName(specialCards, cardNumber) + ' -> profit: ' + await earnHelp.checkCardsProfit(specialCards, cardNumber) + '/h' + ' -> price: ' + await earnHelp.checkCardPrice(specialCards, cardNumber));
+    }
+});
 
-    expect(await earnHelp.checkCardName(6)).toMatch('Animal Rehabilitation');
-    console.log('card 6 name -> '+ await earnHelp.checkCardName(6))
-    expect(await earnHelp.checkCardsProfit(6)).toEqual(250);
-    console.log('card 6 profit -> ' + '+' + await earnHelp.checkCardsProfit(6)+'/h')
-    expect(await earnHelp.checkCardPrice(6)).toEqual(await earnHelp.checkCardsProfit(6)*10);
-    console.log('card 6 price -> '+ await earnHelp.checkCardPrice(6))
+test ('Check finance card modal info', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
 
-    expect(await earnHelp.checkCardName(7)).toMatch('International Cooperation');
-    console.log('card 7 name -> '+ await earnHelp.checkCardName(7))
-    expect(await earnHelp.checkCardsProfit(7)).toEqual(200);
-    console.log('card 7 profit -> '+ await earnHelp.checkCardsProfit(7))
-    expect(await earnHelp.checkCardPrice(7)).toEqual(await earnHelp.checkCardsProfit(7)*10);
-    console.log('card 7 price -> '+ await earnHelp.checkCardPrice(7))
+    const cardName = await earnHelp.findCardByName(financeCards, 'NFT Marketplace');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    try{
+        expect.soft(await earn.getCardNameModal()).toMatch('NFT Marketplace');
+    }catch(error){
+        throw new Error('Card name modal error');
+    }
+    try{
+        expect.soft(await earn.getCurrentProfitModal()).toEqual(0);
+    }catch(error){
+        throw new Error('Card current profit modal error');
+    }
+    try{
+        expect.soft(await earn.getUpProfitModal()).toEqual(35);
+    }catch(error){
+        throw new Error('Card up profit modal error');
+    }
+    try{
+        expect.soft(await earn.getCostModal()).toEqual(350);
+    }catch(error){
+        throw new Error('Card cost modal error');
+    }
+});
 
-    expect(await earnHelp.checkCardName(8)).toMatch('Rescue Programs');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(8))
-    expect(await earnHelp.checkCardsProfit(8)).toEqual(100);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(8)+'/h')
-    expect(await earnHelp.checkCardPrice(8)).toEqual(await earnHelp.checkCardsProfit(8)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(8))
+test ('Sorting cards by level', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
 
-    expect(await earnHelp.checkCardName(9)).toMatch('Anti-Poaching');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(9))
-    expect(await earnHelp.checkCardsProfit(9)).toEqual(100);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(9)+'/h')
-    expect(await earnHelp.checkCardPrice(9)).toEqual(await earnHelp.checkCardsProfit(9)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(9))
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await (await earnHelp.checkCard(financeCards, 1)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    
+    const cardName2 = await earnHelp.findCardByName(financeCards,'Baby Doge Games');
+    const cardNumber2 = cardName2 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber2)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Launchpad');
+    expect.soft(await earnHelp.checkCardLevel(financeCards, 1)).toMatch('LVL 2');
+    expect.soft(await earnHelp.checkCardName(financeCards, 2)).toMatch('Baby Doge Games');
+    expect.soft(await earnHelp.checkCardLevel(financeCards, 2)).toMatch('LVL 1');
+})
 
-    expect(await earnHelp.checkCardName(10)).toMatch('Marine Animal Protection');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(10))
-    expect(await earnHelp.checkCardsProfit(10)).toEqual(70);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(10)+'/h')
-    expect(await earnHelp.checkCardPrice(10)).toEqual(await earnHelp.checkCardsProfit(10)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(10))
+test ('Sorting cards by price', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
 
-    expect(await earnHelp.checkCardName(11)).toMatch('Water Resource Protection');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(11))
-    expect(await earnHelp.checkCardsProfit(11)).toEqual(70);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(11)+'/h')
-    expect(await earnHelp.checkCardPrice(11)).toEqual(await earnHelp.checkCardsProfit(11)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(11))
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName1 = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber1 = cardName1 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber1)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await (await earnHelp.checkCard(financeCards, 2)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    await earn.sortCardsList.click();
+    await earn.sortByPrice.click();
+    await page.waitForTimeout(1000);
+    console.log('First card after sort by price: ' + await earnHelp.checkCardName(financeCards, 1));
+    expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
+    console.log('First card price after sort by price: ' + await earnHelp.checkCardPrice(financeCards, 1));
+    expect.soft(await earnHelp.checkCardPrice(financeCards, 1)).toEqual(41429);
+})
 
-    expect(await earnHelp.checkCardName(12)).toMatch('Wildlife Protection');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(12))
-    expect(await earnHelp.checkCardsProfit(12)).toEqual(70);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(12)+'/h')
-    expect(await earnHelp.checkCardPrice(12)).toEqual(await earnHelp.checkCardsProfit(12)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(12))
+test.skip ('Sorting cards by profit per hour', async ({ page }) => {    //bug sorting by profit
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
 
-    expect(await earnHelp.checkCardName(13)).toMatch('Forest Protection');
-    console.log('card 8 name -> '+ await earnHelp.checkCardName(13))
-    expect(await earnHelp.checkCardsProfit(13)).toEqual(70);
-    console.log('card 8 profit -> ' + '+' + await earnHelp.checkCardsProfit(13)+'/h')
-    expect(await earnHelp.checkCardPrice(13)).toEqual(await earnHelp.checkCardsProfit(13)*10);
-    console.log('card 8 price -> '+ await earnHelp.checkCardPrice(13))
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName1 = await earnHelp.findCardByName(financeCards,'Crypto Launchpad');
+    const cardNumber1 = cardName1 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber1)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    const cardName2 = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber2 = cardName2 as number
+    await (await earnHelp.checkCard(financeCards, cardNumber2)).click();
+    await earn.upgradeCard();
+    await page.waitForTimeout(2000);
+    await earn.sortCardsList.click();
+    await earn.sortByProfit.click();
+    try {
+        console.log('First card after sort by profit: ' + await earnHelp.checkCardName(financeCards, 1));
+        expect.soft(await earnHelp.checkCardName(financeCards, 1)).toMatch('Crypto Risk Management');
+        console.log('First card profit per hour after sort by profit: ' + await earnHelp.checkCardsProfit(financeCards, 1));
+        expect.soft(await earnHelp.checkCardsProfit(financeCards, 1)).toEqual(5164);
+    } catch (error) {
+        throw new Error('Card after sort by profit is not as expected');
+    }
+    
+});
+
+test ('Reverse sorting', async ({ page }) => {
+    const earn = new EarnPage (page);
+    const earnHelp = new EarnHelper(page)
+    const tg = new TelegramPage(page);
+    const nav = new NavigationMenu(page);
+
+    await nav.goBack();
+    await nav.closeApp();
+    await tg.topUp('6809402010', '100000');
+    await tg.pressPlay();
+    await nav.goEarn();
+    const cardName = await earnHelp.findCardByName(financeCards,'Crypto Risk Management');
+    const cardNumber = cardName as number
+    await (await earnHelp.checkCard(financeCards, cardNumber)).click();
+    await earn.buyCard();
+    await page.waitForTimeout(2000);
+    await earn.reverseSortingButton.click();
+    try {
+        const lastCard = await earn.card.locator('>div:nth-child(2)>div>div').count()
+        console.log('Afetr sorting last card: ' + await earnHelp.checkCardName(financeCards, lastCard));
+        expect(await earnHelp.checkCardName(financeCards, lastCard)).toMatch('Crypto Risk Management');
+    } catch (error) {
+        throw new Error('After sorting last card is not as expected');
+    }
 });

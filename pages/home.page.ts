@@ -6,17 +6,17 @@ export class HomePage {
 
  public mineButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section [alt="doge"]')
  
- public boostButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').getByRole('button', { name: 'Boost' })
- 
  public earnPerTap = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) p:nth-child(2)').first();
  
  public profitPerHour =this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div > div:nth-child(2) div p:nth-child(2)')
  
  public pawsToLevelUp = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header >div:nth-child(3) div:nth-child(3) p:nth-child(2)')
  
+ public boostButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('[data-testid="boost_button"]')
+ 
  //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
- public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(3) p').first()
+ public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(5) p').first()
  
  public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
@@ -36,12 +36,21 @@ export class HomePage {
  
  public ratingButton =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app [href="/leaderboard"]')
  
+ public profitByAwayMessage = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(2)').first()
  
+ public profitByAwayButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(2)')
  
+ public profitByAwayCloseButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(1)')
+ 
+ public profitByAway = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app> div:nth-child(1) div:nth-child(3) p')
 
- 
- 
+ public promoInvite = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-child(1) button:nth-child(1)').last()
 
+ public promoCopy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-child(1) button:nth-child(2)')
+
+ public promoJoin = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div button:nth-of-type(2) span')
+
+ public promoClose = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app button [alt="close"]')
  async closeReward() {
   
   if (await this.claimRewardButton.isVisible) 
@@ -56,16 +65,16 @@ else{console.log('reward window is not disaplyed')}
     await this.mineButton.click();
   }
 
-  async goBoost() {
-    await this.boostButton.click();
-  }
-
   async goRanks() {
     await this.ranks.click();
   }
 
   async goRating() {
     await this.ratingButton.click();
+  }
+
+  async goBoosts() {
+    await this.boostButton.click();
   }
  
   async obtainReward() {
@@ -127,4 +136,29 @@ else{console.log('reward window is not disaplyed')}
     return parseInt(maxLevel);
 }
 
+async getProfitByAway() {
+  return parseInt((await this.profitByAway.innerText()).replace(',', ''))
+}
+async getProfitByAwayMessage() {
+  return await this.profitByAwayMessage.innerText()
+}
+async pressProfitByAwayOk() {
+  await this.profitByAwayButton.click()
+}
+async pressProfitByAwayClose() {
+  await this.profitByAwayCloseButton.click()
+}
+
+async pressPromoInvite() {
+  await this.promoInvite.click()
+}
+async pressPromoCopy() {
+  await this.promoCopy.click()
+}
+async pressPromoJoin() {
+  await this.promoJoin.click()
+}
+async pressPromoClose() {
+  await this.promoClose.click()
+}
 }

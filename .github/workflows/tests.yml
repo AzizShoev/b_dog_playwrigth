@@ -1,0 +1,185 @@
+name: BabyDoge Playwright Tests
+
+on:
+  push:
+  workflow_dispatch:
+  # Запуск по расписанию в 4:00 утра по Москве
+  schedule:
+    - cron: '0 1 * * *'  # 1:00 UTC соответствует 4:00 по московскому времени
+  
+
+jobs:
+  Test_buy_use_boosters:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    # Установка Playwright и зависимостей
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright
+      run: npx playwright install
+
+    # Настройка переменных окружения для BrowserStack
+    - name: Set up BrowserStack environment variables
+      run: |
+        echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
+        echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
+
+    # Создание файла loginAuth.json из секретов
+    - name: Create loginAuth.json from secret
+      run: |
+        echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
+    # Запуск тестов Playwright с подключением к BrowserStack
+    - name: Run Playwright tests with BrowserStack and HTML report
+      run: |
+        npx playwright test --project=browserstack -g "Buy Multitap" --reporter=line,html
+
+    # Копирование отчета в папку public
+    - name: Copy Playwright report to a separate folder
+      if: ${{ always() }}
+      run: |
+        mkdir -p public
+        cp -r playwright-report/* public/
+
+    # Развертывание отчета в GitHub Pages
+    - name: Deploy report to GitHub Pages
+      if: ${{ always() }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+
+    # Печать ссылки на отчет
+    - name: Print report URL
+      if: ${{ always() }}
+      run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+          REPORT_URL="https://${{ github.repository_owner }}.github.io/${REPO_NAME}/"
+          echo "Before changes:"
+          cat README.md
+            TEMP_FILE=$(mktemp)
+            echo "<strong>[HTML Report]($REPORT_URL)<strong>  " > "$TEMP_FILE"       
+            cat README.md >> "$TEMP_FILE"   
+            mv "$TEMP_FILE" README.md   
+            echo "Updated README.md with the report link."
+          echo "After changes:"
+          cat README.md
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update README with latest HTML report link" || echo "No changes to commit"
+          git push || echo "Nothing to push"
+
+  # Test_buy_use_cards:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ always() }}
+  #   needs: Test_buy_use_boosters
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: actions/setup-node@v4
+  #     with:
+  #       node-version: lts/*
+  #   - uses: microsoft/playwright-github-action@v1
+
+  #   - name: Install dependencies
+  #     run: npm ci
+
+  #   - name: Install Playwright
+  #     run: npx playwright install
+
+  #   - name: Install Playwright Chrome dependencies
+  #     run: npx playwright install chrome
+
+  #   - name: Create loginAuth.json from secret
+  #     run: |
+  #       echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
+  #   - name: Run Playwright tests with Allure report
+  #     run: npx playwright test buyCards.spec.ts --reporter=line,html
+
+  #   - name: Upload Playwright report
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: playwright-report-cards
+  #       path: playwright-report/
+  #       retention-days: 10
+
+  # Test_visibility_cards:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ always() }}
+  #   needs: Test_buy_use_cards
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: actions/setup-node@v4
+  #     with:
+  #       node-version: lts/*
+  #   - uses: microsoft/playwright-github-action@v1
+
+  #   - name: Install dependencies
+  #     run: npm ci
+
+  #   - name: Install Playwright
+  #     run: npx playwright install
+
+  #   - name: Install Playwright Chrome dependencies
+  #     run: npx playwright install chrome
+
+  #   - name: Create loginAuth.json from secret
+  #     run: |
+  #       echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
+
+  #   - name: Run Playwright tests with Allure report
+  #     run: npx playwright test cards.spec.ts --reporter=line,html
+
+  #   - name: Upload Playwright report
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: playwright-report-visibility
+  #       path: playwright-report/
+  #       retention-days: 10
+
+  # Generate_final_report:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ always() }}
+  #   needs:
+  #     - Test_buy_use_boosters
+  #     - Test_buy_use_cards
+  #     - Test_visibility_cards
+  #   steps:
+  #   - name: Download Playwright reports from all jobs
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: playwright-report-boosters
+  #       path: ./playwright-reports/boosters
+
+  #   - name: Download Playwright reports from all jobs
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: playwright-report-cards
+  #       path: ./playwright-reports/cards
+
+  #   - name: Download Playwright reports from all jobs
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: playwright-report-visibility
+  #       path: ./playwright-reports/visibility
+
+  #   - name: Merge reports
+  #     run: |
+  #       mkdir -p playwright-report
+  #       cp -r ./playwright-reports/boosters/* playwright-report/
+  #       cp -r ./playwright-reports/cards/* playwright-report/
+  #       cp -r ./playwright-reports/visibility/* playwright-report/
+
+  #   - name: Output link to Playwright report
+  #     run: |
+  #       echo "Playwright Report URL: ${{ github.server_url }}/${{ github.repository }}/actions/artifacts"

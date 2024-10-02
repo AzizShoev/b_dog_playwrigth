@@ -40,8 +40,6 @@ test.use({
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
   await expect(home.energy).toBeVisible();
-  await expect(home.boostButton).toBeVisible();
-  await expect(home.boostButton).toBeEnabled();
   await expect(nav.homeButton).toBeVisible();
   await expect(nav.homeButton).toBeEnabled();
   await expect(nav.earnButton).toBeVisible();
@@ -63,8 +61,6 @@ test.use({
   await expect(home.profitPerHour).toBeVisible();
   await expect(home.pawsToLevelUp).toBeVisible();
   await expect(home.energy).toBeVisible();
-  await expect(home.boostButton).toBeVisible();
-  await expect(home.boostButton).toBeEnabled();
   await expect(nav.homeButton).toBeVisible();
   await expect(nav.homeButton).toBeEnabled();
   await expect(nav.earnButton).toBeVisible();
@@ -93,6 +89,8 @@ test ('Go to Earn', async ({ page }) => {
     await expect(earn.financeButton).toBeEnabled();
     await expect(earn.specialCardsButton).toBeVisible();
     await expect(earn.specialCardsButton).toBeEnabled();
+    await expect(earn.boostersButton).toBeVisible();
+    await expect(earn.boostersButton).toBeEnabled();
 });
 
 test ('Go to Friends', async ({ page }) => {
@@ -118,27 +116,19 @@ test ('Go to Tasks', async ({ page }) => {
     const nav  = new NavigationMenu (page);
 
     await nav.goTasks();
-    await expect(tasks.countTasks).toBeVisible()
-    await expect(tasks.dailyReward).toBeVisible();
-    await expect(tasks.dailyRewardButton).toBeEnabled();
-    await expect(tasks.shareBabyDogeSong).toBeVisible();
-    await expect(tasks.shareBabyDogeSongButton).toBeEnabled();
-    await expect(tasks.laborDayUsa).toBeVisible();
-    await expect(tasks.laborDayUsaButton).toBeEnabled();
-    await expect(tasks.joinCoinNewsTelegram).toBeVisible();
-    await expect(tasks.joinCoinNewsTelegramButton).toBeEnabled();
-    await expect(tasks.subscribeBabyDogeKids).toBeVisible();
-    await expect(tasks.subscribeBabyDogeKidsButton).toBeEnabled();
-    await expect(tasks.joinTelegram).toBeVisible();
-    await expect(tasks.joinTelegramButton).toBeEnabled();
-    await expect(tasks.subscribeYoutube).toBeVisible();
-    await expect(tasks.subscribeYoutubeButton).toBeEnabled();
-    await expect(tasks.followX).toBeVisible();
-    await expect(tasks.followXButton).toBeEnabled();
-    await expect(tasks.singBinancePetition).toBeVisible();
-    await expect(tasks.singBinancePetitionButton).toBeEnabled();
-    await expect(tasks.watchBabyDogeKids).toBeVisible();
-    await expect(tasks.watchBabyDogeKidsButton).toBeEnabled();             
+    await expect(tasks.tasksTabButton).toBeVisible();
+    await expect(tasks.tasksTabButton).toBeEnabled();
+    await expect(tasks.completedTabButton).toBeVisible();
+    await expect(tasks.completedTabButton).toBeEnabled();
+    // console.log('Total task count in task list -> '+ await tasks.tasks.count()); 
+    // const tasksCount = await tasks.tasks.count();
+    
+    // for (let i = 0; i <= tasksCount-1; i++) {
+    //     await expect(tasks.tasks.nth(i)).toBeVisible();
+    //     await expect(tasks.tasks.nth(i)).toBeEnabled();
+    //     console.log('Task '+ (i+1) +' name -> '+ await tasks.tasks.nth(i).locator(' h4').innerText());
+    //     console.log('Task '+ (i+1) +' reward -> '+ parseInt((await tasks.tasks.nth(i).locator(' p').innerText()).replace(/[^\d.-]/g, '')));
+    // }
 });
 
 test ('Go to Rating', async ({ page }) => {

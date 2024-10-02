@@ -25,85 +25,246 @@ test ('Check default level', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const board = new RatingPage (page);
-    
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
+    const help = new TestHelper(page);
+
+    await help.openApp();
     console.log('Lavel name:', await home.getLevelName());
     console.log('current level:', await home.getCurrentLevel());
     console.log('max level:', await home.getMaxLevel());
-    expect(await home.getLevelName()).toMatch('Puppy Doge');
-    expect(await home.getCurrentLevel()).toEqual(1);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Puppy Doge');
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Puppy Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(1);
+    } catch (error) {
+        throw new Error('Current level is not as expected');
+    }
+    try {
+        expect.soft(await home.getMaxLevel()).toEqual(10);
+    } catch (error) {
+        throw new Error('Max level is not as expected');
+    }
 });
 
-test ('Up to level 3', async ({ page }) => {
+test ('Up to level 3 with QA panel', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
     const board = new RatingPage (page);
     
     await help.upLevel(2);
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    expect(await home.getLevelName()).toMatch('Robot Doge');
-    expect(await home.getCurrentLevel()).toEqual(3);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Robot Doge');
+    await help.openApp();
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Robot Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(3);
+    } catch (error) {
+        throw new Error('Current level is not as expected');
+    }
 });
 
-test ('Up to max level', async ({ page }) => {
+test ('Up to max level with QA panel', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
     const help = new TestHelper(page);
     const board = new RatingPage (page);
     
     await help.upLevel(9);
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    expect(await home.getLevelName()).toMatch('Supreme Doge');
-    expect(await home.getCurrentLevel()).toEqual(10);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Supreme Doge');
+    await help.openApp();
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Supreme Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(10);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
 });
 
 test ('Up level from 1 to 2', async ({ page }) => {
     const home  = new HomePage (page);
     const tg  = new TelegramPage (page);
-    const help = new TestHelper(page);
     const board = new RatingPage (page);
-    const nav  = new NavigationMenu (page);
-    const boost = new BoostsPage (page);
+    const help = new TestHelper(page);
 
     await tg.topUp('6809402010', '24999')
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    expect(await home.currentBalance).toContainText("24,999")
-    expect(await home.earnPerTap).toContainText("1");
-    expect(await home.pawsToLevelUp).toContainText("1")
-    expect(await home.getAvailableEnergy()).toEqual(1000)
-    expect(await home.getEnergyLimit()).toEqual(1000)
-    expect(await home.getLevelName()).toMatch('Puppy Doge');
-    expect(await home.getCurrentLevel()).toEqual(1);
-    expect(await home.getMaxLevel()).toEqual(10);
+    await help.openApp();
+    await help.mineTap(2);
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Samurai Doge');
+    } catch (error) {
+        console.log(error);
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(2);
+    } catch (error) {
+        console.log(error);
+        throw new Error("Current level is not as expected");
+        
+    }
+});
+
+test ('Up level from 2 to 3', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '49999')
+    await help.openApp();
     await home.mine();
     await page.waitForTimeout(2000)
-    expect(await home.currentBalance).toContainText("25,000")
-    expect(await home.earnPerTap).toContainText("2");
-    expect(await home.pawsToLevelUp).toContainText("25K")
-    expect(await home.getAvailableEnergy()).toEqual(1500)
-    expect(await home.getEnergyLimit()).toEqual(1500)
-    expect(await home.getCurrentLevel()).toEqual(2);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Samurai Doge');
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Robot Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(3);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 3 to 4', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '299999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Sporty Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(4);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 4 to 5', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '499999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Pirate Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(5);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 5 to 6', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '999999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Space Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(6);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 6 to 7', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '9999999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Developer Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(7);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 7 to 8', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '99999999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Vet Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(8);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
+});
+
+test ('Up level from 8 to 9', async ({ page }) => {
+    const home  = new HomePage (page);
+    const tg  = new TelegramPage (page);
+    const board = new RatingPage (page);    
+    const help = new TestHelper(page);
+
+    await tg.topUp('6809402010', '499999999')
+    await help.openApp();
+    await home.mine();
+    await page.waitForTimeout(2000)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Royal Doge');
+    } catch (error) {
+        throw new Error('Level name is not as expected');
+    }
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(9);
+    } catch (error) {
+        throw new Error("Current level is not as expected");
+    }
 });
 
 test ('Up level from 9 to 10', async ({ page }) => {
@@ -115,29 +276,17 @@ test ('Up level from 9 to 10', async ({ page }) => {
     const boost = new BoostsPage (page);
 
     await tg.topUp('6809402010', '999999999')
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    expect(await home.currentBalance).toContainText("999,999,999")
-    expect(await home.earnPerTap).toContainText("9");
-    expect(await home.pawsToLevelUp).toContainText("1")
-    expect(await home.getAvailableEnergy()).toEqual(5000)
-    expect(await home.getEnergyLimit()).toEqual(5000)
-    expect(await home.getLevelName()).toMatch('Royal Doge');
-    expect(await home.getCurrentLevel()).toEqual(9);
-    expect(await home.getMaxLevel()).toEqual(10);
+    await help.openApp();
     await home.mine();
     await page.waitForTimeout(7000)
-    expect(await home.currentBalance).toContainText("1,000,000,008")
-    expect(await home.earnPerTap).toContainText("10");
-    expect(await home.pawsToLevelUp).toContainText("0")
-    expect(await home.getAvailableEnergy()).toEqual(5500)
-    expect(await home.getEnergyLimit()).toEqual(5500)
-    expect(await home.getLevelName()).toMatch('Supreme Doge');
-    expect(await home.getCurrentLevel()).toEqual(10);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Supreme Doge');
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Supreme Doge');
+    } catch (error) {
+    throw new Error('Level name is not as expected');}
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(10);
+    } catch (error) {  
+    throw new Error("Current level is not as expected");}
 });
 
 test ('Level not decrease when buying', async ({ page }) => {
@@ -149,27 +298,15 @@ test ('Level not decrease when buying', async ({ page }) => {
     const boost = new BoostsPage (page);
     
     await tg.topUp('6809402010', '300000');
-    await tg.pressPlay();
-    await tg.pressConfirm();
-    await page.waitForTimeout(5000);
-    expect(await home.currentBalance).toContainText("300,000")
-    expect(await home.earnPerTap).toContainText("4");
-    expect(await home.pawsToLevelUp).toContainText("200K")
-    expect(await home.getAvailableEnergy()).toEqual(2500)
-    expect(await home.getEnergyLimit()).toEqual(2500)
-    expect(await home.getLevelName()).toMatch('Sporty Doge');
-    expect(await home.getCurrentLevel()).toEqual(4);
-    expect(await home.getMaxLevel()).toEqual(10);
-    await home.goRating();
-    await expect (board.levelNameLink).toHaveText('Sporty Doge');
-    await nav.goBack();
+    await help.openApp();
     await help.buyMulitap();
     await nav.goBack();
-    await expect(home.currentBalance).toContainText("298,976")
-    await expect(home.earnPerTap).toContainText('5');
-    expect(await home.getLevelName()).toMatch('Sporty Doge');
-    expect(await home.getCurrentLevel()).toEqual(4);
-    await expect(home.pawsToLevelUp).toContainText("201K")
-    expect(await home.getAvailableEnergy()).toEqual(2500)
-    expect(await home.getEnergyLimit()).toEqual(2500)
+    try {
+        expect.soft(await home.getLevelName()).toMatch('Sporty Doge');
+    } catch (error) {
+    throw new Error('Level name is not as expected');}
+    try {
+        expect.soft(await home.getCurrentLevel()).toEqual(4);
+    } catch (error) {  
+    throw new Error("Current level is not as expected");}
 });

@@ -21,7 +21,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['line'], ['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -69,7 +69,25 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
+    {
+      name: 'browserstack',
+      use: {
+        browserName: 'chromium', // Можно выбрать 'firefox' или 'webkit'
+        viewport: { width: 1280, height: 1024 },
+        connectOptions: {
+          wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(JSON.stringify({
+            'os': 'Windows',
+            'osVersion': '10',
+            'browserName': 'playwright-chromium',
+            'browserVersion': 'latest',
+            'browserstack.username': process.env.BROWSERSTACK_USERNAME,
+            'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
+          }))}`,
+        },
+      },
+    },
   ],
+
 
   /* Run your local dev server before starting the tests */
   // webServer: {
