@@ -33,6 +33,10 @@ jobs:
     - name: Install Playwright
       run: npx playwright install
 
+    # Установка xvfb
+    - name: Install xvfb
+      run: sudo apt-get install -y xvfb
+
     # Создание файла loginAuth.json из секретов
     - name: Create loginAuth.json from secret
       run: |
@@ -46,11 +50,11 @@ jobs:
         LT_URL=$(grep -o 'https://[a-zA-Z0-9]*\.serveo\.net' serveo_url.txt)
         echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
-    # Запуск тестов в режиме headed
+    # Запуск тестов в режиме headed с использованием xvfb
     - name: Run Playwright tests in headful mode
       run: |
         echo "Access the browser at: $LT_URL"
-        npx playwright test -g "Buy Multitap" --headed --reporter=line,html
+        xvfb-run -a npx playwright test -g "Buy Multitap" --headed --reporter=line,html
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
