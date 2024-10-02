@@ -38,25 +38,27 @@ jobs:
       run: |
         echo '${{ secrets.LOGIN_AUTH_JSON }}' > LoginAuth2.json
 
-    # Установка и запуск Ngrok для туннелирования порта 4444
-     # Установка LocalTunnel
+    # Установка LocalTunnel
     - name: Install LocalTunnel
       run: npm install -g localtunnel
 
    # Разворачивание ссылки на браузер с помощью LocalTunnel
     - name: Start LocalTunnel
+      id: start_local_tunnel
       run: |
-       lt --port 4444 > lt_url.txt &
-       sleep 5  # Даем LocalTunnel время для запуска
-       LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt)
-       echo "LocalTunnel URL: $LT_URL"
-       echo "::set-output name=lt_url::$LT_URL"
+        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_url.txt &
+        sleep 5  # Даем LocalTunnel время для запуска
+        LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt | head -n 1)
+        echo "LocalTunnel URL: $LT_URL"
+        echo "LT_URL=$LT_URL" >> $GITHUB_ENV
 
-   # Запуск тестов Playwright с подключением к LocalTunnel
+
+ # Запуск тестов Playwright с подключением к LocalTunnel
     - name: Run Playwright tests with LocalTunnel and headful browser
       run: |
-       echo "Access the browser at: ${{ steps.Start_LocalTunnel.outputs.lt_url }}"
-       npx playwright test -g "Buy Multitap" --reporter=line,html
+        echo "Access the browser at: $LT_URL"
+        npx playwright test -g "Buy Multitap" --reporter=line,html
 
     # Копирование отчета в папку public
     - name: Copy Playwright report to a separate folder
