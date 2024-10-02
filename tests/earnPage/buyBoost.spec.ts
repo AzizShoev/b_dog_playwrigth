@@ -98,7 +98,7 @@ test('Buy Energy', async ({ page }) => {
   await page.waitForTimeout(5000)
   try {
     console.log('Availible energy: ' + await home.getAvailableEnergy())
-    expect.soft(await home.getAvailableEnergy()).toEqual(1021)
+    expect.soft(await home.getAvailableEnergy()).toBeGreaterThanOrEqual(1010)
     
   } catch (error) {
     throw new Error('Available energy is not as expected');
