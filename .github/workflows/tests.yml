@@ -3,9 +3,8 @@ name: BabyDoge Playwright Tests
 on:
   push:
   workflow_dispatch:
-  # Запуск по расписанию в 4:00 утра по Москве
   schedule:
-    - cron: '0 1 * * *'  # 1:00 UTC соответствует 4:00 по московскому времени
+    - cron: '0 1 * * *'
   
 
 jobs:
@@ -56,7 +55,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
 
-    # Печать ссылки на отчет
+    # Отправка ссылки на репорт в README.md первой строкой(перезапись первой строки)
     - name: Print report URL
       if: ${{ always() }}
       run: |
