@@ -47,12 +47,12 @@ jobs:
       id: start_local_tunnel
       run: |
         REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_url.txt &
+        lt --port 4444 --subdomain $REPO_NAME --print-requests > lt_url.txt 2>&1 &
         sleep 5  # Даем LocalTunnel время для запуска
+        cat lt_url.txt  # Выводим содержимое lt_url.txt для отладки
         LT_URL=$(grep -o 'https://[^ ]*' lt_url.txt | head -n 1)
         echo "LocalTunnel URL: $LT_URL"
         echo "LT_URL=$LT_URL" >> $GITHUB_ENV
-
 
  # Запуск тестов Playwright с подключением к LocalTunnel
     - name: Run Playwright tests with LocalTunnel and headful browser
