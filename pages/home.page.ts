@@ -16,7 +16,7 @@ export class HomePage {
  
  //public energy =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').first().locator('div').filter({ hasText: /^\d+\/\d+$/ }).first();
  
- public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(5) p').first()
+ public energy = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app main section > div:nth-child(4) p').first()
  
  public ranks =  this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app header a[href="/ranks"]')
  
