@@ -42,7 +42,7 @@ export class HomePage {
  
  public profitByAwayCloseButton = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app div div:nth-child(1) button:nth-of-type(1)')
  
- public profitByAway = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app> div:nth-child(1) div:nth-child(3) p')
+ public profitByAway = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app> div:nth-child(1) div:nth-child(3) p').first()
 
  public promoInvite = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('#app >div:nth-child(1) button:nth-child(1)').last()
 
