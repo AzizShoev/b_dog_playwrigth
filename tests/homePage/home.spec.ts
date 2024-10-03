@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/home.page';
+import { TestHelper } from '../../helpers/helper';
 import { TelegramPage } from '../../pages/telegram.page';
 import { NavigationMenu } from '../../pages/navigation.page';
 import { FriendsPage } from '../../pages/friends.page';
@@ -21,12 +22,14 @@ test.use({
   
   test.beforeEach(async ({ page }) => {
     const tg  = new TelegramPage (page);
+    const help = new TestHelper(page);
     await page.goto('https://web.telegram.org/a/#7250553721');
     await page.waitForTimeout(8000);
     await tg.checkErrorMessage();
     await tg.pressPlay();
     await tg.pressConfirm();
     await page.waitForTimeout(5000);
+    await help.checkProfitMessage();
   })
   
   test('Visible page elements after refresh', async ({ page }) => {
@@ -81,7 +84,7 @@ test ('Go to Earn', async ({ page }) => {
     const nav  = new NavigationMenu (page);
     const earn = new EarnPage (page);
 
-    await nav.earnButton.click();
+    await nav.goEarn();
     await page.waitForTimeout(2000);
     await expect(earn.welfareButton).toBeVisible();
     await expect(earn.welfareButton).toBeEnabled();
