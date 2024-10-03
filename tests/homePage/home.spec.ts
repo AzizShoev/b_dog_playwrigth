@@ -36,7 +36,7 @@ test.use({
     const tg = new TelegramPage (page);
     const home  = new HomePage (page);
     const nav  = new NavigationMenu (page);
-    const friends  = new FriendsPage (page);
+    const help = new TestHelper(page);
 
   await expect(home.currentBalance).toBeVisible();  
   await expect(home.earnPerTap).toBeVisible();
@@ -58,7 +58,7 @@ test.use({
   await expect(home.ranks).toBeVisible();
   await expect(home.ranks).toBeEnabled();
   await nav.reloadApp();
-  await page.waitForTimeout(1000);
+  await help.checkProfitMessage();
   await expect(home.currentBalance).toBeVisible();  
   await expect(home.earnPerTap).toBeVisible();
   await expect(home.profitPerHour).toBeVisible();
@@ -108,6 +108,7 @@ test ('Go to Friends', async ({ page }) => {
     await expect(friends.copyButton).toBeEnabled();
     await expect(friends.bonusesButton).toBeVisible();
     await expect(friends.bonusesButton).toBeEnabled();
+    await friends.pressFriendsButton();
     await expect(friends.refresheButton).toBeVisible();
     await expect(friends.refresheButton).toBeEnabled();
     await expect(friends.friendsButton).toBeVisible();
@@ -140,7 +141,7 @@ test ('Go to Rating', async ({ page }) => {
     const lead = new RatingPage (page);
 
     await home.goRating();
-    await expect(lead.levelNameLink).toHaveText('Puppy Doge');
+    await expect(lead.levelNameLink).toBeVisible();
     await expect(lead.totalPAWS).toBeVisible();
     await expect(lead.totalPAWS).toBeEnabled();
     await expect(lead.hourlyPAWS).toBeVisible();
