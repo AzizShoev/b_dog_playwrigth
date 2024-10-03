@@ -104,4 +104,12 @@ export class TestHelper {
             await home.mine();
         }
     }
+
+    public async checkProfitMessage() {
+        const home  = new HomePage (this.page);
+        await this.page.waitForTimeout(2000);
+        if(await home.profitByAwayMessage.isVisible()) {
+            await home.pressProfitByAwayClose();
+        }else{return}
+    }
 }
