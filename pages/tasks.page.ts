@@ -7,9 +7,9 @@ export class TasksPage {
 
     public tabsPanel = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section >div:nth-child(2)')
     
-    public tasksTabButton = this.tabsPanel.locator(' [value="tasks"]')
+    public tasksTabButton = this.tabsPanel.locator(' [for="tasks"]')
     
-    public completedTabButton = this.tabsPanel.locator(' [value="completed"]')
+    public completedTabButton = this.tabsPanel.locator(' [for="completed"]')
 //Daily Reward list
 
     public dailyReward = this.page.frameLocator('iframe[title="stage_vnqwoeivnq_bot Web App"]').locator('section >div:nth-child(3) >div:nth-child(2)');
